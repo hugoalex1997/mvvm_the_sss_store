@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/widget/global_provider.dart';
+import 'package:injectable/injectable.dart';
+
+import 'package:the_sss_store/widget/global_provider.dart';
+import 'package:the_sss_store/services/firebase/firebase_init.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -10,6 +13,9 @@ class App extends StatelessWidget {
 
   final RouteInformationParser<Object> routeInformationParser;
   final RouterDelegate<Object> routerDelegate;
+
+  @preResolve
+  Future<FirebaseService> get firebaseService => FirebaseService.init();
 
   @override
   Widget build(BuildContext context) {
