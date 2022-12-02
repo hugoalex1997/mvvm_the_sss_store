@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/factory/view_model_factory.dart';
-import 'package:mvvm/screen/state_data.dart';
-import 'package:mvvm/view_model/view_model.dart';
+import 'package:the_sss_store/factory/view_model_factory.dart';
+import 'package:the_sss_store/screen/state_data.dart';
+import 'package:the_sss_store/view_model/view_model.dart';
 import 'package:provider/provider.dart';
 
 abstract class Screen extends StatefulWidget {

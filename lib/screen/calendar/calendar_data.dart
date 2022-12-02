@@ -1,9 +1,9 @@
 import 'package:the_sss_store/screen/state_data.dart';
 
-class HomeData extends StateData {
-  const HomeData();
+class CalendarData extends StateData {
+  const CalendarData();
 
-  const HomeData.initial();
+  const CalendarData.initial();
 
   @override
   List<Object?> get props => [

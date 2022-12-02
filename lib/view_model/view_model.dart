@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:mvvm/screen/state_data.dart';
+import 'package:the_sss_store/screen/state_data.dart';
 
 abstract class ViewModel<T extends StateData> implements ValueListenable<T> {
   ViewModel(T initial) : _stateDataNotifier = ValueNotifier(initial);

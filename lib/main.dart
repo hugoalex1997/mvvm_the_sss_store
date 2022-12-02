@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mvvm/app.dart';
-import 'package:mvvm/inject/dependency_injection.dart';
-import 'package:mvvm/navigation/go_router.dart';
+import 'package:the_sss_store/app.dart';
+import 'package:the_sss_store/inject/dependency_injection.dart';
+import 'package:the_sss_store/navigation/go_router.dart';
+
+import 'package:the_sss_store/services/firebase/firebase_init.dart';
+import 'package:injectable/injectable.dart';
+
+@preResolve
+Future<FirebaseService> get firebaseService => FirebaseService.init();
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +20,8 @@ Future<void> main() async {
 
   final router = createRouter();
 
+  firebaseService;
+  
   return runApp(
     App(
       routeInformationParser: router.routeInformationParser,

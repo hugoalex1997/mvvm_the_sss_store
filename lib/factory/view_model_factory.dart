@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:mvvm/inject/dependency_injection.dart';
-import 'package:mvvm/view_model/view_model.dart';
+import 'package:the_sss_store/inject/dependency_injection.dart';
+import 'package:the_sss_store/view_model/view_model.dart';
 
 abstract class ViewModelFactory {
   T create<T extends ViewModel>();
