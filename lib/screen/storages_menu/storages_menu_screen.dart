@@ -4,7 +4,6 @@ import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
-import 'package:the_sss_store/widget/storage_button.dart';
 import 'package:the_sss_store/screen/storage/storage_screen.dart';
 
 class StoragesMenuScreenRoute extends AppRoute {
@@ -22,8 +21,7 @@ class StoragesMenuScreen extends Screen {
   _StoragesMenuScreenState createState() => _StoragesMenuScreenState();
 }
 
-class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen,
-    StoragesMenuViewModel, StoragesMenuData> {
+class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen, StoragesMenuViewModel, StoragesMenuData> {
   @override
   void initState() {
     super.initState();
@@ -55,7 +53,6 @@ class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen,
   void onButtonTap(String name) {
     StorageScreenRoute().push(context);
   }
-
 }
 
 class _ProgressBar extends StatelessWidget {
@@ -104,22 +101,44 @@ class _StorageList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, List<StorageButtonData>>(
-      selector: (_, data) => data.storageText,
-      builder: (context, storageText, _) {
+      selector: (_, data) => data.storageButtonData,
+      builder: (context, storageButtonData, _) {
         return ListView.separated(
           itemBuilder: (context, index) {
-            final data = storageText[index];
-            return TextButton(
-              child: StorageText(name: data.name),
-              onPressed: () {
-                onTap(data.name);
-              } 
-            );
+            final data = storageButtonData[index];
+            return _StorageButton(name: data.name, onTap: onTap);
           },
           separatorBuilder: (_, __) => const Divider(),
-          itemCount: storageText.length,
+          itemCount: storageButtonData.length,
         );
       },
+    );
+  }
+}
+
+class _StorageButton extends StatelessWidget {
+  const _StorageButton({
+    Key? key,
+    required this.name,
+    required this.onTap,
+  }) : super(key: key);
+
+  final String name;
+  final Function(String) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.black,
+          ),
+          child: Text("Armazém - " "$name"),
+          onPressed: () {
+            onTap(name);
+          }),
     );
   }
 }

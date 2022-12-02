@@ -4,13 +4,10 @@ import 'package:injectable/injectable.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
 import 'package:the_sss_store/view_model/view_model.dart';
 import 'package:the_sss_store/repository/storages_menu_repository.dart';
-import 'package:the_sss_store/widget/storage_button.dart';
 
 @injectable
 class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
-  StoragesMenuViewModel(
-    this._storagesMenuRepository
-    ) : super(const StoragesMenuData.initial());
+  StoragesMenuViewModel(this._storagesMenuRepository) : super(const StoragesMenuData.initial());
 
   final StoragesMenuRepository _storagesMenuRepository;
 
@@ -25,7 +22,7 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
         .listen(_onStorageChanged);
   }
 
-    @override
+  @override
   void dispose() {
     _storagesSub?.cancel();
     super.dispose();
@@ -35,12 +32,11 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
     List<StorageButtonData>? button,
     bool? isLoading,
   }) {
-
-    button ??= value.storageText;
+    button ??= value.storageButtonData;
     isLoading ??= value.showLoading;
 
     stateData = StoragesMenuData(
-      storageText: button,
+      storageButtonData: button,
       showEmptyState: button.isEmpty && !isLoading,
       showLoading: isLoading,
     );
@@ -57,5 +53,4 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   void _onStorageChanged(List<StorageButtonData> button) {
     _updateState(button: button);
   }
-
 }
