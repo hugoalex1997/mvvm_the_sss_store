@@ -39,13 +39,19 @@ class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen, StoragesM
       appBar: AppBar(
         title: const Text('Armazéns'),
         actions: [
-          _StorageMenuSettingsButton(viewModel: viewModel),
+          _SettingsButton(viewModel: viewModel),
         ],
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          _StorageList(onTap: _onStorageButtonTap),
+          _StorageList(
+            onTap: _onStorageButtonTap,
+            storageButtonStyle: TextButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.black,
+            ),
+          ),
           const Center(child: _ProgressBar()),
           const _EmptyState(),
           _StorageMenuPopup(viewModel: viewModel),
@@ -74,88 +80,6 @@ class _ProgressBar extends StatelessWidget {
   }
 }
 
-class _StorageMenuSettingsButton extends StatelessWidget {
-  const _StorageMenuSettingsButton({required this.viewModel, Key? key}) : super(key: key);
-
-  final StoragesMenuViewModel viewModel;
-
-  void _onAddStorageButtonTap() {
-    viewModel.showAddStoragePopup();
-  }
-
-  void _onRemoveStorageButtonTap() {
-    viewModel.showRemoveStoragePopup();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (BuildContext context) {
-        return [
-          PopupMenuItem(
-            child: _AddStorageButton(onTap: () {
-              _onAddStorageButtonTap();
-              Navigator.pop(context);
-            }),
-          ),
-          PopupMenuItem(
-            child: _RemoveStorageButton(onTap: () {
-              _onRemoveStorageButtonTap();
-              Navigator.pop(context);
-            }),
-          ),
-        ];
-      },
-    );
-  }
-}
-
-class _AddStorageButton extends StatelessWidget {
-  const _AddStorageButton({
-    Key? key,
-    required this.onTap,
-  }) : super(key: key);
-
-  final Function() onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.black,
-      ),
-      child: const Text("Adicionar armazém"),
-      onPressed: () {
-        onTap();
-      },
-    );
-  }
-}
-
-class _RemoveStorageButton extends StatelessWidget {
-  const _RemoveStorageButton({
-    Key? key,
-    required this.onTap,
-  }) : super(key: key);
-
-  final Function() onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.black,
-      ),
-      child: const Text("Remover armazém"),
-      onPressed: () {
-        onTap();
-      },
-    );
-  }
-}
-
 class _EmptyState extends StatelessWidget {
   const _EmptyState({Key? key}) : super(key: key);
 
@@ -177,13 +101,98 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
+class _SettingsButton extends StatelessWidget {
+  const _SettingsButton({required this.viewModel, Key? key}) : super(key: key);
+
+  final StoragesMenuViewModel viewModel;
+
+  void _onAddStorageButtonTap() {
+    viewModel.showAddStoragePopup();
+  }
+
+  void _onRemoveStorageButtonTap() {
+    viewModel.showRemoveStoragePopup();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (BuildContext context) {
+        return [
+          PopupMenuItem(
+            child: _AddStorageSettingsButton(onTap: () {
+              _onAddStorageButtonTap();
+              Navigator.pop(context);
+            }),
+          ),
+          PopupMenuItem(
+            child: _RemoveStorageSettingsButton(onTap: () {
+              _onRemoveStorageButtonTap();
+              Navigator.pop(context);
+            }),
+          ),
+        ];
+      },
+    );
+  }
+}
+
+class _AddStorageSettingsButton extends StatelessWidget {
+  const _AddStorageSettingsButton({
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.black,
+      ),
+      child: const Text("Adicionar armazém"),
+      onPressed: () {
+        onTap();
+      },
+    );
+  }
+}
+
+class _RemoveStorageSettingsButton extends StatelessWidget {
+  const _RemoveStorageSettingsButton({
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.black,
+      ),
+      child: const Text("Remover armazém"),
+      onPressed: () {
+        onTap();
+      },
+    );
+  }
+}
+
 class _StorageList extends StatelessWidget {
   const _StorageList({
     required this.onTap,
+    this.storageButtonStyle,
     Key? key,
   }) : super(key: key);
 
   final Function(String) onTap;
+  final ButtonStyle? storageButtonStyle;
+
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, List<StorageButtonData>>(
@@ -194,10 +203,7 @@ class _StorageList extends StatelessWidget {
             final data = storageButtonData[index];
             return _StorageButton(
               name: data.name,
-              buttonStyle: TextButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.black,
-              ),
+              buttonStyle: storageButtonStyle,
               onTap: onTap,
             );
           },
@@ -229,7 +235,7 @@ class _StorageButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: TextButton(
           style: buttonStyle,
-          child: Text("Armazém - " "$name"),
+          child: Text(name),
           onPressed: () {
             onTap(name);
           }),
@@ -354,6 +360,19 @@ class _RemoveStoragePopup extends StatelessWidget {
     storageNameNotifier.value = "";
   }
 
+  Widget _removeLabelName() {
+    return AnimatedBuilder(
+      animation: storageNameNotifier,
+      builder: (BuildContext context, Widget? child) {
+        return Text(
+          "Remover armazém - " "${storageNameNotifier.value}",
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.blue),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, bool>(
@@ -368,12 +387,14 @@ class _RemoveStoragePopup extends StatelessWidget {
                 SizedBox(
                   height: 300.0,
                   width: 300.0,
-                  child: _StorageList(onTap: _selectedStorage),
+                  child: _StorageList(
+                    onTap: _selectedStorage,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                _StorageRemoveLabel(storageNameNotifier: storageNameNotifier),
+                _removeLabelName(),
               ],
             ),
           ),
@@ -393,25 +414,3 @@ class _RemoveStoragePopup extends StatelessWidget {
   }
 }
 
-class _StorageRemoveLabel extends StatelessWidget {
-  const _StorageRemoveLabel({
-    Key? key,
-    required this.storageNameNotifier,
-  }) : super(key: key);
-
-  final ValueNotifier<String> storageNameNotifier;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: storageNameNotifier,
-      builder: (BuildContext context, Widget? child) {
-        return Text(
-          "Remover armazém - " "${storageNameNotifier.value}",
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.blue),
-        );
-      },
-    );
-  }
-}
