@@ -55,7 +55,7 @@ class FirebaseStoragesMenuAPI {
     return storage;
   }
 
-  void removeStorage(String name) async {
+  Future<void> removeStorage(String name) async {
     CollectionReference storagesCollection = _getStoragesCollection();
 
     QuerySnapshot storagesCollectionSnapshot = await storagesCollection.get();

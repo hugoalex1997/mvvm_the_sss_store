@@ -7,22 +7,30 @@ class StoragesMenuData extends StateData {
     required this.storageButtonData,
     required this.showEmptyState,
     required this.showLoading,
+    required this.showAddStoragePopup,
+    required this.showRemoveStoragePopup,
   });
 
   const StoragesMenuData.initial()
       : storageButtonData = const [],
         showLoading = false,
-        showEmptyState = false;
+        showEmptyState = false,
+        showAddStoragePopup = false,
+        showRemoveStoragePopup = false;
 
   final List<StorageButtonData> storageButtonData;
   final bool showLoading;
   final bool showEmptyState;
+  final bool showAddStoragePopup;
+  final bool showRemoveStoragePopup;
 
   @override
   List<Object?> get props => [
         storageButtonData,
         showLoading,
         showEmptyState,
+        showAddStoragePopup,
+        showRemoveStoragePopup,
       ];
 }
 

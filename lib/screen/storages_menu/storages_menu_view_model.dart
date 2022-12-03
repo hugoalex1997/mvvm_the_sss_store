@@ -31,14 +31,20 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   void _updateState({
     List<StorageButtonData>? button,
     bool? isLoading,
+    bool? showAddStoragePopup,
+    bool? showRemoveStoragePopup,
   }) {
     button ??= value.storageButtonData;
     isLoading ??= value.showLoading;
+    showAddStoragePopup ??= value.showAddStoragePopup;
+    showRemoveStoragePopup ??= value.showRemoveStoragePopup;
 
     stateData = StoragesMenuData(
       storageButtonData: button,
       showEmptyState: button.isEmpty && !isLoading,
       showLoading: isLoading,
+      showAddStoragePopup: showAddStoragePopup,
+      showRemoveStoragePopup: showRemoveStoragePopup,
     );
   }
 
@@ -53,4 +59,37 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   void _onStorageChanged(List<StorageButtonData> button) {
     _updateState(button: button);
   }
+
+  void showAddStoragePopup() {
+    _updateState(showAddStoragePopup: true);
+    
+
+  }
+
+  void showRemoveStoragePopup() {
+    _updateState(showRemoveStoragePopup: true);
+  }
+
+  void hidePopup() {
+    _updateState(showAddStoragePopup: false, showRemoveStoragePopup: false );
+  }
+
+  Future<bool> createStorage(String name) async {
+    if (name.isEmpty) {
+      return false;
+    }
+
+    _storagesMenuRepository.createStorage(name);
+    return true;
+  }
+
+  Future<bool> removeStorage(String name) async {
+    if (name.isEmpty) {
+      return false;
+    }
+
+    _storagesMenuRepository.removeStorage(name);
+    return true;
+  }
+  
 }

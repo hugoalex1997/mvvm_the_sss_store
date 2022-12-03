@@ -25,14 +25,12 @@ class StoragesMenuRepository {
   }
 
   void createStorage(String name) {
-    Storage storage = _storagesMenuFirebase.createStorage(name);
-
-    _storageList.add(storage);
-    _storageListSC.add(_storageList);
+    _storagesMenuFirebase.createStorage(name);
+    fetchStorageList();
   }
 
-  void removeStorage(String name) {
-    _storagesMenuFirebase.removeStorage(name);
+  void removeStorage(String name) async {
+    await _storagesMenuFirebase.removeStorage(name);
     fetchStorageList();
   }
 
