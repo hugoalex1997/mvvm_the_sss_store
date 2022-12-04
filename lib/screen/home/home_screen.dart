@@ -41,11 +41,11 @@ class _HomeScreenState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const <Widget>[
-            _StoragesMenuButton(),
-            _EventsMenuButton(),
-            _CalendarButton(),
-            _AdminButton(),
-            _LogoutButton(),
+            StoragesMenuButton(),
+            EventsMenuButton(),
+            CalendarButton(),
+            AdminButton(),
+            LogoutButton(),
           ],
         ),
       ),
@@ -53,8 +53,9 @@ class _HomeScreenState
   }
 }
 
-class _StoragesMenuButton extends StatelessWidget {
-  const _StoragesMenuButton({Key? key}) : super(key: key);
+class StoragesMenuButton extends StatelessWidget {
+  @visibleForTesting
+  const StoragesMenuButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +68,9 @@ class _StoragesMenuButton extends StatelessWidget {
   }
 }
 
-class _EventsMenuButton extends StatelessWidget {
-  const _EventsMenuButton({Key? key}) : super(key: key);
+class EventsMenuButton extends StatelessWidget {
+  @visibleForTesting
+  const EventsMenuButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +83,9 @@ class _EventsMenuButton extends StatelessWidget {
   }
 }
 
-class _CalendarButton extends StatelessWidget {
-  const _CalendarButton({Key? key}) : super(key: key);
+class CalendarButton extends StatelessWidget {
+  @visibleForTesting
+  const CalendarButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +98,9 @@ class _CalendarButton extends StatelessWidget {
   }
 }
 
-class _AdminButton extends StatelessWidget {
-  const _AdminButton({Key? key}) : super(key: key);
+class AdminButton extends StatelessWidget {
+  @visibleForTesting
+  const AdminButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +113,9 @@ class _AdminButton extends StatelessWidget {
   }
 }
 
-class _LogoutButton extends StatelessWidget {
-  const _LogoutButton({Key? key}) : super(key: key);
+class LogoutButton extends StatelessWidget {
+  @visibleForTesting
+  const LogoutButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

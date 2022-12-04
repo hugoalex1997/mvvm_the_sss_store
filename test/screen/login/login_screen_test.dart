@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:the_sss_store/screen/login/login_screen.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 
-import '../screen_test.dart';
+import '../widget_test.dart';
 
 
 void main() {
@@ -12,7 +12,7 @@ void main() {
 
 
     Widget createLoginScreenUnderTest() {
-      return createScreenUnderTest(const LoginScreen());
+      return createWidgetUnderTest(const LoginScreen());
     }
 
     initializeGetIt();
