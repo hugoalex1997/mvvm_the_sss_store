@@ -41,8 +41,8 @@ class _HomeScreenState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const <Widget>[
-            _StoragesButton(),
-            _EventsButton(),
+            _StoragesMenuButton(),
+            _EventsMenuButton(),
             _CalendarButton(),
             _AdminButton(),
             _LogoutButton(),
@@ -53,8 +53,8 @@ class _HomeScreenState
   }
 }
 
-class _StoragesButton extends StatelessWidget {
-  const _StoragesButton({Key? key}) : super(key: key);
+class _StoragesMenuButton extends StatelessWidget {
+  const _StoragesMenuButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +67,8 @@ class _StoragesButton extends StatelessWidget {
   }
 }
 
-class _EventsButton extends StatelessWidget {
-  const _EventsButton({Key? key}) : super(key: key);
+class _EventsMenuButton extends StatelessWidget {
+  const _EventsMenuButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
