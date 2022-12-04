@@ -18,4 +18,9 @@ abstract class AppRoute extends GoRoute {
   void push(BuildContext context) {
     context.push(path);
   }
+
+  void pushAndReplacement(BuildContext context) {
+    context.go(path);
+  }
+  
 }

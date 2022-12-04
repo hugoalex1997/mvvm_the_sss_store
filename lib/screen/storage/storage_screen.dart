@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
+import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/storage/storage_data.dart';
 import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
@@ -7,7 +8,7 @@ import 'package:the_sss_store/screen/screen.dart';
 class StorageScreenRoute extends AppRoute {
   StorageScreenRoute()
       : super(
-          path: '/home/storages/storage',
+          path: Routes.storage,
           builder: (context, state) => StorageScreen(key: state.pageKey),
         );
 }

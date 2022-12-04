@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
+import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/home/home_data.dart';
 import 'package:the_sss_store/screen/home/home_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
@@ -8,11 +8,13 @@ import 'package:the_sss_store/screen/storages_menu/storages_menu_screen.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_screen.dart';
 import 'package:the_sss_store/screen/calendar/calendar_screen.dart';
 import 'package:the_sss_store/screen/admin_menu/admin_menu_screen.dart';
+import 'package:the_sss_store/screen/login/login_screen.dart';
+
 
 class HomeScreenRoute extends AppRoute {
   HomeScreenRoute()
       : super(
-          path: '/home',
+          path: Routes.home,
           builder: (context, state) => HomeScreen(key: state.pageKey),
         );
 }
@@ -123,7 +125,7 @@ class LogoutButton extends StatelessWidget {
       child: const Text("Logout"),
       color: Theme.of(context).colorScheme.primary,
       textTheme: ButtonTextTheme.primary,
-      onPressed: () => context.pop(),
+      onPressed: () => LoginScreenRoute().pushAndReplacement(context),
     );
   }
 }

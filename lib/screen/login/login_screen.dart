@@ -4,11 +4,12 @@ import 'package:the_sss_store/screen/login/login_data.dart';
 import 'package:the_sss_store/screen/login/login_view_model.dart';
 import 'package:the_sss_store/screen/home/home_screen.dart';
 import 'package:the_sss_store/screen/screen.dart';
+import 'package:the_sss_store/navigation/routes.dart';
 
 class LoginScreenRoute extends AppRoute {
   LoginScreenRoute()
       : super(
-          path: '/',
+          path: Routes.login,
           builder: (context, state) => LoginScreen(key: state.pageKey),
         );
 }
@@ -72,8 +73,7 @@ class _LoginScreenState
     if (!login) {
       return;
     }
-
-    HomeScreenRoute().push(context);
+    HomeScreenRoute().pushAndReplacement(context);
   }
 }
 

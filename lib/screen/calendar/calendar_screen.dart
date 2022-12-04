@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
+import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/calendar/calendar_data.dart';
 import 'package:the_sss_store/screen/calendar/calendar_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
@@ -7,7 +8,7 @@ import 'package:the_sss_store/screen/screen.dart';
 class CalendarScreenRoute extends AppRoute {
   CalendarScreenRoute()
       : super(
-          path: '/home/calendar',
+          path: Routes.calendar,
           builder: (context, state) => CalendarScreen(key: state.pageKey),
         );
 }

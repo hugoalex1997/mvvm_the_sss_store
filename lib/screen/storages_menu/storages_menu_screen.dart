@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
+import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
@@ -9,7 +10,7 @@ import 'package:the_sss_store/screen/storage/storage_screen.dart';
 class StoragesMenuScreenRoute extends AppRoute {
   StoragesMenuScreenRoute()
       : super(
-          path: '/home/storages',
+          path: Routes.storagesMenu,
           builder: (context, state) => StoragesMenuScreen(key: state.pageKey),
         );
 }
@@ -413,4 +414,3 @@ class _RemoveStoragePopup extends StatelessWidget {
     );
   }
 }
-

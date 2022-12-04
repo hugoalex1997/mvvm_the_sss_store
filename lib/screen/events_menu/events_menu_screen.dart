@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
+import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_data.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
@@ -7,7 +8,7 @@ import 'package:the_sss_store/screen/screen.dart';
 class EventsMenuScreenRoute extends AppRoute {
   EventsMenuScreenRoute()
       : super(
-          path: '/home/events',
+          path: Routes.eventsMenu,
           builder: (context, state) => EventsMenuScreen(key: state.pageKey),
         );
 }
