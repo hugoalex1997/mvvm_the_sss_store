@@ -9,19 +9,22 @@ class StoragesMenuRepository {
   StoragesMenuRepository(this._storagesMenuFirebase);
 
   final FirebaseStoragesMenuAPI _storagesMenuFirebase;
-  
+
   List<Storage> _storageList = [];
   final _storageListSC = StreamController<List<Storage>>.broadcast();
+
+  List<Storage> getStorageList() {
+    return _storageList;
+  }
 
   Stream<List<Storage>> observeStorageList() async* {
     yield _storageList;
     yield* _storageListSC.stream;
   }
 
-  Future<void> fetchStorageList() async  {
+  Future<void> fetchStorageList() async {
     _storageList = await _storagesMenuFirebase.getStoragesList();
     _storageListSC.add(_storageList);
-
   }
 
   void createStorage(String name) {
@@ -33,6 +36,4 @@ class StoragesMenuRepository {
     await _storagesMenuFirebase.removeStorage(name);
     fetchStorageList();
   }
-
-  
 }
