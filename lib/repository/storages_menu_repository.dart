@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:the_sss_store/model/storage.dart';
 import 'package:the_sss_store/services/firebase/firebase_storages_menu_api.dart';
@@ -13,6 +14,7 @@ class StoragesMenuRepository {
   List<Storage> _storageList = [];
   final _storageListSC = StreamController<List<Storage>>.broadcast();
 
+  @visibleForTesting
   List<Storage> getStorageList() {
     return _storageList;
   }

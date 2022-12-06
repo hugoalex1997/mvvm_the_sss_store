@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
 import 'package:the_sss_store/view_model/view_model.dart';
@@ -13,13 +14,14 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
 
   StreamSubscription<List<StorageButtonData>>? _storagesSub;
 
-  void init() {
-    _updateList();
-
+  Future<void> init() async {
+    await _updateList();
+    
     _storagesSub = _storagesMenuRepository
         .observeStorageList()
         .map((storageList) => storageList.map(StorageButtonData.fromStorage).toList())
         .listen(_onStorageChanged);
+        
   }
 
   @override
@@ -62,8 +64,6 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
 
   void showAddStoragePopup() {
     _updateState(showAddStoragePopup: true);
-    
-
   }
 
   void showRemoveStoragePopup() {
@@ -71,7 +71,7 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   }
 
   void hidePopup() {
-    _updateState(showAddStoragePopup: false, showRemoveStoragePopup: false );
+    _updateState(showAddStoragePopup: false, showRemoveStoragePopup: false);
   }
 
   Future<bool> createStorage(String name) async {
@@ -91,5 +91,4 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
     _storagesMenuRepository.removeStorage(name);
     return true;
   }
-  
 }
