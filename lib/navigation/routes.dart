@@ -28,5 +28,4 @@ class Routes extends Equatable {
         storage,
         event,
       ];
-
 }

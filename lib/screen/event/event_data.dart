@@ -22,5 +22,4 @@ class EventData extends StateData {
         showLoading,
         showEmptyState,
       ];
-      
 }

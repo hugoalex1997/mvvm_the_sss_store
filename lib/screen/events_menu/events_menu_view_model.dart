@@ -4,7 +4,5 @@ import 'package:the_sss_store/view_model/view_model.dart';
 
 @injectable
 class EventsMenuViewModel extends ViewModel<EventsMenuData> {
-  EventsMenuViewModel(
-  ) : super(const EventsMenuData.initial());
-
+  EventsMenuViewModel() : super(const EventsMenuData.initial());
 }

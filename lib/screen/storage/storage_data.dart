@@ -22,5 +22,4 @@ class StorageData extends StateData {
         showLoading,
         showEmptyState,
       ];
-      
 }

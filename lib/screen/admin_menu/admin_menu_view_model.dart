@@ -4,7 +4,5 @@ import 'package:the_sss_store/view_model/view_model.dart';
 
 @injectable
 class AdminMenuViewModel extends ViewModel<AdminMenuData> {
-  AdminMenuViewModel(
-  ) : super(const AdminMenuData.initial());
-
+  AdminMenuViewModel() : super(const AdminMenuData.initial());
 }

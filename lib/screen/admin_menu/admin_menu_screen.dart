@@ -22,7 +22,6 @@ class AdminMenuScreen extends Screen {
 
 class _AdminMenuScreenState
     extends ScreenState<AdminMenuScreen, AdminMenuViewModel, AdminMenuData> {
-
   @override
   void initState() {
     super.initState();
@@ -41,5 +40,4 @@ class _AdminMenuScreenState
       ),
     );
   }
-
 }

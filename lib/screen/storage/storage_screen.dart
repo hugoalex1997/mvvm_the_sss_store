@@ -20,8 +20,8 @@ class StorageScreen extends Screen {
   _StorageScreenState createState() => _StorageScreenState();
 }
 
-class _StorageScreenState extends ScreenState<StorageScreen,
-    StorageViewModel, StorageData> {
+class _StorageScreenState
+    extends ScreenState<StorageScreen, StorageViewModel, StorageData> {
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,4 @@ class _StorageScreenState extends ScreenState<StorageScreen,
       body: Container(),
     );
   }
-
 }
-
-

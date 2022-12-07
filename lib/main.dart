@@ -10,7 +10,6 @@ import 'package:injectable/injectable.dart';
 @preResolve
 Future<FirebaseService> get firebaseService => FirebaseService.init();
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,7 +20,7 @@ Future<void> main() async {
   final router = createRouter();
 
   firebaseService;
-  
+
   return runApp(
     App(
       routeInformationParser: router.routeInformationParser,

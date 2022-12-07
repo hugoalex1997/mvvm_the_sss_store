@@ -40,6 +40,4 @@ class Event extends Equatable {
       documentID: json['documentID'],
     );
   }
-
-  
 }

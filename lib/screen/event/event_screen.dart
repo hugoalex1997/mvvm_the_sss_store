@@ -20,8 +20,8 @@ class EventScreen extends Screen {
   _EventScreenState createState() => _EventScreenState();
 }
 
-class _EventScreenState extends ScreenState<EventScreen,
-    EventViewModel, EventData> {
+class _EventScreenState
+    extends ScreenState<EventScreen, EventViewModel, EventData> {
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,4 @@ class _EventScreenState extends ScreenState<EventScreen,
       body: Container(),
     );
   }
-
 }
-
-

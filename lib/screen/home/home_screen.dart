@@ -10,7 +10,6 @@ import 'package:the_sss_store/screen/calendar/calendar_screen.dart';
 import 'package:the_sss_store/screen/admin_menu/admin_menu_screen.dart';
 import 'package:the_sss_store/screen/login/login_screen.dart';
 
-
 class HomeScreenRoute extends AppRoute {
   HomeScreenRoute()
       : super(

@@ -12,7 +12,6 @@ class App extends StatelessWidget {
   final RouteInformationParser<Object> routeInformationParser;
   final RouterDelegate<Object> routerDelegate;
 
-
   @override
   Widget build(BuildContext context) {
     return GlobalProvider(

@@ -2,7 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:the_sss_store/model/item.dart';
 
 void main() {
-  Item item = const Item(name: "mesa", documentID: "12392", available: 3, stock: 4);
+  Item item =
+      const Item(name: "mesa", documentID: "12392", available: 3, stock: 4);
   test('Item created succesfully', () async {
     expect(item.name, "mesa");
     expect(item.documentID, "12392");

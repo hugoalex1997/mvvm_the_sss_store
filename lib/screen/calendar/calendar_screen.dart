@@ -22,7 +22,6 @@ class CalendarScreen extends Screen {
 
 class _CalendarScreenState
     extends ScreenState<CalendarScreen, CalendarViewModel, CalendarData> {
-
   @override
   void initState() {
     super.initState();
@@ -41,5 +40,4 @@ class _CalendarScreenState
       ),
     );
   }
-
 }

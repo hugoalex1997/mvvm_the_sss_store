@@ -1,15 +1,10 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
-
 import 'package:the_sss_store/model/item.dart';
-
-
 
 @singleton
 class FirebaseStorageAPI {
-
   final String storagesCollectionName = "storages";
   final String stockCollectionName = "stock";
 
@@ -22,8 +17,7 @@ class FirebaseStorageAPI {
   }
 
   CollectionReference getStockCollection(String documentID) {
-    return getStorageDocument(documentID)
-        .collection(stockCollectionName);
+    return getStorageDocument(documentID).collection(stockCollectionName);
   }
 
   Stream<List<Item>> getItemList(String documentID) {
@@ -56,8 +50,7 @@ class FirebaseStorageAPI {
   }
 
   void addItem(String documentID, String itemName, int stock) {
-    CollectionReference stockCollection =
-        getStockCollection(documentID);
+    CollectionReference stockCollection = getStockCollection(documentID);
 
     DocumentReference newItemDocument = stockCollection.doc();
     newItemDocument.set(Item(
@@ -92,6 +85,4 @@ class FirebaseStorageAPI {
 
     return documentID == null ? false : true;
   }
-
-
 }

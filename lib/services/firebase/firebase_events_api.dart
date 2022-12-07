@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 
 import 'package:the_sss_store/model/event.dart';
 
-
 //TODO: Handle Error scenarios
 @singleton
 class FirebaseEventsAPI {
@@ -47,10 +46,8 @@ class FirebaseEventsAPI {
   void createEvent(String eventName) {
     CollectionReference eventsCollection = getEventsCollection();
     DocumentReference newEventDocument = eventsCollection.doc();
-    newEventDocument.set(Event(
-            name: eventName,
-            documentID: newEventDocument.id)
-        .toJson());
+    newEventDocument
+        .set(Event(name: eventName, documentID: newEventDocument.id).toJson());
   }
 
   void removeEvent(String name) {

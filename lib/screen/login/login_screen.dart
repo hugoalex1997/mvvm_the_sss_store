@@ -68,7 +68,8 @@ class _LoginScreenState
   }
 
   Future<void> _onLoginTap() async {
-    final login = await viewModel.login(_usernameController.text, _passwordController.text);
+    final login = await viewModel.login(
+        _usernameController.text, _passwordController.text);
 
     if (!login) {
       return;

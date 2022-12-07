@@ -13,8 +13,10 @@ import './storages_menu_view_model_test.mocks.dart';
 @GenerateMocks([StoragesMenuRepository])
 void main() {
   initializeGetIt();
-  MockStoragesMenuRepository storagesMenuRepository = MockStoragesMenuRepository();
-  StoragesMenuViewModel storagesMenuViewModel = StoragesMenuViewModel(storagesMenuRepository);
+  MockStoragesMenuRepository storagesMenuRepository =
+      MockStoragesMenuRepository();
+  StoragesMenuViewModel storagesMenuViewModel =
+      StoragesMenuViewModel(storagesMenuRepository);
 
   List<Storage> storageListForTests = [
     const Storage(name: "storage1", documentID: "document1"),
@@ -104,7 +106,10 @@ void main() {
 
         storagesMenuViewModel.createStorage(storageName);
 
-        verify(storagesMenuViewModel.getStoragesMenuRepository().createStorage(storageName)).called(1);
+        verify(storagesMenuViewModel
+                .getStoragesMenuRepository()
+                .createStorage(storageName))
+            .called(1);
         expect(await storagesMenuViewModel.createStorage(storageName), true);
       });
 
@@ -115,7 +120,9 @@ void main() {
 
         storagesMenuViewModel.createStorage(storageName);
 
-        verifyNever(storagesMenuViewModel.getStoragesMenuRepository().createStorage(storageName));
+        verifyNever(storagesMenuViewModel
+            .getStoragesMenuRepository()
+            .createStorage(storageName));
         expect(await storagesMenuViewModel.createStorage(storageName), false);
       });
     });
@@ -128,7 +135,10 @@ void main() {
 
         storagesMenuViewModel.removeStorage(storageName);
 
-        verify(storagesMenuViewModel.getStoragesMenuRepository().removeStorage(storageName)).called(1);
+        verify(storagesMenuViewModel
+                .getStoragesMenuRepository()
+                .removeStorage(storageName))
+            .called(1);
         expect(await storagesMenuViewModel.removeStorage(storageName), true);
       });
 
@@ -139,10 +149,11 @@ void main() {
 
         storagesMenuViewModel.removeStorage(storageName);
 
-        verifyNever(storagesMenuViewModel.getStoragesMenuRepository().removeStorage(storageName));
+        verifyNever(storagesMenuViewModel
+            .getStoragesMenuRepository()
+            .removeStorage(storageName));
         expect(await storagesMenuViewModel.removeStorage(storageName), false);
       });
     });
-    
   });
 }

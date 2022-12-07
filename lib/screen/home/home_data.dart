@@ -6,6 +6,5 @@ class HomeData extends StateData {
   const HomeData.initial();
 
   @override
-  List<Object?> get props => [
-      ];
+  List<Object?> get props => [];
 }

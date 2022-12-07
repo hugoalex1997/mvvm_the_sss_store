@@ -6,7 +6,6 @@ void main() {
   test('Storage created succesfully', () async {
     expect(storage.name, "norte");
     expect(storage.documentID, "29312");
-
   });
 
   test('Create a Storage through copy', () async {

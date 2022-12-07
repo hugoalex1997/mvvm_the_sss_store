@@ -6,6 +6,5 @@ class AdminMenuData extends StateData {
   const AdminMenuData.initial();
 
   @override
-  List<Object?> get props => [
-      ];
+  List<Object?> get props => [];
 }

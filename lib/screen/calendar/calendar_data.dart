@@ -6,6 +6,5 @@ class CalendarData extends StateData {
   const CalendarData.initial();
 
   @override
-  List<Object?> get props => [
-      ];
+  List<Object?> get props => [];
 }

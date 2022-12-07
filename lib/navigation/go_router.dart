@@ -10,7 +10,6 @@ import 'package:the_sss_store/screen/admin_menu/admin_menu_screen.dart';
 import 'package:the_sss_store/screen/storage/storage_screen.dart';
 import 'package:the_sss_store/screen/event/event_screen.dart';
 
-
 GoRouter createRouter([String? initialRoute]) {
   return GoRouter(
     initialLocation: initialRoute ?? Routes.home,
@@ -30,4 +29,3 @@ GoRouter createRouter([String? initialRoute]) {
 GoRouter router([String? initialLocation]) {
   return createRouter(initialLocation);
 }
-    

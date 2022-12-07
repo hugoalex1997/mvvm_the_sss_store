@@ -6,7 +6,6 @@ void main() {
   test('Event created succesfully', () async {
     expect(event.name, "queima");
     expect(event.documentID, "2015");
-
   });
 
   test('Create a Event through copy', () async {

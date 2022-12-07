@@ -8,7 +8,8 @@ import 'package:the_sss_store/repository/storages_menu_repository.dart';
 
 @injectable
 class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
-  StoragesMenuViewModel(this._storagesMenuRepository) : super(const StoragesMenuData.initial());
+  StoragesMenuViewModel(this._storagesMenuRepository)
+      : super(const StoragesMenuData.initial());
 
   final StoragesMenuRepository _storagesMenuRepository;
 
@@ -22,7 +23,8 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   Future<void> init() async {
     _storagesSub = _storagesMenuRepository
         .observeStorageList()
-        .map((storageList) => storageList.map(StorageButtonData.fromStorage).toList())
+        .map((storageList) =>
+            storageList.map(StorageButtonData.fromStorage).toList())
         .listen(_onStorageChanged);
 
     await _updateList();

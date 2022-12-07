@@ -22,7 +22,8 @@ class StoragesMenuScreen extends Screen {
   _StoragesMenuScreenState createState() => _StoragesMenuScreenState();
 }
 
-class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen, StoragesMenuViewModel, StoragesMenuData> {
+class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen,
+    StoragesMenuViewModel, StoragesMenuData> {
   @override
   void initState() {
     super.initState();
