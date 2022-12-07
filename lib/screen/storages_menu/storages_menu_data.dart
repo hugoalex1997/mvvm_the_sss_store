@@ -7,7 +7,7 @@ class StoragesMenuData extends StateData {
     required this.storageButtonData,
     required this.showEmptyState,
     required this.showLoading,
-    required this.showAddStoragePopup,
+    required this.showCreateStoragePopup,
     required this.showRemoveStoragePopup,
   });
 
@@ -15,13 +15,13 @@ class StoragesMenuData extends StateData {
       : storageButtonData = const [],
         showLoading = false,
         showEmptyState = false,
-        showAddStoragePopup = false,
+        showCreateStoragePopup = false,
         showRemoveStoragePopup = false;
 
   final List<StorageButtonData> storageButtonData;
   final bool showLoading;
   final bool showEmptyState;
-  final bool showAddStoragePopup;
+  final bool showCreateStoragePopup;
   final bool showRemoveStoragePopup;
 
   @override
@@ -29,7 +29,7 @@ class StoragesMenuData extends StateData {
         storageButtonData,
         showLoading,
         showEmptyState,
-        showAddStoragePopup,
+        showCreateStoragePopup,
         showRemoveStoragePopup,
       ];
 }

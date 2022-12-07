@@ -6,9 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:the_sss_store/model/storage.dart' as _i2;
-import 'package:the_sss_store/services/firebase/firebase_storages_menu_api.dart'
-    as _i3;
+import 'package:the_sss_store/model/storage.dart' as _i3;
+import 'package:the_sss_store/repository/storages_menu_repository.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -21,75 +20,54 @@ import 'package:the_sss_store/services/firebase/firebase_storages_menu_api.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeStorage_0 extends _i1.SmartFake implements _i2.Storage {
-  _FakeStorage_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [FirebaseStoragesMenuAPI].
+/// A class which mocks [StoragesMenuRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirebaseStoragesMenuAPI extends _i1.Mock
-    implements _i3.FirebaseStoragesMenuAPI {
-  MockFirebaseStoragesMenuAPI() {
+class MockStoragesMenuRepository extends _i1.Mock
+    implements _i2.StoragesMenuRepository {
+  MockStoragesMenuRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  String get storagesCollectionName => (super.noSuchMethod(
-        Invocation.getter(#storagesCollectionName),
-        returnValue: '',
-      ) as String);
-  @override
-  _i4.Future<List<_i2.Storage>> getStoragesList() => (super.noSuchMethod(
+  List<_i3.Storage> getStorageList() => (super.noSuchMethod(
         Invocation.method(
-          #getStoragesList,
+          #getStorageList,
           [],
         ),
-        returnValue: _i4.Future<List<_i2.Storage>>.value(<_i2.Storage>[]),
-      ) as _i4.Future<List<_i2.Storage>>);
+        returnValue: <_i3.Storage>[],
+      ) as List<_i3.Storage>);
   @override
-  _i4.Future<String?> getStorageDocumentID(String? name) => (super.noSuchMethod(
+  _i4.Stream<List<_i3.Storage>> observeStorageList() => (super.noSuchMethod(
         Invocation.method(
-          #getStorageDocumentID,
-          [name],
+          #observeStorageList,
+          [],
         ),
-        returnValue: _i4.Future<String?>.value(),
-      ) as _i4.Future<String?>);
+        returnValue: _i4.Stream<List<_i3.Storage>>.empty(),
+      ) as _i4.Stream<List<_i3.Storage>>);
   @override
-  _i2.Storage createStorage(String? storageName) => (super.noSuchMethod(
+  _i4.Future<void> fetchStorageList() => (super.noSuchMethod(
         Invocation.method(
-          #createStorage,
-          [storageName],
-        ),
-        returnValue: _FakeStorage_0(
-          this,
-          Invocation.method(
-            #createStorage,
-            [storageName],
-          ),
-        ),
-      ) as _i2.Storage);
-  @override
-  _i4.Future<void> removeStorage(String? name) => (super.noSuchMethod(
-        Invocation.method(
-          #removeStorage,
-          [name],
+          #fetchStorageList,
+          [],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<bool> storageFound(String? name) => (super.noSuchMethod(
+  void createStorage(String? name) => super.noSuchMethod(
         Invocation.method(
-          #storageFound,
+          #createStorage,
           [name],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeStorage(String? name) => super.noSuchMethod(
+        Invocation.method(
+          #removeStorage,
+          [name],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

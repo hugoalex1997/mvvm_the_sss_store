@@ -14,14 +14,18 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
 
   StreamSubscription<List<StorageButtonData>>? _storagesSub;
 
+  @visibleForTesting
+  StoragesMenuRepository getStoragesMenuRepository() {
+    return _storagesMenuRepository;
+  }
+
   Future<void> init() async {
-    await _updateList();
-    
     _storagesSub = _storagesMenuRepository
         .observeStorageList()
         .map((storageList) => storageList.map(StorageButtonData.fromStorage).toList())
         .listen(_onStorageChanged);
-        
+
+    await _updateList();
   }
 
   @override
@@ -33,19 +37,19 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   void _updateState({
     List<StorageButtonData>? button,
     bool? isLoading,
-    bool? showAddStoragePopup,
+    bool? showCreateStoragePopup,
     bool? showRemoveStoragePopup,
   }) {
     button ??= value.storageButtonData;
     isLoading ??= value.showLoading;
-    showAddStoragePopup ??= value.showAddStoragePopup;
+    showCreateStoragePopup ??= value.showCreateStoragePopup;
     showRemoveStoragePopup ??= value.showRemoveStoragePopup;
 
     stateData = StoragesMenuData(
       storageButtonData: button,
       showEmptyState: button.isEmpty && !isLoading,
       showLoading: isLoading,
-      showAddStoragePopup: showAddStoragePopup,
+      showCreateStoragePopup: showCreateStoragePopup,
       showRemoveStoragePopup: showRemoveStoragePopup,
     );
   }
@@ -62,8 +66,8 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
     _updateState(button: button);
   }
 
-  void showAddStoragePopup() {
-    _updateState(showAddStoragePopup: true);
+  void showCreateStoragePopup() {
+    _updateState(showCreateStoragePopup: true);
   }
 
   void showRemoveStoragePopup() {
@@ -71,7 +75,7 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   }
 
   void hidePopup() {
-    _updateState(showAddStoragePopup: false, showRemoveStoragePopup: false);
+    _updateState(showCreateStoragePopup: false, showRemoveStoragePopup: false);
   }
 
   Future<bool> createStorage(String name) async {

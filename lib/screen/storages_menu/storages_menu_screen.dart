@@ -108,7 +108,7 @@ class _SettingsButton extends StatelessWidget {
   final StoragesMenuViewModel viewModel;
 
   void _onAddStorageButtonTap() {
-    viewModel.showAddStoragePopup();
+    viewModel.showCreateStoragePopup();
   }
 
   void _onRemoveStorageButtonTap() {
@@ -290,7 +290,7 @@ class _AddStoragePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, bool>(
-      selector: (_, data) => data.showAddStoragePopup,
+      selector: (_, data) => data.showCreateStoragePopup,
       builder: (context, showAddStoragePopup, _) => Visibility(
         visible: showAddStoragePopup,
         child: AlertDialog(
