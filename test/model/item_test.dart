@@ -4,14 +4,14 @@ import 'package:the_sss_store/model/item.dart';
 void main() {
   Item item =
       const Item(name: "mesa", documentID: "12392", available: 3, stock: 4);
-  test('Item created succesfully', () async {
+  test('Item created succesfully', ()  {
     expect(item.name, "mesa");
     expect(item.documentID, "12392");
     expect(item.available, 3);
     expect(item.stock, 4);
   });
 
-  test('Create an Item through copy', () async {
+  test('Create an Item through copy', ()  {
     Item newItem = item.copyWith(name: "cadeira", available: 0);
 
     expect(newItem.name, "cadeira");
@@ -20,7 +20,7 @@ void main() {
     expect(newItem.stock, 4);
   });
 
-  test('Copy an Item from a JSON', () async {
+  test('Copy an Item from a JSON', ()  {
     Map<String, Object> json = {
       'name': "mesa",
       'documentID': "12392",
@@ -36,7 +36,7 @@ void main() {
     expect(newItem.stock, 4);
   });
 
-  test('Pass the Item to a JSON', () async {
+  test('Pass the Item to a JSON', ()  {
     item.toJson();
 
     Map<String, Object> jsonExpected = {

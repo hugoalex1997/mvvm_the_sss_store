@@ -3,19 +3,19 @@ import 'package:the_sss_store/model/storage.dart';
 
 void main() {
   Storage storage = const Storage(name: "norte", documentID: "29312");
-  test('Storage created succesfully', () async {
+  test('Storage created succesfully', ()  {
     expect(storage.name, "norte");
     expect(storage.documentID, "29312");
   });
 
-  test('Create a Storage through copy', () async {
+  test('Create a Storage through copy', ()  {
     Storage newStorage = storage.copyWith(name: "sul");
 
     expect(newStorage.name, "sul");
     expect(newStorage.documentID, "29312");
   });
 
-  test('Copy an Item from a JSON', () async {
+  test('Copy an Item from a JSON', ()  {
     Map<String, Object> json = {
       'name': "norte",
       'documentID': "29312",
@@ -27,7 +27,7 @@ void main() {
     expect(newStorage.documentID, "29312");
   });
 
-  test('Pass the Item to a JSON', () async {
+  test('Pass the Item to a JSON', ()  {
     storage.toJson();
 
     Map<String, Object> jsonExpected = {
