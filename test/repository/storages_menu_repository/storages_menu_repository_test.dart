@@ -7,7 +7,7 @@ import 'package:the_sss_store/services/firebase/firebase_storages_menu_api.dart'
 import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/model/storage.dart';
 
-import '../storages_menu_repository_test.mocks.dart';
+import 'storages_menu_repository_test.mocks.dart';
 
 @GenerateMocks([FirebaseStoragesMenuAPI])
 void main() {
