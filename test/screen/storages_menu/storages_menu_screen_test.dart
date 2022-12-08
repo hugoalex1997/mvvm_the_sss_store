@@ -9,9 +9,6 @@ import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_view_model.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 
-import 'package:the_sss_store/navigation/routes.dart';
-
-import '../../navigation/go_router_test.dart';
 import 'storages_menu_screen_test.mocks.dart';
 
 @GenerateMocks([StoragesMenuViewModel])
@@ -120,7 +117,7 @@ void main() {
       expect(find.byType(RemoveStorageSettingsButton), findsOneWidget);
 
       expect(find.byType(TextButton), findsNWidgets(2));
-      expect(find.text("Adicionar armazém"), findsOneWidget);
+      expect(find.text("Criar armazém"), findsOneWidget);
       expect(find.text("Remover armazém"), findsOneWidget);
     });
 
@@ -212,19 +209,19 @@ void main() {
 
   group('Test Storages Menu Popups', () {
     testWidgets('Create Storage Menu popup holder', (WidgetTester tester) async {
-      Widget createStorageMenuPopupList(StoragesMenuViewModel viewModel) {
+      Widget createStoragesMenuPopupsList(StoragesMenuViewModel viewModel) {
         return MultiProvider(
           providers: [
             ValueListenableProvider<StoragesMenuData>.value(value: viewModel),
           ],
-          builder: (context, _) => StorageMenuPopup(viewModel: viewModel),
+          builder: (context, _) => StoragesMenuPopups(viewModel: viewModel),
         );
       }
 
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(const StoragesMenuData.initial());
 
-      await tester.pumpWidget(MaterialApp(home: createStorageMenuPopupList(viewModel)));
+      await tester.pumpWidget(MaterialApp(home: createStoragesMenuPopupsList(viewModel)));
       expect(find.byType(Stack), findsOneWidget);
       expect(find.byType(CreateStoragePopup), findsOneWidget);
       expect(find.byType(RemoveStoragePopup), findsOneWidget);

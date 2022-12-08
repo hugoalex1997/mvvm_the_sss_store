@@ -41,22 +41,22 @@ class _EventsMenuScreenState extends ScreenState<EventsMenuScreen,
       appBar: AppBar(
         title: const Text('Eventos'),
         actions: [
-          _SettingsButton(viewModel: viewModel),
+          SettingsButton(viewModel: viewModel),
         ],
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          _EventList(
+          EventList(
             onTap: _onEventButtonTap,
             eventButtonStyle: TextButton.styleFrom(
               backgroundColor: Colors.blue,
               foregroundColor: Colors.black,
             ),
           ),
-          const Center(child: _ProgressBar()),
-          const _EmptyState(),
-          _EventsMenuPopup(viewModel: viewModel),
+          const Center(child: ProgressBar()),
+          const EmptyState(),
+          EventsMenuPopups(viewModel: viewModel),
         ],
       ),
     );
@@ -67,8 +67,8 @@ class _EventsMenuScreenState extends ScreenState<EventsMenuScreen,
   }
 }
 
-class _ProgressBar extends StatelessWidget {
-  const _ProgressBar({Key? key}) : super(key: key);
+class ProgressBar extends StatelessWidget {
+  const ProgressBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +82,8 @@ class _ProgressBar extends StatelessWidget {
   }
 }
 
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({Key? key}) : super(key: key);
+class EmptyState extends StatelessWidget {
+  const EmptyState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +103,8 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-class _SettingsButton extends StatelessWidget {
-  const _SettingsButton({required this.viewModel, Key? key}) : super(key: key);
+class SettingsButton extends StatelessWidget {
+  const SettingsButton({required this.viewModel, Key? key}) : super(key: key);
 
   final EventsMenuViewModel viewModel;
 
@@ -122,13 +122,13 @@ class _SettingsButton extends StatelessWidget {
       itemBuilder: (BuildContext context) {
         return [
           PopupMenuItem(
-            child: _AddEventSettingsButton(onTap: () {
+            child: CreateEventSettingsButton(onTap: () {
               _onAddEventButtonTap();
               Navigator.pop(context);
             }),
           ),
           PopupMenuItem(
-            child: _RemoveEventSettingsButton(onTap: () {
+            child: RemoveEventSettingsButton(onTap: () {
               _onRemoveEventButtonTap();
               Navigator.pop(context);
             }),
@@ -139,8 +139,8 @@ class _SettingsButton extends StatelessWidget {
   }
 }
 
-class _AddEventSettingsButton extends StatelessWidget {
-  const _AddEventSettingsButton({
+class CreateEventSettingsButton extends StatelessWidget {
+  const CreateEventSettingsButton({
     Key? key,
     required this.onTap,
   }) : super(key: key);
@@ -154,7 +154,7 @@ class _AddEventSettingsButton extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.black,
       ),
-      child: const Text("Adicionar evento"),
+      child: const Text("Criar evento"),
       onPressed: () {
         onTap();
       },
@@ -162,8 +162,8 @@ class _AddEventSettingsButton extends StatelessWidget {
   }
 }
 
-class _RemoveEventSettingsButton extends StatelessWidget {
-  const _RemoveEventSettingsButton({
+class RemoveEventSettingsButton extends StatelessWidget {
+  const RemoveEventSettingsButton({
     Key? key,
     required this.onTap,
   }) : super(key: key);
@@ -185,8 +185,8 @@ class _RemoveEventSettingsButton extends StatelessWidget {
   }
 }
 
-class _EventList extends StatelessWidget {
-  const _EventList({
+class EventList extends StatelessWidget {
+  const EventList({
     required this.onTap,
     this.eventButtonStyle,
     Key? key,
@@ -203,7 +203,7 @@ class _EventList extends StatelessWidget {
         return ListView.separated(
           itemBuilder: (context, index) {
             final data = eventButtonData[index];
-            return _EventButton(
+            return EventButton(
               name: data.name,
               buttonStyle: eventButtonStyle,
               onTap: onTap,
@@ -219,8 +219,8 @@ class _EventList extends StatelessWidget {
   }
 }
 
-class _EventButton extends StatelessWidget {
-  const _EventButton({
+class EventButton extends StatelessWidget {
+  const EventButton({
     Key? key,
     required this.name,
     this.buttonStyle,
@@ -245,8 +245,8 @@ class _EventButton extends StatelessWidget {
   }
 }
 
-class _EventsMenuPopup extends StatelessWidget {
-  const _EventsMenuPopup({
+class EventsMenuPopups extends StatelessWidget {
+  const EventsMenuPopups({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
@@ -258,15 +258,15 @@ class _EventsMenuPopup extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        _AddEventPopup(viewModel: viewModel),
-        _RemoveEventPopup(viewModel: viewModel),
+        CreateEventPopup(viewModel: viewModel),
+        RemoveEventPopup(viewModel: viewModel),
       ],
     );
   }
 }
 
-class _AddEventPopup extends StatelessWidget {
-  _AddEventPopup({
+class CreateEventPopup extends StatelessWidget {
+  CreateEventPopup({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
@@ -331,8 +331,8 @@ class _AddEventPopup extends StatelessWidget {
   }
 }
 
-class _RemoveEventPopup extends StatelessWidget {
-  _RemoveEventPopup({
+class RemoveEventPopup extends StatelessWidget {
+  RemoveEventPopup({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
@@ -389,7 +389,7 @@ class _RemoveEventPopup extends StatelessWidget {
                 SizedBox(
                   height: 300.0,
                   width: 300.0,
-                  child: _EventList(
+                  child: EventList(
                     onTap: _selectedEvent,
                   ),
                 ),

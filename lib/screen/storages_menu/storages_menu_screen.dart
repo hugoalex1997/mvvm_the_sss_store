@@ -7,6 +7,7 @@ import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
 import 'package:the_sss_store/screen/storage/storage_screen.dart';
 
+//TODO: Analyze the possibility of removing duplicate code between the storage menu and the event menu
 class StoragesMenuScreenRoute extends AppRoute {
   StoragesMenuScreenRoute()
       : super(
@@ -55,7 +56,7 @@ class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen, StoragesM
           ),
           const Center(child: ProgressBar()),
           const EmptyState(),
-          StorageMenuPopup(viewModel: viewModel),
+          StoragesMenuPopups(viewModel: viewModel),
         ],
       ),
     );
@@ -157,7 +158,7 @@ class CreateStorageSettingsButton extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.black,
       ),
-      child: const Text("Adicionar armazém"),
+      child: const Text("Criar armazém"),
       onPressed: () {
         onTap();
       },
@@ -251,9 +252,9 @@ class StorageButton extends StatelessWidget {
   }
 }
 
-class StorageMenuPopup extends StatelessWidget {
+class StoragesMenuPopups extends StatelessWidget {
   @visibleForTesting
-  const StorageMenuPopup({
+  const StoragesMenuPopups({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
