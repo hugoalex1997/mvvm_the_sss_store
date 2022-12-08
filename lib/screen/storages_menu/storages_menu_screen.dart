@@ -22,8 +22,7 @@ class StoragesMenuScreen extends Screen {
   _StoragesMenuScreenState createState() => _StoragesMenuScreenState();
 }
 
-class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen,
-    StoragesMenuViewModel, StoragesMenuData> {
+class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen, StoragesMenuViewModel, StoragesMenuData> {
   @override
   void initState() {
     super.initState();
@@ -41,22 +40,22 @@ class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen,
       appBar: AppBar(
         title: const Text('Armazéns'),
         actions: [
-          _SettingsButton(viewModel: viewModel),
+          SettingsButton(viewModel: viewModel),
         ],
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          _StorageList(
+          StorageList(
             onTap: _onStorageButtonTap,
             storageButtonStyle: TextButton.styleFrom(
               backgroundColor: Colors.blue,
               foregroundColor: Colors.black,
             ),
           ),
-          const Center(child: _ProgressBar()),
-          const _EmptyState(),
-          _StorageMenuPopup(viewModel: viewModel),
+          const Center(child: ProgressBar()),
+          const EmptyState(),
+          StorageMenuPopup(viewModel: viewModel),
         ],
       ),
     );
@@ -67,8 +66,9 @@ class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen,
   }
 }
 
-class _ProgressBar extends StatelessWidget {
-  const _ProgressBar({Key? key}) : super(key: key);
+class ProgressBar extends StatelessWidget {
+  @visibleForTesting
+  const ProgressBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +82,9 @@ class _ProgressBar extends StatelessWidget {
   }
 }
 
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({Key? key}) : super(key: key);
+class EmptyState extends StatelessWidget {
+  @visibleForTesting
+  const EmptyState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +104,13 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-class _SettingsButton extends StatelessWidget {
-  const _SettingsButton({required this.viewModel, Key? key}) : super(key: key);
+class SettingsButton extends StatelessWidget {
+  @visibleForTesting
+  const SettingsButton({required this.viewModel, Key? key}) : super(key: key);
 
   final StoragesMenuViewModel viewModel;
 
-  void _onAddStorageButtonTap() {
+  void _onCreateStorageButtonTap() {
     viewModel.showCreateStoragePopup();
   }
 
@@ -122,13 +124,13 @@ class _SettingsButton extends StatelessWidget {
       itemBuilder: (BuildContext context) {
         return [
           PopupMenuItem(
-            child: _AddStorageSettingsButton(onTap: () {
-              _onAddStorageButtonTap();
+            child: CreateStorageSettingsButton(onTap: () {
+              _onCreateStorageButtonTap();
               Navigator.pop(context);
             }),
           ),
           PopupMenuItem(
-            child: _RemoveStorageSettingsButton(onTap: () {
+            child: RemoveStorageSettingsButton(onTap: () {
               _onRemoveStorageButtonTap();
               Navigator.pop(context);
             }),
@@ -139,8 +141,9 @@ class _SettingsButton extends StatelessWidget {
   }
 }
 
-class _AddStorageSettingsButton extends StatelessWidget {
-  const _AddStorageSettingsButton({
+class CreateStorageSettingsButton extends StatelessWidget {
+  @visibleForTesting
+  const CreateStorageSettingsButton({
     Key? key,
     required this.onTap,
   }) : super(key: key);
@@ -162,8 +165,9 @@ class _AddStorageSettingsButton extends StatelessWidget {
   }
 }
 
-class _RemoveStorageSettingsButton extends StatelessWidget {
-  const _RemoveStorageSettingsButton({
+class RemoveStorageSettingsButton extends StatelessWidget {
+  @visibleForTesting
+  const RemoveStorageSettingsButton({
     Key? key,
     required this.onTap,
   }) : super(key: key);
@@ -185,8 +189,9 @@ class _RemoveStorageSettingsButton extends StatelessWidget {
   }
 }
 
-class _StorageList extends StatelessWidget {
-  const _StorageList({
+class StorageList extends StatelessWidget {
+  @visibleForTesting
+  const StorageList({
     required this.onTap,
     this.storageButtonStyle,
     Key? key,
@@ -203,7 +208,7 @@ class _StorageList extends StatelessWidget {
         return ListView.separated(
           itemBuilder: (context, index) {
             final data = storageButtonData[index];
-            return _StorageButton(
+            return StorageButton(
               name: data.name,
               buttonStyle: storageButtonStyle,
               onTap: onTap,
@@ -219,8 +224,9 @@ class _StorageList extends StatelessWidget {
   }
 }
 
-class _StorageButton extends StatelessWidget {
-  const _StorageButton({
+class StorageButton extends StatelessWidget {
+  @visibleForTesting
+  const StorageButton({
     Key? key,
     required this.name,
     this.buttonStyle,
@@ -245,8 +251,9 @@ class _StorageButton extends StatelessWidget {
   }
 }
 
-class _StorageMenuPopup extends StatelessWidget {
-  const _StorageMenuPopup({
+class StorageMenuPopup extends StatelessWidget {
+  @visibleForTesting
+  const StorageMenuPopup({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
@@ -258,15 +265,16 @@ class _StorageMenuPopup extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        _AddStoragePopup(viewModel: viewModel),
-        _RemoveStoragePopup(viewModel: viewModel),
+        CreateStoragePopup(viewModel: viewModel),
+        RemoveStoragePopup(viewModel: viewModel),
       ],
     );
   }
 }
 
-class _AddStoragePopup extends StatelessWidget {
-  _AddStoragePopup({
+class CreateStoragePopup extends StatelessWidget {
+  @visibleForTesting
+  CreateStoragePopup({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
@@ -292,8 +300,8 @@ class _AddStoragePopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, bool>(
       selector: (_, data) => data.showCreateStoragePopup,
-      builder: (context, showAddStoragePopup, _) => Visibility(
-        visible: showAddStoragePopup,
+      builder: (context, showCreateStoragePopup, _) => Visibility(
+        visible: showCreateStoragePopup,
         child: AlertDialog(
           title: const Text('Adicionar Armazém'),
           content: SizedBox(
@@ -331,8 +339,9 @@ class _AddStoragePopup extends StatelessWidget {
   }
 }
 
-class _RemoveStoragePopup extends StatelessWidget {
-  _RemoveStoragePopup({
+class RemoveStoragePopup extends StatelessWidget {
+  @visibleForTesting
+  RemoveStoragePopup({
     Key? key,
     required this.viewModel,
   }) : super(key: key);
@@ -389,7 +398,7 @@ class _RemoveStoragePopup extends StatelessWidget {
                 SizedBox(
                   height: 300.0,
                   width: 300.0,
-                  child: _StorageList(
+                  child: StorageList(
                     onTap: _selectedStorage,
                   ),
                 ),
