@@ -9,7 +9,7 @@ import '../widget_test.dart';
 void main() {
   testWidgets('Login Screen Test View', (WidgetTester tester) async {
     Widget createLoginScreenUnderTest() {
-      return createWidgetUnderTest(const LoginScreen());
+      return createScreenUnderTest(const LoginScreen());
     }
 
     initializeGetIt();

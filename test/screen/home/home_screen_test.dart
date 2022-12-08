@@ -13,7 +13,9 @@ import '../../navigation/go_router_test.dart';
 void main() {
   initializeGetIt();
   testWidgets('Home Screen Test View', (WidgetTester tester) async {
-    await tester.pumpWidget(createWidgetUnderTest(const HomeScreen()));
+    
+
+    await tester.pumpWidget(createScreenUnderTest(const HomeScreen()));
 
     expect(find.text('Menu'), findsOneWidget);
     expect(find.byType(StoragesMenuButton), findsOneWidget);
