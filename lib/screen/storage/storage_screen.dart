@@ -161,7 +161,7 @@ class AddItemSettingsButton extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.black,
       ),
-      child: const Text("Adicionar Item"),
+      child: const Text("Adicionar item"),
       onPressed: () {
         onTap();
       },
@@ -185,7 +185,7 @@ class RemoveItemSettingsButton extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.black,
       ),
-      child: const Text("Remover Item"),
+      child: const Text("Remover item"),
       onPressed: () {
         onTap();
       },

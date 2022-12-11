@@ -39,7 +39,7 @@ class ItemData extends Equatable {
     required this.stock,
   });
 
-  ItemData.fromStorage(Item item)
+  ItemData.fromItem(Item item)
       : name = item.name,
         available = item.available,
         stock = item.stock;
@@ -49,7 +49,7 @@ class ItemData extends Equatable {
   final int stock;
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, available, stock];
 
   ItemData copyWith({
     String? name,

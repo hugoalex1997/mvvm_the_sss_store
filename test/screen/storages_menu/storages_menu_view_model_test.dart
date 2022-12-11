@@ -91,13 +91,6 @@ void main() {
       expect(storagesMenuViewModel.value.showRemoveStoragePopup, false);
     });
 
-    test('Can create a Storage', () async {
-      await storagesMenuViewModel.init();
-
-      expect(await storagesMenuViewModel.createStorage(""), false);
-      expect(await storagesMenuViewModel.createStorage("Lust"), true);
-    });
-
     group('Create Storage', () {
       test('Can create a Storage', () async {
         String storageName = "Lust";

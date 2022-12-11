@@ -15,7 +15,7 @@ class StorageRepository {
   final _itemListSC = StreamController<List<Item>>.broadcast();
 
   @visibleForTesting
-  List<Item> getStorageList() {
+  List<Item> getItemList() {
     return _itemList;
   }
 

@@ -91,13 +91,6 @@ void main() {
       expect(eventsMenuViewModel.value.showRemoveEventPopup, false);
     });
 
-    test('Can create a Event', () async {
-      await eventsMenuViewModel.init();
-
-      expect(await eventsMenuViewModel.createEvent(""), false);
-      expect(await eventsMenuViewModel.createEvent("Lust"), true);
-    });
-
     group('Create Event', () {
       test('Can create a Event', () async {
         String eventName = "Lust";

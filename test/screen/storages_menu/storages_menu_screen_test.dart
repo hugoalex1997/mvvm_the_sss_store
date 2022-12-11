@@ -158,14 +158,6 @@ void main() {
       );
     }
 
-    testWidgets('Storage Button', (WidgetTester tester) async {
-      String storageName = "norte";
-      await tester.pumpWidget(MaterialApp(home: StorageButton(name: storageName, onTap: (_) => {})));
-
-      expect(find.byType(TextButton), findsOneWidget);
-      expect(find.text(storageName), findsOneWidget);
-    });
-
     testWidgets('Display Storage Button', (WidgetTester tester) async {
       String storageName = "norte";
       await tester.pumpWidget(MaterialApp(home: StorageButton(name: storageName, onTap: (_) => {})));
@@ -285,7 +277,7 @@ void main() {
         );
       }
 
-      testWidgets('Display Create Storage popup', (WidgetTester tester) async {
+      testWidgets('Display Remove Storage popup', (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
             storageButtonData: [],
@@ -306,7 +298,7 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display Create Storage popup', (WidgetTester tester) async {
+      testWidgets('Do not display Remove Storage popup', (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
             storageButtonData: [],
@@ -320,7 +312,7 @@ void main() {
         expect(find.byType(AlertDialog), findsNothing);
       });
 
-      testWidgets('Storage popup Text is refreshed correctly', (WidgetTester tester) async {
+      testWidgets('Remove Storage popup Text is refreshed correctly', (WidgetTester tester) async {
         String storageName = "testStorage";
         List<StorageButtonData> storageButtonDataList = [
           StorageButtonData(name: storageName),

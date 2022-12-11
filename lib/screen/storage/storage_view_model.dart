@@ -30,7 +30,7 @@ class StorageViewModel extends ViewModel<StorageData> {
     _storageSub = _storageRepository
         .observeItemList()
         .map((storageList) =>
-            storageList.map(ItemData.fromStorage).toList())
+            storageList.map(ItemData.fromItem).toList())
         .listen(_onStockChanged);
 
     await _updateList();

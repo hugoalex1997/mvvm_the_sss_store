@@ -18,9 +18,13 @@ void main() {
 
   test('Storage Button Data is correctly created from a Storage Class instance', () {
     StorageButtonData storageButtonData = const StorageButtonData(name: "norte");
-    Storage storage = const Storage(name: "norte", documentID: "4435");
-    StorageButtonData newStorageButtonData = StorageButtonData.fromStorage(storage);
+    Storage storage1 = const Storage(name: "norte", documentID: "4435");
+    Storage storage2 = const Storage(name: "sul", documentID: "4435");
+    StorageButtonData newStorageButtonData1 = StorageButtonData.fromStorage(storage1);
+    StorageButtonData newStorageButtonData2 = StorageButtonData.fromStorage(storage2);
 
-    expect(storageButtonData, newStorageButtonData);
+
+    expect(storageButtonData, newStorageButtonData1);
+    expect(storageButtonData != newStorageButtonData2, true);
   });
 }

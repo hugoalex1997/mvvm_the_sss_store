@@ -158,14 +158,6 @@ void main() {
       );
     }
 
-    testWidgets('Event Button', (WidgetTester tester) async {
-      String eventName = "norte";
-      await tester.pumpWidget(MaterialApp(home: EventButton(name: eventName, onTap: (_) => {})));
-
-      expect(find.byType(TextButton), findsOneWidget);
-      expect(find.text(eventName), findsOneWidget);
-    });
-
     testWidgets('Display Event Button', (WidgetTester tester) async {
       String eventName = "norte";
       await tester.pumpWidget(MaterialApp(home: EventButton(name: eventName, onTap: (_) => {})));
@@ -285,7 +277,7 @@ void main() {
         );
       }
 
-      testWidgets('Display Create Event popup', (WidgetTester tester) async {
+      testWidgets('Display Remove Event popup', (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
         when(viewModel.value).thenReturn(const EventsMenuData(
             eventButtonData: [],
@@ -306,7 +298,7 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display Create Event popup', (WidgetTester tester) async {
+      testWidgets('Do not display Remove Event popup', (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
         when(viewModel.value).thenReturn(const EventsMenuData(
             eventButtonData: [],
@@ -320,7 +312,7 @@ void main() {
         expect(find.byType(AlertDialog), findsNothing);
       });
 
-      testWidgets('Event popup Text is refreshed correctly', (WidgetTester tester) async {
+      testWidgets('Remove Event popup Text is refreshed correctly', (WidgetTester tester) async {
         String eventName = "testEvent";
         List<EventButtonData> eventButtonDataList = [
           EventButtonData(name: eventName),
