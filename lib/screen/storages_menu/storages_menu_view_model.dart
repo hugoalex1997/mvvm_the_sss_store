@@ -97,4 +97,8 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
     _storagesMenuRepository.removeStorage(name);
     return true;
   }
+
+  Future<String> getStorageDocumentID(String name) async {
+    return await _storagesMenuRepository.getStorageDocumentID(name);
+  }
 }

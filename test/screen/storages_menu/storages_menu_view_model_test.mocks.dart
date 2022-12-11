@@ -70,4 +70,12 @@ class MockStoragesMenuRepository extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i4.Future<String> getStorageDocumentID(String? name) => (super.noSuchMethod(
+        Invocation.method(
+          #getStorageDocumentID,
+          [name],
+        ),
+        returnValue: _i4.Future<String>.value(''),
+      ) as _i4.Future<String>);
 }

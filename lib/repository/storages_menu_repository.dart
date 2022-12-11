@@ -38,4 +38,14 @@ class StoragesMenuRepository {
     await _storagesMenuFirebase.removeStorage(name);
     fetchStorageList();
   }
+
+  Future<String> getStorageDocumentID(String name) async {
+    String? documentID = await _storagesMenuFirebase.getStorageDocumentID(name);
+
+    //TODO: Handle Error
+    if(documentID == null) {
+      return "ErrorHandling";
+    }
+    return documentID;
+  }
 }

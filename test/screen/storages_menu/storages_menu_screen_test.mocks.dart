@@ -143,6 +143,14 @@ class MockStoragesMenuViewModel extends _i1.Mock
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
   @override
+  _i5.Future<String> getStorageDocumentID(String? name) => (super.noSuchMethod(
+        Invocation.method(
+          #getStorageDocumentID,
+          [name],
+        ),
+        returnValue: _i5.Future<String>.value(''),
+      ) as _i5.Future<String>);
+  @override
   void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Routes extends Equatable {
-  static const home = '/home';
+  static const home = '/';
 
   static const login = '/login';
 

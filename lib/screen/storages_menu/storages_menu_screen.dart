@@ -62,8 +62,9 @@ class _StoragesMenuScreenState extends ScreenState<StoragesMenuScreen, StoragesM
     );
   }
 
-  void _onStorageButtonTap(String name) {
-    StorageScreenRoute().push(context);
+  void _onStorageButtonTap(String name) async {
+    String documentID = await viewModel.getStorageDocumentID(name);
+    StorageScreenRoute().push(context, {"documentID": documentID, "name": name});
   }
 }
 
