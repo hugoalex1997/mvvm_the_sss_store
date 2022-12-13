@@ -13,8 +13,7 @@ import 'events_menu_view_model_test.mocks.dart';
 @GenerateMocks([EventsMenuRepository])
 void main() {
   initializeGetIt();
-  MockEventsMenuRepository eventsMenuRepository =
-      MockEventsMenuRepository();
+  MockEventsMenuRepository eventsMenuRepository = MockEventsMenuRepository();
   EventsMenuViewModel eventsMenuViewModel =
       EventsMenuViewModel(eventsMenuRepository);
 

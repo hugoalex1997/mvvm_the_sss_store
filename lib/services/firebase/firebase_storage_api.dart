@@ -25,8 +25,8 @@ class FirebaseStorageAPI {
 
     QuerySnapshot stockSnapshot = await stockCollection.get();
 
-    Iterable<Item> storagesDocumentsData =
-        stockSnapshot.docs.map((doc) => Item.fromJson(doc.data() as Map<String, dynamic>));
+    Iterable<Item> storagesDocumentsData = stockSnapshot.docs
+        .map((doc) => Item.fromJson(doc.data() as Map<String, dynamic>));
 
     List<Item> storageList = [];
     for (final storage in storagesDocumentsData) {
@@ -40,8 +40,8 @@ class FirebaseStorageAPI {
     CollectionReference stockCollection = getStockCollection(storageDocument);
 
     QuerySnapshot stockCollectionSnapshot = await stockCollection.get();
-    Iterable<Item> storagesDocumentsData =
-        stockCollectionSnapshot.docs.map((doc) => Item.fromJson(doc.data() as Map<String, dynamic>));
+    Iterable<Item> storagesDocumentsData = stockCollectionSnapshot.docs
+        .map((doc) => Item.fromJson(doc.data() as Map<String, dynamic>));
 
     for (int index = 0; index < storagesDocumentsData.length; index++) {
       String itemName = storagesDocumentsData.elementAt(index).name;
@@ -57,7 +57,12 @@ class FirebaseStorageAPI {
     CollectionReference stockCollection = getStockCollection(documentID);
 
     DocumentReference newItemDocument = stockCollection.doc();
-    newItemDocument.set(Item(name: itemName, documentID: newItemDocument.id, available: stock, stock: stock).toJson());
+    newItemDocument.set(Item(
+            name: itemName,
+            documentID: newItemDocument.id,
+            available: stock,
+            stock: stock)
+        .toJson());
   }
 
   Future<void> removeItem(String documentID, String name) async {
@@ -66,8 +71,8 @@ class FirebaseStorageAPI {
     );
 
     QuerySnapshot stockCollectionSnapshot = await stockCollection.get();
-    Iterable<Item> itemDocumentsData =
-        stockCollectionSnapshot.docs.map((doc) => Item.fromJson(doc.data() as Map<String, dynamic>));
+    Iterable<Item> itemDocumentsData = stockCollectionSnapshot.docs
+        .map((doc) => Item.fromJson(doc.data() as Map<String, dynamic>));
 
     for (int index = 0; index < itemDocumentsData.length; index++) {
       String itemName = itemDocumentsData.elementAt(index).name;

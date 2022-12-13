@@ -13,13 +13,17 @@ import 'storage_repository_test.mocks.dart';
 void main() {
   initializeGetIt();
 
-  void getItemListReturns3Storages(MockFirebaseStorageAPI db, String documentID) {
+  void getItemListReturns3Storages(
+      MockFirebaseStorageAPI db, String documentID) {
     when(db.getItemList(any)).thenAnswer((_) async => []);
 
     when(db.getItemList(documentID)).thenAnswer((_) async => [
-          const Item(name: "item1", available: 30, stock: 30, documentID: "document1"),
-          const Item(name: "item2", available: 10, stock: 30, documentID: "document2"),
-          const Item(name: "item3", available: 5, stock: 5, documentID: "document3"),
+          const Item(
+              name: "item1", available: 30, stock: 30, documentID: "document1"),
+          const Item(
+              name: "item2", available: 10, stock: 30, documentID: "document2"),
+          const Item(
+              name: "item3", available: 5, stock: 5, documentID: "document3"),
         ]);
   }
 
@@ -58,9 +62,12 @@ void main() {
         await storageRepo.fetchItemList(documentID);
 
         expect(storageRepo.getItemList(), [
-          const Item(name: "item1", available: 30, stock: 30, documentID: "document1"),
-          const Item(name: "item2", available: 10, stock: 30, documentID: "document2"),
-          const Item(name: "item3", available: 5, stock: 5, documentID: "document3"),
+          const Item(
+              name: "item1", available: 30, stock: 30, documentID: "document1"),
+          const Item(
+              name: "item2", available: 10, stock: 30, documentID: "document2"),
+          const Item(
+              name: "item3", available: 5, stock: 5, documentID: "document3"),
         ]);
       });
 
@@ -88,9 +95,21 @@ void main() {
         expect(
             storageRepo.observeItemList(),
             emits([
-              const Item(name: "item1", available: 30, stock: 30, documentID: "document1"),
-              const Item(name: "item2", available: 10, stock: 30, documentID: "document2"),
-              const Item(name: "item3", available: 5, stock: 5, documentID: "document3"),
+              const Item(
+                  name: "item1",
+                  available: 30,
+                  stock: 30,
+                  documentID: "document1"),
+              const Item(
+                  name: "item2",
+                  available: 10,
+                  stock: 30,
+                  documentID: "document2"),
+              const Item(
+                  name: "item3",
+                  available: 5,
+                  stock: 5,
+                  documentID: "document3"),
             ]));
       });
     },

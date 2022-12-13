@@ -10,7 +10,7 @@ class StorageRepository {
   StorageRepository(this._storageFirebase);
 
   final FirebaseStorageAPI _storageFirebase;
-  
+
   List<Item> _itemList = [];
   final _itemListSC = StreamController<List<Item>>.broadcast();
 

@@ -13,8 +13,7 @@ class StorageData extends StateData {
   });
 
   const StorageData.initial()
-      : 
-        name = "",
+      : name = "",
         itemData = const [],
         showLoading = false,
         showEmptyState = false,
@@ -29,7 +28,14 @@ class StorageData extends StateData {
   final bool showRemoveItemPopup;
 
   @override
-  List<Object?> get props => [name, itemData, showLoading, showEmptyState, showAddItemPopup, showRemoveItemPopup];
+  List<Object?> get props => [
+        name,
+        itemData,
+        showLoading,
+        showEmptyState,
+        showAddItemPopup,
+        showRemoveItemPopup
+      ];
 }
 
 class ItemData extends Equatable {

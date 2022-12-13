@@ -57,7 +57,8 @@ void main() {
       );
     }
 
-    testWidgets('Empty State Widget should appear', (WidgetTester tester) async {
+    testWidgets('Empty State Widget should appear',
+        (WidgetTester tester) async {
       MockStorageViewModel viewModel = MockStorageViewModel();
       when(viewModel.value).thenReturn(const StorageData(
           name: "",
@@ -71,10 +72,12 @@ void main() {
 
       expect(find.byType(Padding), findsOneWidget);
       expect(find.byType(Text), findsOneWidget);
-      expect(find.text('Não foi possível carregar o stock do armazém'), findsOneWidget);
+      expect(find.text('Não foi possível carregar o stock do armazém'),
+          findsOneWidget);
     });
 
-    testWidgets('Empty State Widget should not appear', (WidgetTester tester) async {
+    testWidgets('Empty State Widget should not appear',
+        (WidgetTester tester) async {
       MockStorageViewModel viewModel = MockStorageViewModel();
       when(viewModel.value).thenReturn(const StorageData.initial());
 
@@ -164,11 +167,23 @@ void main() {
       String itemName = "norte";
       int available = 25;
       int stock = 30;
-      await tester.pumpWidget(
-          MaterialApp(home: ItemButton(name: itemName, available: available, stock: stock, onTap: (_) => {})));
+      await tester.pumpWidget(MaterialApp(
+          home: ItemButton(
+              name: itemName,
+              available: available,
+              stock: stock,
+              onTap: (_) => {})));
 
       expect(find.byType(TextButton), findsOneWidget);
-      expect(find.text("$itemName" " - " "Available: " "$available" " | " " Stock: " "$stock"), findsOneWidget);
+      expect(
+          find.text("$itemName"
+              " - "
+              "Available: "
+              "$available"
+              " | "
+              " Stock: "
+              "$stock"),
+          findsOneWidget);
     });
 
     testWidgets('Display Item List Empty', (WidgetTester tester) async {
@@ -219,7 +234,8 @@ void main() {
       MockStorageViewModel viewModel = MockStorageViewModel();
       when(viewModel.value).thenReturn(const StorageData.initial());
 
-      await tester.pumpWidget(MaterialApp(home: createStoragePopupsList(viewModel)));
+      await tester
+          .pumpWidget(MaterialApp(home: createStoragePopupsList(viewModel)));
       expect(find.byType(Stack), findsOneWidget);
       expect(find.byType(AddItemPopup), findsOneWidget);
       expect(find.byType(RemoveItemPopup), findsOneWidget);
@@ -246,7 +262,8 @@ void main() {
             showAddItemPopup: true,
             showRemoveItemPopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.byType(SingleChildScrollView), findsOneWidget);
@@ -270,7 +287,8 @@ void main() {
             showAddItemPopup: false,
             showRemoveItemPopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsNothing);
       });
@@ -296,7 +314,8 @@ void main() {
             showAddItemPopup: false,
             showRemoveItemPopup: true));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.text('Remover Item'), findsOneWidget);
@@ -308,7 +327,8 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display remove item popup', (WidgetTester tester) async {
+      testWidgets('Do not display remove item popup',
+          (WidgetTester tester) async {
         MockStorageViewModel viewModel = MockStorageViewModel();
         when(viewModel.value).thenReturn(const StorageData(
             name: "",
@@ -318,12 +338,14 @@ void main() {
             showAddItemPopup: false,
             showRemoveItemPopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsNothing);
       });
 
-      testWidgets('Remove item popup Text is refreshed correctly', (WidgetTester tester) async {
+      testWidgets('Remove item popup Text is refreshed correctly',
+          (WidgetTester tester) async {
         String itemName = "test_item";
         int stock = 30;
         List<ItemData> itemDataList = [
@@ -339,7 +361,8 @@ void main() {
             showAddItemPopup: false,
             showRemoveItemPopup: true));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
 
         expect(find.text("Remover item - "), findsOneWidget);
 

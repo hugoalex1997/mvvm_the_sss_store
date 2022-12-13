@@ -15,8 +15,8 @@ abstract class AppRoute extends GoRoute {
           builder: builder,
         );
 
-  void push(BuildContext context, [Map<String, String> params  = const {}]) {
-    context.push(path, extra: params);   
+  void push(BuildContext context, [Map<String, String> params = const {}]) {
+    context.push(path, extra: params);
   }
 
   void pushAndReplacement(BuildContext context) {

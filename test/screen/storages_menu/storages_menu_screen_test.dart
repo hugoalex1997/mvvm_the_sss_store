@@ -56,7 +56,8 @@ void main() {
       );
     }
 
-    testWidgets('Empty State Widget should appear', (WidgetTester tester) async {
+    testWidgets('Empty State Widget should appear',
+        (WidgetTester tester) async {
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(const StoragesMenuData(
           storageButtonData: [],
@@ -65,14 +66,15 @@ void main() {
           showCreateStoragePopup: false,
           showRemoveStoragePopup: false));
 
-      await tester.pumpWidget(MaterialApp(home:createEmptyState(viewModel)));
+      await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
       expect(find.byType(Padding), findsOneWidget);
       expect(find.byType(Text), findsOneWidget);
       expect(find.text('Não foram encontrados Armazéns'), findsOneWidget);
     });
 
-    testWidgets('Empty State Widget should not appear', (WidgetTester tester) async {
+    testWidgets('Empty State Widget should not appear',
+        (WidgetTester tester) async {
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(const StoragesMenuData.initial());
 
@@ -160,7 +162,8 @@ void main() {
 
     testWidgets('Display Storage Button', (WidgetTester tester) async {
       String storageName = "norte";
-      await tester.pumpWidget(MaterialApp(home: StorageButton(name: storageName, onTap: (_) => {})));
+      await tester.pumpWidget(MaterialApp(
+          home: StorageButton(name: storageName, onTap: (_) => {})));
 
       expect(find.byType(TextButton), findsOneWidget);
       expect(find.text(storageName), findsOneWidget);
@@ -177,7 +180,8 @@ void main() {
       expect(find.byType(Divider), findsNothing);
     });
 
-    testWidgets('Display Storage List with 3 storages', (WidgetTester tester) async {
+    testWidgets('Display Storage List with 3 storages',
+        (WidgetTester tester) async {
       List<StorageButtonData> storageButtonDataList = [
         const StorageButtonData(name: "storage1"),
         const StorageButtonData(name: "storage2"),
@@ -200,7 +204,8 @@ void main() {
   });
 
   group('Test Storages Menu Popups', () {
-    testWidgets('Create Storage Menu popup holder', (WidgetTester tester) async {
+    testWidgets('Create Storage Menu popup holder',
+        (WidgetTester tester) async {
       Widget createStoragesMenuPopupsList(StoragesMenuViewModel viewModel) {
         return MultiProvider(
           providers: [
@@ -213,7 +218,8 @@ void main() {
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(const StoragesMenuData.initial());
 
-      await tester.pumpWidget(MaterialApp(home: createStoragesMenuPopupsList(viewModel)));
+      await tester.pumpWidget(
+          MaterialApp(home: createStoragesMenuPopupsList(viewModel)));
       expect(find.byType(Stack), findsOneWidget);
       expect(find.byType(CreateStoragePopup), findsOneWidget);
       expect(find.byType(RemoveStoragePopup), findsOneWidget);
@@ -239,7 +245,8 @@ void main() {
             showCreateStoragePopup: true,
             showRemoveStoragePopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.byType(SingleChildScrollView), findsOneWidget);
@@ -253,7 +260,8 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display Create Storage popup', (WidgetTester tester) async {
+      testWidgets('Do not display Create Storage popup',
+          (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
             storageButtonData: [],
@@ -262,7 +270,8 @@ void main() {
             showCreateStoragePopup: false,
             showRemoveStoragePopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsNothing);
       });
@@ -287,7 +296,8 @@ void main() {
             showCreateStoragePopup: false,
             showRemoveStoragePopup: true));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.text('Remover Armazém'), findsOneWidget);
@@ -299,7 +309,8 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display Remove Storage popup', (WidgetTester tester) async {
+      testWidgets('Do not display Remove Storage popup',
+          (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
             storageButtonData: [],
@@ -308,12 +319,14 @@ void main() {
             showCreateStoragePopup: false,
             showRemoveStoragePopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsNothing);
       });
 
-      testWidgets('Remove Storage popup Text is refreshed correctly', (WidgetTester tester) async {
+      testWidgets('Remove Storage popup Text is refreshed correctly',
+          (WidgetTester tester) async {
         String storageName = "testStorage";
         List<StorageButtonData> storageButtonDataList = [
           StorageButtonData(name: storageName),
@@ -327,7 +340,8 @@ void main() {
             showCreateStoragePopup: false,
             showRemoveStoragePopup: true));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
 
         expect(find.text("Remover armazém - "), findsOneWidget);
 

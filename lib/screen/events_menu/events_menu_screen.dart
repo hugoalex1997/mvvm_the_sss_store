@@ -22,7 +22,8 @@ class EventsMenuScreen extends Screen {
   _EventsMenuScreenState createState() => _EventsMenuScreenState();
 }
 
-class _EventsMenuScreenState extends ScreenState<EventsMenuScreen, EventsMenuViewModel, EventsMenuData> {
+class _EventsMenuScreenState
+    extends ScreenState<EventsMenuScreen, EventsMenuViewModel, EventsMenuData> {
   @override
   void initState() {
     super.initState();

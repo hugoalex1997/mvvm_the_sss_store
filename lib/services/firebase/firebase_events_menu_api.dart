@@ -49,8 +49,7 @@ class FirebaseEventsMenuAPI {
     CollectionReference eventsCollection = _getEventsCollection();
     DocumentReference newEventDocument = eventsCollection.doc();
 
-    Event event =
-        Event(name: eventName, documentID: newEventDocument.id);
+    Event event = Event(name: eventName, documentID: newEventDocument.id);
     newEventDocument.set(event.toJson());
     return event;
   }

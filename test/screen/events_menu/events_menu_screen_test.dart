@@ -56,7 +56,8 @@ void main() {
       );
     }
 
-    testWidgets('Empty State Widget should appear', (WidgetTester tester) async {
+    testWidgets('Empty State Widget should appear',
+        (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
       when(viewModel.value).thenReturn(const EventsMenuData(
           eventButtonData: [],
@@ -65,14 +66,15 @@ void main() {
           showCreateEventPopup: false,
           showRemoveEventPopup: false));
 
-      await tester.pumpWidget(MaterialApp(home:createEmptyState(viewModel)));
+      await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
       expect(find.byType(Padding), findsOneWidget);
       expect(find.byType(Text), findsOneWidget);
       expect(find.text('Não foram encontrados Eventos'), findsOneWidget);
     });
 
-    testWidgets('Empty State Widget should not appear', (WidgetTester tester) async {
+    testWidgets('Empty State Widget should not appear',
+        (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
       when(viewModel.value).thenReturn(const EventsMenuData.initial());
 
@@ -160,7 +162,8 @@ void main() {
 
     testWidgets('Display Event Button', (WidgetTester tester) async {
       String eventName = "norte";
-      await tester.pumpWidget(MaterialApp(home: EventButton(name: eventName, onTap: (_) => {})));
+      await tester.pumpWidget(
+          MaterialApp(home: EventButton(name: eventName, onTap: (_) => {})));
 
       expect(find.byType(TextButton), findsOneWidget);
       expect(find.text(eventName), findsOneWidget);
@@ -177,7 +180,8 @@ void main() {
       expect(find.byType(Divider), findsNothing);
     });
 
-    testWidgets('Display Event List with 3 events', (WidgetTester tester) async {
+    testWidgets('Display Event List with 3 events',
+        (WidgetTester tester) async {
       List<EventButtonData> eventButtonDataList = [
         const EventButtonData(name: "event1"),
         const EventButtonData(name: "event2"),
@@ -213,7 +217,8 @@ void main() {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
       when(viewModel.value).thenReturn(const EventsMenuData.initial());
 
-      await tester.pumpWidget(MaterialApp(home: createEventMenuPopupList(viewModel)));
+      await tester
+          .pumpWidget(MaterialApp(home: createEventMenuPopupList(viewModel)));
       expect(find.byType(Stack), findsOneWidget);
       expect(find.byType(CreateEventPopup), findsOneWidget);
       expect(find.byType(RemoveEventPopup), findsOneWidget);
@@ -239,7 +244,8 @@ void main() {
             showCreateEventPopup: true,
             showRemoveEventPopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.byType(SingleChildScrollView), findsOneWidget);
@@ -253,7 +259,8 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display Create Event popup', (WidgetTester tester) async {
+      testWidgets('Do not display Create Event popup',
+          (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
         when(viewModel.value).thenReturn(const EventsMenuData(
             eventButtonData: [],
@@ -262,7 +269,8 @@ void main() {
             showCreateEventPopup: false,
             showRemoveEventPopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsNothing);
       });
@@ -287,7 +295,8 @@ void main() {
             showCreateEventPopup: false,
             showRemoveEventPopup: true));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.text('Remover Evento'), findsOneWidget);
@@ -299,7 +308,8 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
       });
 
-      testWidgets('Do not display Remove Event popup', (WidgetTester tester) async {
+      testWidgets('Do not display Remove Event popup',
+          (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
         when(viewModel.value).thenReturn(const EventsMenuData(
             eventButtonData: [],
@@ -308,12 +318,14 @@ void main() {
             showCreateEventPopup: false,
             showRemoveEventPopup: false));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsNothing);
       });
 
-      testWidgets('Remove Event popup Text is refreshed correctly', (WidgetTester tester) async {
+      testWidgets('Remove Event popup Text is refreshed correctly',
+          (WidgetTester tester) async {
         String eventName = "testEvent";
         List<EventButtonData> eventButtonDataList = [
           EventButtonData(name: eventName),
@@ -327,7 +339,8 @@ void main() {
             showCreateEventPopup: false,
             showRemoveEventPopup: true));
 
-        await tester.pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
+        await tester
+            .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
 
         expect(find.text("Remover evento - "), findsOneWidget);
 

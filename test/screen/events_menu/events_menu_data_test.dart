@@ -16,7 +16,8 @@ void main() {
     expect(initialData, eventsMenuData);
   });
 
-  test('Event Button Data is correctly created from a Event Class instance', () {
+  test('Event Button Data is correctly created from a Event Class instance',
+      () {
     EventButtonData eventButtonData = const EventButtonData(name: "norte");
     Event event1 = const Event(name: "norte", documentID: "4435");
     Event event2 = const Event(name: "sul", documentID: "4435");

@@ -13,12 +13,16 @@ class StorageScreenRoute extends AppRoute {
             path: Routes.storage,
             builder: (context, state) {
               Map<String, String> params = state.extra as Map<String, String>;
-              return StorageScreen(documentID: params["documentID"]!, name: params["name"]!, key: state.pageKey);
+              return StorageScreen(
+                  documentID: params["documentID"]!,
+                  name: params["name"]!,
+                  key: state.pageKey);
             });
 }
 
 class StorageScreen extends Screen {
-  const StorageScreen({required this.documentID, required this.name, Key? key}) : super(key: key);
+  const StorageScreen({required this.documentID, required this.name, Key? key})
+      : super(key: key);
 
   final String documentID;
   final String name;
@@ -27,7 +31,8 @@ class StorageScreen extends Screen {
   _StorageScreenState createState() => _StorageScreenState();
 }
 
-class _StorageScreenState extends ScreenState<StorageScreen, StorageViewModel, StorageData> {
+class _StorageScreenState
+    extends ScreenState<StorageScreen, StorageViewModel, StorageData> {
   @override
   void initState() {
     super.initState();
@@ -254,7 +259,13 @@ class ItemButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: TextButton(
           style: buttonStyle,
-          child: Text("$name" " - " "Available: " "$available" " | " " Stock: " "$stock"),
+          child: Text("$name"
+              " - "
+              "Available: "
+              "$available"
+              " | "
+              " Stock: "
+              "$stock"),
           onPressed: () {
             onTap(name);
           }),

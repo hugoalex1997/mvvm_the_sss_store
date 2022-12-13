@@ -3,19 +3,19 @@ import 'package:the_sss_store/model/event.dart';
 
 void main() {
   Event event = const Event(name: "queima", documentID: "2015");
-  test('Event created succesfully', ()  {
+  test('Event created succesfully', () {
     expect(event.name, "queima");
     expect(event.documentID, "2015");
   });
 
-  test('Create a Event through copy', ()  {
+  test('Create a Event through copy', () {
     Event newEvent = event.copyWith(name: "latada");
 
     expect(newEvent.name, "latada");
     expect(newEvent.documentID, "2015");
   });
 
-  test('Copy an Item from a JSON', ()  {
+  test('Copy an Item from a JSON', () {
     Map<String, Object> json = {
       'name': "queima",
       'documentID': "2015",
@@ -27,7 +27,7 @@ void main() {
     expect(newEvent.documentID, "2015");
   });
 
-  test('Pass the Item to a JSON', ()  {
+  test('Pass the Item to a JSON', () {
     event.toJson();
 
     Map<String, Object> jsonExpected = {

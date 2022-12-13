@@ -43,7 +43,7 @@ class StoragesMenuRepository {
     String? documentID = await _storagesMenuFirebase.getStorageDocumentID(name);
 
     //TODO: Handle Error
-    if(documentID == null) {
+    if (documentID == null) {
       return "ErrorHandling";
     }
     return documentID;

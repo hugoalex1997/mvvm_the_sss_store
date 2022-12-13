@@ -9,12 +9,9 @@ import 'package:the_sss_store/navigation/routes.dart';
 import '../widget_test.dart';
 import '../../navigation/go_router_test.dart';
 
-
 void main() {
   initializeGetIt();
   testWidgets('Home Screen Test View', (WidgetTester tester) async {
-    
-
     await tester.pumpWidget(createScreenUnderTest(const HomeScreen()));
 
     expect(find.text('Menu'), findsOneWidget);

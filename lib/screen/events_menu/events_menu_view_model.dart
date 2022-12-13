@@ -23,8 +23,7 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   Future<void> init() async {
     _eventsSub = _eventsMenuRepository
         .observeEventList()
-        .map((eventList) =>
-            eventList.map(EventButtonData.fromEvent).toList())
+        .map((eventList) => eventList.map(EventButtonData.fromEvent).toList())
         .listen(_onEventChanged);
 
     await _updateList();

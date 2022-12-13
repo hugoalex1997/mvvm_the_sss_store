@@ -14,13 +14,14 @@ import 'storage_view_model_test.mocks.dart';
 void main() {
   initializeGetIt();
   MockStorageRepository storageRepository = MockStorageRepository();
-  StorageViewModel storageViewModel =
-      StorageViewModel(storageRepository);
+  StorageViewModel storageViewModel = StorageViewModel(storageRepository);
 
   List<Item> itemListForTests = [
-          const Item(name: "item1", available: 30, stock: 30, documentID: "document1"),
-          const Item(name: "item2", available: 10, stock: 30, documentID: "document2"),
-          const Item(name: "item3", available: 5, stock: 5, documentID: "document3"),
+    const Item(
+        name: "item1", available: 30, stock: 30, documentID: "document1"),
+    const Item(
+        name: "item2", available: 10, stock: 30, documentID: "document2"),
+    const Item(name: "item3", available: 5, stock: 5, documentID: "document3"),
   ];
 
   setUp(() {
@@ -33,7 +34,6 @@ void main() {
   });
 
   group('Test Storage View Model', () {
-
     String storageName = "storage_test";
     String documentID = "documentID_test";
     test('Storage View Model constructor', () async {
@@ -98,7 +98,6 @@ void main() {
         String itemName = "cadeira";
         int stock = 30;
 
-
         await storageViewModel.init(documentID, storageName);
 
         storageViewModel.addItem(itemName, stock);
@@ -120,7 +119,7 @@ void main() {
 
         verifyNever(storageViewModel
             .getStorageRepository()
-            .addItem(documentID,itemName, stock));
+            .addItem(documentID, itemName, stock));
         expect(await storageViewModel.addItem(itemName, stock), false);
       });
 
@@ -134,7 +133,7 @@ void main() {
 
         verifyNever(storageViewModel
             .getStorageRepository()
-            .addItem(documentID,itemName, stock));
+            .addItem(documentID, itemName, stock));
         expect(await storageViewModel.addItem(itemName, stock), false);
       });
     });

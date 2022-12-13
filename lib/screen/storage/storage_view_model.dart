@@ -17,7 +17,6 @@ class StorageViewModel extends ViewModel<StorageData> {
   String documentID = "";
   String storageName = "";
 
-
   @visibleForTesting
   StorageRepository getStorageRepository() {
     return _storageRepository;
@@ -29,13 +28,11 @@ class StorageViewModel extends ViewModel<StorageData> {
 
     _storageSub = _storageRepository
         .observeItemList()
-        .map((storageList) =>
-            storageList.map(ItemData.fromItem).toList())
+        .map((storageList) => storageList.map(ItemData.fromItem).toList())
         .listen(_onStockChanged);
 
     await _updateList();
   }
-  
 
   @override
   void dispose() {
