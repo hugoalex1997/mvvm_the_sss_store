@@ -107,7 +107,7 @@ class SettingsButton extends StatelessWidget {
 
   final EventsMenuViewModel viewModel;
 
-  void _onAddEventButtonTap() {
+  void _onCreateEventButtonTap() {
     viewModel.showCreateEventPopup();
   }
 
@@ -122,7 +122,7 @@ class SettingsButton extends StatelessWidget {
         return [
           PopupMenuItem(
             child: CreateEventSettingsButton(onTap: () {
-              _onAddEventButtonTap();
+              _onCreateEventButtonTap();
               Navigator.pop(context);
             }),
           ),
@@ -295,33 +295,35 @@ class CreateEventPopup extends StatelessWidget {
         visible: showAddEventPopup,
         child: AlertDialog(
           title: const Text('Adicionar Evento'),
-          content: SizedBox(
-            height: 130,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nome do Evento',
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: 130,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nome do Evento',
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                      child: const Text('Confirmar'),
-                      onPressed: _confirmButtonTap,
-                    ),
-                    TextButton(
-                      child: const Text('Cancelar'),
-                      onPressed: _cancelButtonTap,
-                    ),
-                  ],
-                )
-              ],
+                  Row(
+                    children: [
+                      TextButton(
+                        child: const Text('Confirmar'),
+                        onPressed: _confirmButtonTap,
+                      ),
+                      TextButton(
+                        child: const Text('Cancelar'),
+                        onPressed: _cancelButtonTap,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

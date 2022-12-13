@@ -249,6 +249,7 @@ void main() {
         await tester.pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.byType(SingleChildScrollView), findsOneWidget);
         expect(find.text('Adicionar Item'), findsOneWidget);
         expect(find.byType(TextField), findsNWidgets(2));
         expect(find.text('Nome do Item'), findsOneWidget);

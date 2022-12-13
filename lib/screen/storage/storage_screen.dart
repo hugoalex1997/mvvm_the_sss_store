@@ -324,48 +324,50 @@ class AddItemPopup extends StatelessWidget {
         visible: showAddItemPopup,
         child: AlertDialog(
           title: const Text('Adicionar Item'),
-          content: SizedBox(
-            height: 200,
-            child: Column(
-              children: <Widget>[
-                Column(
-                  children: [
-                    TextField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nome do Item',
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: 200,
+              child: Column(
+                children: <Widget>[
+                  Column(
+                    children: [
+                      TextField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Nome do Item',
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                  height: 20,
-                  ),
-                    TextField(
-                      controller: stockController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Stock Total',
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
+                      TextField(
+                        controller: stockController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Stock Total',
+                        ),
+                      ),
+                    ],
                   ),
-                Row(
-                  children: [
-                    TextButton(
-                      child: const Text('Confirmar'),
-                      onPressed: _confirmButtonTap,
-                    ),
-                    TextButton(
-                      child: const Text('Cancelar'),
-                      onPressed: _cancelButtonTap,
-                    ),
-                  ],
-                )
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                        child: const Text('Confirmar'),
+                        onPressed: _confirmButtonTap,
+                      ),
+                      TextButton(
+                        child: const Text('Cancelar'),
+                        onPressed: _cancelButtonTap,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

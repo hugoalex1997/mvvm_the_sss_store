@@ -242,6 +242,7 @@ void main() {
         await tester.pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.byType(SingleChildScrollView), findsOneWidget);
         expect(find.byType(Container), findsOneWidget);
         expect(find.text('Adicionar Evento'), findsOneWidget);
         expect(find.byType(TextField), findsOneWidget);

@@ -306,33 +306,35 @@ class CreateStoragePopup extends StatelessWidget {
         visible: showCreateStoragePopup,
         child: AlertDialog(
           title: const Text('Adicionar Armazém'),
-          content: SizedBox(
-            height: 130,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nome do Armazém',
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: 130,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nome do Armazém',
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                      child: const Text('Confirmar'),
-                      onPressed: _confirmButtonTap,
-                    ),
-                    TextButton(
-                      child: const Text('Cancelar'),
-                      onPressed: _cancelButtonTap,
-                    ),
-                  ],
-                )
-              ],
+                  Row(
+                    children: [
+                      TextButton(
+                        child: const Text('Confirmar'),
+                        onPressed: _confirmButtonTap,
+                      ),
+                      TextButton(
+                        child: const Text('Cancelar'),
+                        onPressed: _cancelButtonTap,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

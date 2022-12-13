@@ -242,6 +242,7 @@ void main() {
         await tester.pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.byType(SingleChildScrollView), findsOneWidget);
         expect(find.byType(Container), findsOneWidget);
         expect(find.text('Adicionar Armazém'), findsOneWidget);
         expect(find.byType(TextField), findsOneWidget);
