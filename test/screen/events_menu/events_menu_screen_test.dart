@@ -32,8 +32,8 @@ void main() {
           eventButtonData: [],
           showEmptyState: false,
           showLoading: true,
-          showCreateEventPopup: PopupData.initial(),
-          showRemoveEventPopup: PopupData.initial()));
+          createEventPopup: PopupData.initial(),
+          removeEventPopup: PopupData.initial()));
 
       await tester.pumpWidget(createProgressBar(viewModel));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -64,8 +64,8 @@ void main() {
           eventButtonData: [],
           showEmptyState: true,
           showLoading: false,
-          showCreateEventPopup: PopupData.initial(),
-          showRemoveEventPopup: PopupData.initial()));
+          createEventPopup: PopupData.initial(),
+          removeEventPopup: PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
@@ -194,8 +194,8 @@ void main() {
           eventButtonData: eventButtonDataList,
           showEmptyState: false,
           showLoading: false,
-          showCreateEventPopup: const PopupData.initial(),
-          showRemoveEventPopup: const PopupData.initial()));
+          createEventPopup: const PopupData.initial(),
+          removeEventPopup: const PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEventList(viewModel)));
 
@@ -242,8 +242,8 @@ void main() {
             eventButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateEventPopup: PopupData.show(),
-            showRemoveEventPopup: PopupData.initial()));
+            createEventPopup: PopupData.show(),
+            removeEventPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
@@ -267,8 +267,8 @@ void main() {
             eventButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateEventPopup: PopupData.initial(),
-            showRemoveEventPopup: PopupData.initial()));
+            createEventPopup: PopupData.initial(),
+            removeEventPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
@@ -293,8 +293,8 @@ void main() {
             eventButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateEventPopup: PopupData.initial(),
-            showRemoveEventPopup: PopupData.show()));
+            createEventPopup: PopupData.initial(),
+            removeEventPopup: PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
@@ -316,8 +316,8 @@ void main() {
             eventButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateEventPopup: PopupData.initial(),
-            showRemoveEventPopup: PopupData.initial()));
+            createEventPopup: PopupData.initial(),
+            removeEventPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
@@ -337,8 +337,8 @@ void main() {
             eventButtonData: eventButtonDataList,
             showEmptyState: false,
             showLoading: false,
-            showCreateEventPopup: const PopupData.initial(),
-            showRemoveEventPopup: const PopupData.show()));
+            createEventPopup: const PopupData.initial(),
+            removeEventPopup: const PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));

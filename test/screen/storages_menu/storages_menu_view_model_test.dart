@@ -67,34 +67,34 @@ void main() {
     test('Create Storage Popup data is updated correctly', () async {
       await storagesMenuViewModel.init();
 
-      expect(storagesMenuViewModel.value.showCreateStoragePopup,
+      expect(storagesMenuViewModel.value.createStoragePopup,
           const PopupData.initial());
 
       storagesMenuViewModel.showCreateStoragePopup();
 
-      expect(storagesMenuViewModel.value.showCreateStoragePopup,
+      expect(storagesMenuViewModel.value.createStoragePopup,
           const PopupData.show());
 
       storagesMenuViewModel.hidePopup();
 
-      expect(storagesMenuViewModel.value.showCreateStoragePopup,
+      expect(storagesMenuViewModel.value.createStoragePopup,
           const PopupData.initial());
     });
 
     test('Remove Storage Popup data is updated correctly', () async {
       await storagesMenuViewModel.init();
 
-      expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+      expect(storagesMenuViewModel.value.removeStoragePopup,
           const PopupData.initial());
 
       storagesMenuViewModel.showRemoveStoragePopup();
 
-      expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+      expect(storagesMenuViewModel.value.removeStoragePopup,
           const PopupData.show());
 
       storagesMenuViewModel.hidePopup();
 
-      expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+      expect(storagesMenuViewModel.value.removeStoragePopup,
           const PopupData.initial());
     });
 
@@ -124,7 +124,7 @@ void main() {
             .getStoragesMenuRepository()
             .createStorage(storageName));
         expect(await storagesMenuViewModel.createStorage(storageName), false);
-        expect(storagesMenuViewModel.value.showCreateStoragePopup,
+        expect(storagesMenuViewModel.value.createStoragePopup,
             const PopupData.error("Deve inserir um nome!"));
       });
     });
@@ -155,7 +155,7 @@ void main() {
             .getStoragesMenuRepository()
             .removeStorage(storageName));
         expect(await storagesMenuViewModel.removeStorage(storageName), false);
-        expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+        expect(storagesMenuViewModel.value.removeStoragePopup,
             const PopupData.error("Nenhum armazém selecionado!"));
       });
     });

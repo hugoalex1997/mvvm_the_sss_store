@@ -9,8 +9,8 @@ class StorageData extends StateData {
     required this.itemData,
     required this.showEmptyState,
     required this.showLoading,
-    required this.showAddItemPopup,
-    required this.showRemoveItemPopup,
+    required this.addItemPopup,
+    required this.removeItemPopup,
   });
 
   const StorageData.initial()
@@ -18,16 +18,15 @@ class StorageData extends StateData {
         itemData = const [],
         showLoading = false,
         showEmptyState = false,
-        showAddItemPopup = const PopupData.initial(),
-        showRemoveItemPopup = const PopupData.initial();
+        addItemPopup = const PopupData.initial(),
+        removeItemPopup = const PopupData.initial();
 
   final String name;
   final List<ItemData> itemData;
   final bool showLoading;
   final bool showEmptyState;
-  //TODO: This variables should be renamed
-  final PopupData showAddItemPopup;
-  final PopupData showRemoveItemPopup;
+  final PopupData addItemPopup;
+  final PopupData removeItemPopup;
 
   @override
   List<Object?> get props => [
@@ -35,8 +34,8 @@ class StorageData extends StateData {
         itemData,
         showLoading,
         showEmptyState,
-        showAddItemPopup,
-        showRemoveItemPopup
+        addItemPopup,
+        removeItemPopup
       ];
 }
 

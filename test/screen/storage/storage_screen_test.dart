@@ -33,8 +33,8 @@ void main() {
           itemData: [],
           showEmptyState: false,
           showLoading: true,
-          showAddItemPopup: PopupData.initial(),
-          showRemoveItemPopup: PopupData.initial()));
+          addItemPopup: PopupData.initial(),
+          removeItemPopup: PopupData.initial()));
 
       await tester.pumpWidget(createProgressBar(viewModel));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -66,8 +66,8 @@ void main() {
           itemData: [],
           showEmptyState: true,
           showLoading: true,
-          showAddItemPopup: PopupData.initial(),
-          showRemoveItemPopup: PopupData.initial()));
+          addItemPopup: PopupData.initial(),
+          removeItemPopup: PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
@@ -211,8 +211,8 @@ void main() {
           itemData: itemDataList,
           showEmptyState: false,
           showLoading: false,
-          showAddItemPopup: const PopupData.initial(),
-          showRemoveItemPopup: const PopupData.initial()));
+          addItemPopup: const PopupData.initial(),
+          removeItemPopup: const PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createItemList(viewModel)));
 
@@ -260,8 +260,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: PopupData.show(),
-            showRemoveItemPopup: PopupData.initial()));
+            addItemPopup: PopupData.show(),
+            removeItemPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
@@ -285,8 +285,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: PopupData.initial(),
-            showRemoveItemPopup: PopupData.initial()));
+            addItemPopup: PopupData.initial(),
+            removeItemPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
@@ -312,8 +312,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: PopupData.initial(),
-            showRemoveItemPopup: PopupData.show()));
+            addItemPopup: PopupData.initial(),
+            removeItemPopup: PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
@@ -336,8 +336,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: PopupData.initial(),
-            showRemoveItemPopup: PopupData.initial()));
+            addItemPopup: PopupData.initial(),
+            removeItemPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
@@ -359,8 +359,8 @@ void main() {
             itemData: itemDataList,
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: const PopupData.initial(),
-            showRemoveItemPopup: const PopupData.show()));
+            addItemPopup: const PopupData.initial(),
+            removeItemPopup: const PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));

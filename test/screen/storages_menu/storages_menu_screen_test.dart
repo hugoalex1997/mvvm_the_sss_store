@@ -32,8 +32,8 @@ void main() {
           storageButtonData: [],
           showEmptyState: false,
           showLoading: true,
-          showCreateStoragePopup: PopupData.initial(),
-          showRemoveStoragePopup: PopupData.initial()));
+          createStoragePopup: PopupData.initial(),
+          removeStoragePopup: PopupData.initial()));
 
       await tester.pumpWidget(createProgressBar(viewModel));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -64,8 +64,8 @@ void main() {
           storageButtonData: [],
           showEmptyState: true,
           showLoading: false,
-          showCreateStoragePopup: PopupData.initial(),
-          showRemoveStoragePopup: PopupData.initial()));
+          createStoragePopup: PopupData.initial(),
+          removeStoragePopup: PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
@@ -194,8 +194,8 @@ void main() {
           storageButtonData: storageButtonDataList,
           showEmptyState: false,
           showLoading: false,
-          showCreateStoragePopup: const PopupData.initial(),
-          showRemoveStoragePopup: const PopupData.initial()));
+          createStoragePopup: const PopupData.initial(),
+          removeStoragePopup: const PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createStorageList(viewModel)));
 
@@ -243,8 +243,8 @@ void main() {
             storageButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateStoragePopup: PopupData.show(),
-            showRemoveStoragePopup: PopupData.initial()));
+            createStoragePopup: PopupData.show(),
+            removeStoragePopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
@@ -268,8 +268,8 @@ void main() {
             storageButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateStoragePopup: PopupData.initial(),
-            showRemoveStoragePopup: PopupData.initial()));
+            createStoragePopup: PopupData.initial(),
+            removeStoragePopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createCreateStoragePopup(viewModel)));
@@ -294,8 +294,8 @@ void main() {
             storageButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateStoragePopup: PopupData.initial(),
-            showRemoveStoragePopup: PopupData.show()));
+            createStoragePopup: PopupData.initial(),
+            removeStoragePopup: PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
@@ -317,8 +317,8 @@ void main() {
             storageButtonData: [],
             showEmptyState: false,
             showLoading: false,
-            showCreateStoragePopup: PopupData.initial(),
-            showRemoveStoragePopup: PopupData.initial()));
+            createStoragePopup: PopupData.initial(),
+            removeStoragePopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));
@@ -338,8 +338,8 @@ void main() {
             storageButtonData: storageButtonDataList,
             showEmptyState: false,
             showLoading: false,
-            showCreateStoragePopup: const PopupData.initial(),
-            showRemoveStoragePopup: const PopupData.show()));
+            createStoragePopup: const PopupData.initial(),
+            removeStoragePopup: const PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveStoragePopup(viewModel)));

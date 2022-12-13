@@ -325,9 +325,9 @@ class AddItemPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<StorageData, PopupData>(
-      selector: (_, data) => data.showAddItemPopup,
-      builder: (context, showAddItemPopup, _) => Visibility(
-        visible: showAddItemPopup.visible,
+      selector: (_, data) => data.addItemPopup,
+      builder: (context, addItemPopup, _) => Visibility(
+        visible: addItemPopup.visible,
         child: AlertDialog(
           title: const Text('Adicionar Item'),
           content: SingleChildScrollView(
@@ -360,7 +360,7 @@ class AddItemPopup extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  ErrorPopupLabel(errorText: showAddItemPopup.error),
+                  ErrorPopupLabel(errorText: addItemPopup.error),
                   Row(
                     children: [
                       TextButton(
@@ -431,9 +431,9 @@ class RemoveItemPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<StorageData, PopupData>(
-      selector: (_, data) => data.showRemoveItemPopup,
-      builder: (context, showRemoveItemPopup, _) => Visibility(
-        visible: showRemoveItemPopup.visible,
+      selector: (_, data) => data.removeItemPopup,
+      builder: (context, removeItemPopup, _) => Visibility(
+        visible: removeItemPopup.visible,
         child: AlertDialog(
           title: const Text('Remover Item'),
           content: SingleChildScrollView(
@@ -451,7 +451,7 @@ class RemoveItemPopup extends StatelessWidget {
                 ),
                 _removeLabelName(),
                 const SizedBox(height: 10.0),
-                ErrorPopupLabel(errorText: showRemoveItemPopup.error),
+                ErrorPopupLabel(errorText: removeItemPopup.error),
               ],
             ),
           ),

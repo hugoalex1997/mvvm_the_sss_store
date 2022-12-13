@@ -66,34 +66,34 @@ void main() {
     test('Create Event Popup data is updated correctly', () async {
       await eventsMenuViewModel.init();
 
-      expect(eventsMenuViewModel.value.showCreateEventPopup,
+      expect(eventsMenuViewModel.value.createEventPopup,
           const PopupData.initial());
 
       eventsMenuViewModel.showCreateEventPopup();
 
-      expect(eventsMenuViewModel.value.showCreateEventPopup,
-          const PopupData.show());
+      expect(
+          eventsMenuViewModel.value.createEventPopup, const PopupData.show());
 
       eventsMenuViewModel.hidePopup();
 
-      expect(eventsMenuViewModel.value.showCreateEventPopup,
+      expect(eventsMenuViewModel.value.createEventPopup,
           const PopupData.initial());
     });
 
     test('Remove Event Popup data is updated correctly', () async {
       await eventsMenuViewModel.init();
 
-      expect(eventsMenuViewModel.value.showRemoveEventPopup,
+      expect(eventsMenuViewModel.value.removeEventPopup,
           const PopupData.initial());
 
       eventsMenuViewModel.showRemoveEventPopup();
 
-      expect(eventsMenuViewModel.value.showRemoveEventPopup,
-          const PopupData.show());
+      expect(
+          eventsMenuViewModel.value.removeEventPopup, const PopupData.show());
 
       eventsMenuViewModel.hidePopup();
 
-      expect(eventsMenuViewModel.value.showRemoveEventPopup,
+      expect(eventsMenuViewModel.value.removeEventPopup,
           const PopupData.initial());
     });
 
@@ -123,7 +123,7 @@ void main() {
             .getEventsMenuRepository()
             .createEvent(eventName));
         expect(await eventsMenuViewModel.createEvent(eventName), false);
-        expect(eventsMenuViewModel.value.showCreateEventPopup,
+        expect(eventsMenuViewModel.value.createEventPopup,
             const PopupData.error("Deve inserir um nome!"));
       });
     });
@@ -154,7 +154,7 @@ void main() {
             .getEventsMenuRepository()
             .removeEvent(eventName));
         expect(await eventsMenuViewModel.removeEvent(eventName), false);
-        expect(eventsMenuViewModel.value.showRemoveEventPopup,
+        expect(eventsMenuViewModel.value.removeEventPopup,
             const PopupData.error("Nenhum evento selecionado!"));
       });
     });

@@ -9,8 +9,8 @@ void main() {
         storageButtonData: [],
         showEmptyState: false,
         showLoading: false,
-        showCreateStoragePopup: PopupData.initial(),
-        showRemoveStoragePopup: PopupData.initial());
+        createStoragePopup: PopupData.initial(),
+        removeStoragePopup: PopupData.initial());
 
     StoragesMenuData initialData = const StoragesMenuData.initial();
 

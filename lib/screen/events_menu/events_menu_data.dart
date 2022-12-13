@@ -8,31 +8,30 @@ class EventsMenuData extends StateData {
     required this.eventButtonData,
     required this.showEmptyState,
     required this.showLoading,
-    required this.showCreateEventPopup,
-    required this.showRemoveEventPopup,
+    required this.createEventPopup,
+    required this.removeEventPopup,
   });
 
   const EventsMenuData.initial()
       : eventButtonData = const [],
         showLoading = false,
         showEmptyState = false,
-        showCreateEventPopup = const PopupData.initial(),
-        showRemoveEventPopup = const PopupData.initial();
+        createEventPopup = const PopupData.initial(),
+        removeEventPopup = const PopupData.initial();
 
   final List<EventButtonData> eventButtonData;
   final bool showLoading;
   final bool showEmptyState;
-  //TODO: This variables should be renamed
-  final PopupData showCreateEventPopup;
-  final PopupData showRemoveEventPopup;
+  final PopupData createEventPopup;
+  final PopupData removeEventPopup;
 
   @override
   List<Object?> get props => [
         eventButtonData,
         showLoading,
         showEmptyState,
-        showCreateEventPopup,
-        showRemoveEventPopup,
+        createEventPopup,
+        removeEventPopup,
       ];
 }
 

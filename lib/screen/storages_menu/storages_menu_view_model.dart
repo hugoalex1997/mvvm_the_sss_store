@@ -40,20 +40,20 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   void _updateState({
     List<StorageButtonData>? button,
     bool? isLoading,
-    PopupData? showCreateStoragePopup,
-    PopupData? showRemoveStoragePopup,
+    PopupData? createStoragePopup,
+    PopupData? removeStoragePopup,
   }) {
     button ??= value.storageButtonData;
     isLoading ??= value.showLoading;
-    showCreateStoragePopup ??= value.showCreateStoragePopup;
-    showRemoveStoragePopup ??= value.showRemoveStoragePopup;
+    createStoragePopup ??= value.createStoragePopup;
+    removeStoragePopup ??= value.removeStoragePopup;
 
     stateData = StoragesMenuData(
       storageButtonData: button,
       showEmptyState: button.isEmpty && !isLoading,
       showLoading: isLoading,
-      showCreateStoragePopup: showCreateStoragePopup,
-      showRemoveStoragePopup: showRemoveStoragePopup,
+      createStoragePopup: createStoragePopup,
+      removeStoragePopup: removeStoragePopup,
     );
   }
 
@@ -70,24 +70,23 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   }
 
   void showCreateStoragePopup() {
-    _updateState(showCreateStoragePopup: const PopupData.show());
+    _updateState(createStoragePopup: const PopupData.show());
   }
 
   void showRemoveStoragePopup() {
-    _updateState(showRemoveStoragePopup: const PopupData.show());
+    _updateState(removeStoragePopup: const PopupData.show());
   }
 
   void hidePopup() {
     _updateState(
-        showCreateStoragePopup: const PopupData.initial(),
-        showRemoveStoragePopup: const PopupData.initial());
+        createStoragePopup: const PopupData.initial(),
+        removeStoragePopup: const PopupData.initial());
   }
 
   Future<bool> createStorage(String name) async {
     if (name.isEmpty) {
       _updateState(
-          showCreateStoragePopup:
-              const PopupData.error("Deve inserir um nome!"));
+          createStoragePopup: const PopupData.error("Deve inserir um nome!"));
       return false;
     }
 
@@ -99,7 +98,7 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
     if (name.isEmpty) {
       //TODO: When a storage is choose, this error should be removed.
       _updateState(
-          showRemoveStoragePopup:
+          removeStoragePopup:
               const PopupData.error("Nenhum armazém selecionado!"));
       return false;
     }

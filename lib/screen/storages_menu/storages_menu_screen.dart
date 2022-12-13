@@ -305,9 +305,9 @@ class CreateStoragePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, PopupData>(
-      selector: (_, data) => data.showCreateStoragePopup,
-      builder: (context, showCreateStoragePopup, _) => Visibility(
-        visible: showCreateStoragePopup.visible,
+      selector: (_, data) => data.createStoragePopup,
+      builder: (context, createStoragePopup, _) => Visibility(
+        visible: createStoragePopup.visible,
         child: AlertDialog(
           title: const Text('Adicionar Armazém'),
           content: SingleChildScrollView(
@@ -325,7 +325,7 @@ class CreateStoragePopup extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ErrorPopupLabel(errorText: showCreateStoragePopup.error),
+                  ErrorPopupLabel(errorText: createStoragePopup.error),
                   Row(
                     children: [
                       TextButton(
@@ -396,9 +396,9 @@ class RemoveStoragePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, PopupData>(
-      selector: (_, data) => data.showRemoveStoragePopup,
-      builder: (context, showRemoveStoragePopup, _) => Visibility(
-        visible: showRemoveStoragePopup.visible,
+      selector: (_, data) => data.removeStoragePopup,
+      builder: (context, removeStoragePopup, _) => Visibility(
+        visible: removeStoragePopup.visible,
         child: AlertDialog(
           title: const Text('Remover Armazém'),
           content: SingleChildScrollView(
@@ -416,7 +416,7 @@ class RemoveStoragePopup extends StatelessWidget {
                 ),
                 _removeLabelName(),
                 const SizedBox(height: 10),
-                ErrorPopupLabel(errorText: showRemoveStoragePopup.error),
+                ErrorPopupLabel(errorText: removeStoragePopup.error),
               ],
             ),
           ),

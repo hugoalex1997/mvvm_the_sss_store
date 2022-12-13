@@ -9,8 +9,8 @@ void main() {
         eventButtonData: [],
         showEmptyState: false,
         showLoading: false,
-        showCreateEventPopup: PopupData.initial(),
-        showRemoveEventPopup: PopupData.initial());
+        createEventPopup: PopupData.initial(),
+        removeEventPopup: PopupData.initial());
 
     EventsMenuData initialData = const EventsMenuData.initial();
 

@@ -39,20 +39,20 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   void _updateState({
     List<EventButtonData>? button,
     bool? isLoading,
-    PopupData? showCreateEventPopup,
-    PopupData? showRemoveEventPopup,
+    PopupData? createEventPopup,
+    PopupData? removeEventPopup,
   }) {
     button ??= value.eventButtonData;
     isLoading ??= value.showLoading;
-    showCreateEventPopup ??= value.showCreateEventPopup;
-    showRemoveEventPopup ??= value.showRemoveEventPopup;
+    createEventPopup ??= value.createEventPopup;
+    removeEventPopup ??= value.removeEventPopup;
 
     stateData = EventsMenuData(
       eventButtonData: button,
       showEmptyState: button.isEmpty && !isLoading,
       showLoading: isLoading,
-      showCreateEventPopup: showCreateEventPopup,
-      showRemoveEventPopup: showRemoveEventPopup,
+      createEventPopup: createEventPopup,
+      removeEventPopup: removeEventPopup,
     );
   }
 
@@ -69,23 +69,23 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   }
 
   void showCreateEventPopup() {
-    _updateState(showCreateEventPopup: const PopupData.show());
+    _updateState(createEventPopup: const PopupData.show());
   }
 
   void showRemoveEventPopup() {
-    _updateState(showRemoveEventPopup: const PopupData.show());
+    _updateState(removeEventPopup: const PopupData.show());
   }
 
   void hidePopup() {
     _updateState(
-        showCreateEventPopup: const PopupData.initial(),
-        showRemoveEventPopup: const PopupData.initial());
+        createEventPopup: const PopupData.initial(),
+        removeEventPopup: const PopupData.initial());
   }
 
   Future<bool> createEvent(String name) async {
     if (name.isEmpty) {
       _updateState(
-          showCreateEventPopup: const PopupData.error("Deve inserir um nome!"));
+          createEventPopup: const PopupData.error("Deve inserir um nome!"));
       return false;
     }
 
@@ -97,7 +97,7 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
     if (name.isEmpty) {
       //TODO: When an event is chosen, this error must be removed.
       _updateState(
-          showRemoveEventPopup:
+          removeEventPopup:
               const PopupData.error("Nenhum evento selecionado!"));
       return false;
     }

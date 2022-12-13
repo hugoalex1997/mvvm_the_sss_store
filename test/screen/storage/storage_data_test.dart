@@ -10,8 +10,8 @@ void main() {
         itemData: [],
         showEmptyState: false,
         showLoading: false,
-        showAddItemPopup: PopupData.initial(),
-        showRemoveItemPopup: PopupData.initial());
+        addItemPopup: PopupData.initial(),
+        removeItemPopup: PopupData.initial());
 
     StorageData initialData = const StorageData.initial();
 

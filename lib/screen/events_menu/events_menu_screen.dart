@@ -293,9 +293,9 @@ class CreateEventPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<EventsMenuData, PopupData>(
-      selector: (_, data) => data.showCreateEventPopup,
-      builder: (context, showCreateEventPopup, _) => Visibility(
-        visible: showCreateEventPopup.visible,
+      selector: (_, data) => data.createEventPopup,
+      builder: (context, createEventPopup, _) => Visibility(
+        visible: createEventPopup.visible,
         child: AlertDialog(
           title: const Text('Adicionar Evento'),
           content: SingleChildScrollView(
@@ -313,7 +313,7 @@ class CreateEventPopup extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ErrorPopupLabel(errorText: showCreateEventPopup.error),
+                  ErrorPopupLabel(errorText: createEventPopup.error),
                   Row(
                     children: [
                       TextButton(
@@ -383,9 +383,9 @@ class RemoveEventPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<EventsMenuData, PopupData>(
-      selector: (_, data) => data.showRemoveEventPopup,
-      builder: (context, showRemoveEventPopup, _) => Visibility(
-        visible: showRemoveEventPopup.visible,
+      selector: (_, data) => data.removeEventPopup,
+      builder: (context, removeEventPopup, _) => Visibility(
+        visible: removeEventPopup.visible,
         child: AlertDialog(
           title: const Text('Remover Evento'),
           content: SingleChildScrollView(
@@ -402,7 +402,8 @@ class RemoveEventPopup extends StatelessWidget {
                   height: 20,
                 ),
                 _removeLabelName(),
-                ErrorPopupLabel(errorText: showRemoveEventPopup.error),
+                const SizedBox(height: 10),
+                ErrorPopupLabel(errorText: removeEventPopup.error),
               ],
             ),
           ),

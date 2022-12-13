@@ -44,21 +44,21 @@ class StorageViewModel extends ViewModel<StorageData> {
   void _updateState({
     List<ItemData>? item,
     bool? isLoading,
-    PopupData? showAddItemPopup,
-    PopupData? showRemoveItemPopup,
+    PopupData? addItemPopup,
+    PopupData? removeItemPopup,
   }) {
     item ??= value.itemData;
     isLoading ??= value.showLoading;
-    showAddItemPopup ??= value.showAddItemPopup;
-    showRemoveItemPopup ??= value.showRemoveItemPopup;
+    addItemPopup ??= value.addItemPopup;
+    removeItemPopup ??= value.removeItemPopup;
 
     stateData = StorageData(
       name: storageName,
       itemData: item,
       showEmptyState: item.isEmpty && !isLoading,
       showLoading: isLoading,
-      showAddItemPopup: showAddItemPopup,
-      showRemoveItemPopup: showRemoveItemPopup,
+      addItemPopup: addItemPopup,
+      removeItemPopup: removeItemPopup,
     );
   }
 
@@ -75,23 +75,23 @@ class StorageViewModel extends ViewModel<StorageData> {
   }
 
   void showAddItemPopup() {
-    _updateState(showAddItemPopup: const PopupData.show());
+    _updateState(addItemPopup: const PopupData.show());
   }
 
   void showRemoveItemPopup() {
-    _updateState(showRemoveItemPopup: const PopupData.show());
+    _updateState(removeItemPopup: const PopupData.show());
   }
 
   void hidePopup() {
     _updateState(
-        showAddItemPopup: const PopupData.initial(),
-        showRemoveItemPopup: const PopupData.initial());
+        addItemPopup: const PopupData.initial(),
+        removeItemPopup: const PopupData.initial());
   }
 
   Future<bool> addItem(String name, String stock) async {
     if (name.isEmpty) {
       _updateState(
-          showAddItemPopup: const PopupData.error("Deve inserir um nome!"));
+          addItemPopup: const PopupData.error("Deve inserir um nome!"));
       return false;
     }
 
@@ -100,14 +100,14 @@ class StorageViewModel extends ViewModel<StorageData> {
       stockValue = int.parse(stock);
     } catch (error) {
       _updateState(
-          showAddItemPopup:
+          addItemPopup:
               const PopupData.error("Stock Total é um número inválido!"));
       return false;
     }
 
     if (stockValue <= 0) {
       _updateState(
-          showAddItemPopup:
+          addItemPopup:
               const PopupData.error("Stock Total deve ser superior a 0!"));
       return false;
     }
@@ -120,8 +120,7 @@ class StorageViewModel extends ViewModel<StorageData> {
     if (name.isEmpty) {
       //TODO: When an item is chosen, this error must be removed.
       _updateState(
-          showRemoveItemPopup:
-              const PopupData.error("Nenhum item selecionado"));
+          removeItemPopup: const PopupData.error("Nenhum item selecionado"));
       return false;
     }
 

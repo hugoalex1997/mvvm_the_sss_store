@@ -69,34 +69,29 @@ void main() {
     test('Add item popup data is updated correctly', () async {
       await storageViewModel.init(documentID, storageName);
 
-      expect(
-          storageViewModel.value.showAddItemPopup, const PopupData.initial());
+      expect(storageViewModel.value.addItemPopup, const PopupData.initial());
 
       storageViewModel.showAddItemPopup();
 
-      expect(storageViewModel.value.showAddItemPopup, const PopupData.show());
+      expect(storageViewModel.value.addItemPopup, const PopupData.show());
 
       storageViewModel.hidePopup();
 
-      expect(
-          storageViewModel.value.showAddItemPopup, const PopupData.initial());
+      expect(storageViewModel.value.addItemPopup, const PopupData.initial());
     });
 
     test('Remove item opup data is updated correctly', () async {
       await storageViewModel.init(documentID, storageName);
 
-      expect(storageViewModel.value.showRemoveItemPopup,
-          const PopupData.initial());
+      expect(storageViewModel.value.removeItemPopup, const PopupData.initial());
 
       storageViewModel.showRemoveItemPopup();
 
-      expect(
-          storageViewModel.value.showRemoveItemPopup, const PopupData.show());
+      expect(storageViewModel.value.removeItemPopup, const PopupData.show());
 
       storageViewModel.hidePopup();
 
-      expect(storageViewModel.value.showRemoveItemPopup,
-          const PopupData.initial());
+      expect(storageViewModel.value.removeItemPopup, const PopupData.initial());
     });
 
     group('Create Item', () {
@@ -144,7 +139,7 @@ void main() {
             .getStorageRepository()
             .addItem(documentID, itemName, stockValue));
         expect(await storageViewModel.addItem(itemName, stockString), false);
-        expect(storageViewModel.value.showAddItemPopup,
+        expect(storageViewModel.value.addItemPopup,
             const PopupData.error("Stock Total deve ser superior a 0!"));
       });
 
@@ -157,7 +152,7 @@ void main() {
         storageViewModel.addItem(itemName, stockString);
 
         expect(await storageViewModel.addItem(itemName, stockString), false);
-        expect(storageViewModel.value.showAddItemPopup,
+        expect(storageViewModel.value.addItemPopup,
             const PopupData.error("Stock Total é um número inválido!"));
       });
     });
@@ -189,7 +184,7 @@ void main() {
             .removeItem(documentID, itemName));
 
         expect(await storageViewModel.removeItem(itemName), false);
-        expect(storageViewModel.value.showRemoveItemPopup,
+        expect(storageViewModel.value.removeItemPopup,
             const PopupData.error("Nenhum item selecionado"));
       });
     });
