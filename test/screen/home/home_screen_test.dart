@@ -6,7 +6,7 @@ import 'package:the_sss_store/inject/dependency_injection.dart';
 
 import 'package:the_sss_store/navigation/routes.dart';
 
-import '../widget_test.dart';
+import '../widget_helper.dart';
 import '../../navigation/go_router_test.dart';
 
 void main() {

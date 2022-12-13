@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:the_sss_store/screen/login/login_screen.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 
-import '../widget_test.dart';
+import '../widget_helper.dart';
 
 void main() {
   testWidgets('Login Screen Test View', (WidgetTester tester) async {
