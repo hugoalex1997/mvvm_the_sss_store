@@ -310,7 +310,7 @@ class AddItemPopup extends StatelessWidget {
     try {
       stock = int.parse(stockController.text);
     } catch (error) {
-      print("Handle Error");
+      debugPrint("Handle Error");
       return;
     }
 
