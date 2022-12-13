@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 import 'package:the_sss_store/repository/events_menu_repository.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart';
@@ -62,32 +63,38 @@ void main() {
       verify(eventsMenuRepository.fetchEventList()).called(1);
     });
 
-    test('Create Event Popup flag is updated correctly', () async {
+    test('Create Event Popup data is updated correctly', () async {
       await eventsMenuViewModel.init();
 
-      expect(eventsMenuViewModel.value.showCreateEventPopup, false);
+      expect(eventsMenuViewModel.value.showCreateEventPopup,
+          const PopupData.initial());
 
       eventsMenuViewModel.showCreateEventPopup();
 
-      expect(eventsMenuViewModel.value.showCreateEventPopup, true);
+      expect(eventsMenuViewModel.value.showCreateEventPopup,
+          const PopupData.show());
 
       eventsMenuViewModel.hidePopup();
 
-      expect(eventsMenuViewModel.value.showCreateEventPopup, false);
+      expect(eventsMenuViewModel.value.showCreateEventPopup,
+          const PopupData.initial());
     });
 
-    test('Remove Event Popup flag is updated correctly', () async {
+    test('Remove Event Popup data is updated correctly', () async {
       await eventsMenuViewModel.init();
 
-      expect(eventsMenuViewModel.value.showRemoveEventPopup, false);
+      expect(eventsMenuViewModel.value.showRemoveEventPopup,
+          const PopupData.initial());
 
       eventsMenuViewModel.showRemoveEventPopup();
 
-      expect(eventsMenuViewModel.value.showRemoveEventPopup, true);
+      expect(eventsMenuViewModel.value.showRemoveEventPopup,
+          const PopupData.show());
 
       eventsMenuViewModel.hidePopup();
 
-      expect(eventsMenuViewModel.value.showRemoveEventPopup, false);
+      expect(eventsMenuViewModel.value.showRemoveEventPopup,
+          const PopupData.initial());
     });
 
     group('Create Event', () {
@@ -116,6 +123,8 @@ void main() {
             .getEventsMenuRepository()
             .createEvent(eventName));
         expect(await eventsMenuViewModel.createEvent(eventName), false);
+        expect(eventsMenuViewModel.value.showCreateEventPopup,
+            const PopupData.error("Deve inserir um nome!"));
       });
     });
 
@@ -145,6 +154,8 @@ void main() {
             .getEventsMenuRepository()
             .removeEvent(eventName));
         expect(await eventsMenuViewModel.removeEvent(eventName), false);
+        expect(eventsMenuViewModel.value.showRemoveEventPopup,
+            const PopupData.error("Nenhum evento selecionado!"));
       });
     });
   });

@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
 import 'package:the_sss_store/view_model/view_model.dart';
 import 'package:the_sss_store/repository/storages_menu_repository.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 @injectable
 class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
@@ -39,8 +40,8 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   void _updateState({
     List<StorageButtonData>? button,
     bool? isLoading,
-    bool? showCreateStoragePopup,
-    bool? showRemoveStoragePopup,
+    PopupData? showCreateStoragePopup,
+    PopupData? showRemoveStoragePopup,
   }) {
     button ??= value.storageButtonData;
     isLoading ??= value.showLoading;
@@ -69,19 +70,24 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   }
 
   void showCreateStoragePopup() {
-    _updateState(showCreateStoragePopup: true);
+    _updateState(showCreateStoragePopup: const PopupData.show());
   }
 
   void showRemoveStoragePopup() {
-    _updateState(showRemoveStoragePopup: true);
+    _updateState(showRemoveStoragePopup: const PopupData.show());
   }
 
   void hidePopup() {
-    _updateState(showCreateStoragePopup: false, showRemoveStoragePopup: false);
+    _updateState(
+        showCreateStoragePopup: const PopupData.initial(),
+        showRemoveStoragePopup: const PopupData.initial());
   }
 
   Future<bool> createStorage(String name) async {
     if (name.isEmpty) {
+      _updateState(
+          showCreateStoragePopup:
+              const PopupData.error("Deve inserir um nome!"));
       return false;
     }
 
@@ -91,6 +97,10 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
 
   Future<bool> removeStorage(String name) async {
     if (name.isEmpty) {
+      //TODO: When a storage is choose, this error should be removed.
+      _updateState(
+          showRemoveStoragePopup:
+              const PopupData.error("Nenhum armazém selecionado!"));
       return false;
     }
 

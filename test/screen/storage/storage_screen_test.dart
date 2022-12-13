@@ -8,6 +8,7 @@ import 'package:the_sss_store/screen/storage/storage_screen.dart';
 import 'package:the_sss_store/screen/storage/storage_data.dart';
 import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 import 'storage_screen_test.mocks.dart';
 
@@ -32,8 +33,8 @@ void main() {
           itemData: [],
           showEmptyState: false,
           showLoading: true,
-          showAddItemPopup: false,
-          showRemoveItemPopup: false));
+          showAddItemPopup: PopupData.initial(),
+          showRemoveItemPopup: PopupData.initial()));
 
       await tester.pumpWidget(createProgressBar(viewModel));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -65,8 +66,8 @@ void main() {
           itemData: [],
           showEmptyState: true,
           showLoading: true,
-          showAddItemPopup: false,
-          showRemoveItemPopup: false));
+          showAddItemPopup: PopupData.initial(),
+          showRemoveItemPopup: PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
@@ -210,8 +211,8 @@ void main() {
           itemData: itemDataList,
           showEmptyState: false,
           showLoading: false,
-          showAddItemPopup: false,
-          showRemoveItemPopup: false));
+          showAddItemPopup: const PopupData.initial(),
+          showRemoveItemPopup: const PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createItemList(viewModel)));
 
@@ -259,8 +260,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: true,
-            showRemoveItemPopup: false));
+            showAddItemPopup: PopupData.show(),
+            showRemoveItemPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
@@ -284,8 +285,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: false,
-            showRemoveItemPopup: false));
+            showAddItemPopup: PopupData.initial(),
+            showRemoveItemPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createAddItemPopup(viewModel)));
@@ -311,8 +312,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: false,
-            showRemoveItemPopup: true));
+            showAddItemPopup: PopupData.initial(),
+            showRemoveItemPopup: PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
@@ -335,8 +336,8 @@ void main() {
             itemData: [],
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: false,
-            showRemoveItemPopup: false));
+            showAddItemPopup: PopupData.initial(),
+            showRemoveItemPopup: PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
@@ -358,8 +359,8 @@ void main() {
             itemData: itemDataList,
             showEmptyState: false,
             showLoading: false,
-            showAddItemPopup: false,
-            showRemoveItemPopup: true));
+            showAddItemPopup: const PopupData.initial(),
+            showRemoveItemPopup: const PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));

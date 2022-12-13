@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
 import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_data.dart';
@@ -6,6 +7,7 @@ import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
 import 'package:the_sss_store/screen/event/event_screen.dart';
+import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 
 class EventsMenuScreenRoute extends AppRoute {
   EventsMenuScreenRoute()
@@ -290,15 +292,15 @@ class CreateEventPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<EventsMenuData, bool>(
+    return Selector<EventsMenuData, PopupData>(
       selector: (_, data) => data.showCreateEventPopup,
-      builder: (context, showAddEventPopup, _) => Visibility(
-        visible: showAddEventPopup,
+      builder: (context, showCreateEventPopup, _) => Visibility(
+        visible: showCreateEventPopup.visible,
         child: AlertDialog(
           title: const Text('Adicionar Evento'),
           content: SingleChildScrollView(
             child: SizedBox(
-              height: 130,
+              height: 150,
               child: Column(
                 children: <Widget>[
                   Container(
@@ -311,6 +313,7 @@ class CreateEventPopup extends StatelessWidget {
                       ),
                     ),
                   ),
+                  ErrorPopupLabel(errorText: showCreateEventPopup.error),
                   Row(
                     children: [
                       TextButton(
@@ -379,10 +382,10 @@ class RemoveEventPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<EventsMenuData, bool>(
+    return Selector<EventsMenuData, PopupData>(
       selector: (_, data) => data.showRemoveEventPopup,
       builder: (context, showRemoveEventPopup, _) => Visibility(
-        visible: showRemoveEventPopup,
+        visible: showRemoveEventPopup.visible,
         child: AlertDialog(
           title: const Text('Remover Evento'),
           content: SingleChildScrollView(
@@ -399,6 +402,7 @@ class RemoveEventPopup extends StatelessWidget {
                   height: 20,
                 ),
                 _removeLabelName(),
+                ErrorPopupLabel(errorText: showRemoveEventPopup.error),
               ],
             ),
           ),

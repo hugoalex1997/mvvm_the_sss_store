@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/model/event.dart';
 import 'package:the_sss_store/screen/state_data.dart';
 
@@ -15,14 +16,15 @@ class EventsMenuData extends StateData {
       : eventButtonData = const [],
         showLoading = false,
         showEmptyState = false,
-        showCreateEventPopup = false,
-        showRemoveEventPopup = false;
+        showCreateEventPopup = const PopupData.initial(),
+        showRemoveEventPopup = const PopupData.initial();
 
   final List<EventButtonData> eventButtonData;
   final bool showLoading;
   final bool showEmptyState;
-  final bool showCreateEventPopup;
-  final bool showRemoveEventPopup;
+  //TODO: This variables should be renamed
+  final PopupData showCreateEventPopup;
+  final PopupData showRemoveEventPopup;
 
   @override
   List<Object?> get props => [

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/model/item.dart';
 import 'package:the_sss_store/screen/storage/storage_data.dart';
 
@@ -9,8 +10,8 @@ void main() {
         itemData: [],
         showEmptyState: false,
         showLoading: false,
-        showAddItemPopup: false,
-        showRemoveItemPopup: false);
+        showAddItemPopup: PopupData.initial(),
+        showRemoveItemPopup: PopupData.initial());
 
     StorageData initialData = const StorageData.initial();
 

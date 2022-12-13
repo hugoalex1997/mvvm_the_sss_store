@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:the_sss_store/inject/dependency_injection.dart';
 
-import 'package:the_sss_store/widget/global_provider.dart';
+import 'package:the_sss_store/common/widgets/global_provider.dart';
 import 'package:the_sss_store/navigation/go_router.dart';
 
 import 'package:go_router/go_router.dart';

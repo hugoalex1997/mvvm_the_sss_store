@@ -158,7 +158,7 @@ class MockStorageViewModel extends _i1.Mock implements _i4.StorageViewModel {
   @override
   _i5.Future<bool> addItem(
     String? name,
-    int? stock,
+    String? stock,
   ) =>
       (super.noSuchMethod(
         Invocation.method(

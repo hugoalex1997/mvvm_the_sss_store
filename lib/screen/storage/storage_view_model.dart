@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:the_sss_store/screen/storage/storage_data.dart';
 import 'package:the_sss_store/view_model/view_model.dart';
 import 'package:the_sss_store/repository/storage_repository.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 @injectable
 class StorageViewModel extends ViewModel<StorageData> {
@@ -43,8 +44,8 @@ class StorageViewModel extends ViewModel<StorageData> {
   void _updateState({
     List<ItemData>? item,
     bool? isLoading,
-    bool? showAddItemPopup,
-    bool? showRemoveItemPopup,
+    PopupData? showAddItemPopup,
+    PopupData? showRemoveItemPopup,
   }) {
     item ??= value.itemData;
     isLoading ??= value.showLoading;
@@ -74,32 +75,53 @@ class StorageViewModel extends ViewModel<StorageData> {
   }
 
   void showAddItemPopup() {
-    _updateState(showAddItemPopup: true);
+    _updateState(showAddItemPopup: const PopupData.show());
   }
 
   void showRemoveItemPopup() {
-    _updateState(showRemoveItemPopup: true);
+    _updateState(showRemoveItemPopup: const PopupData.show());
   }
 
   void hidePopup() {
-    _updateState(showAddItemPopup: false, showRemoveItemPopup: false);
+    _updateState(
+        showAddItemPopup: const PopupData.initial(),
+        showRemoveItemPopup: const PopupData.initial());
   }
 
-  Future<bool> addItem(String name, int stock) async {
+  Future<bool> addItem(String name, String stock) async {
     if (name.isEmpty) {
+      _updateState(
+          showAddItemPopup: const PopupData.error("Deve inserir um nome!"));
       return false;
     }
 
-    if (stock <= 0) {
+    int stockValue = 0;
+    try {
+      stockValue = int.parse(stock);
+    } catch (error) {
+      _updateState(
+          showAddItemPopup:
+              const PopupData.error("Stock Total é um número inválido!"));
       return false;
     }
 
-    _storageRepository.addItem(documentID, name, stock);
+    if (stockValue <= 0) {
+      _updateState(
+          showAddItemPopup:
+              const PopupData.error("Stock Total deve ser superior a 0!"));
+      return false;
+    }
+
+    _storageRepository.addItem(documentID, name, stockValue);
     return true;
   }
 
   Future<bool> removeItem(String name) async {
     if (name.isEmpty) {
+      //TODO: When an item is chosen, this error must be removed.
+      _updateState(
+          showRemoveItemPopup:
+              const PopupData.error("Nenhum item selecionado"));
       return false;
     }
 

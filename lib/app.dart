@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:the_sss_store/widget/global_provider.dart';
+import 'package:the_sss_store/common/widgets/global_provider.dart';
 
 class App extends StatelessWidget {
   const App({

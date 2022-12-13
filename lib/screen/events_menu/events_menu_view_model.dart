@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_data.dart';
 import 'package:the_sss_store/view_model/view_model.dart';
 import 'package:the_sss_store/repository/events_menu_repository.dart';
@@ -38,8 +39,8 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   void _updateState({
     List<EventButtonData>? button,
     bool? isLoading,
-    bool? showCreateEventPopup,
-    bool? showRemoveEventPopup,
+    PopupData? showCreateEventPopup,
+    PopupData? showRemoveEventPopup,
   }) {
     button ??= value.eventButtonData;
     isLoading ??= value.showLoading;
@@ -68,19 +69,23 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   }
 
   void showCreateEventPopup() {
-    _updateState(showCreateEventPopup: true);
+    _updateState(showCreateEventPopup: const PopupData.show());
   }
 
   void showRemoveEventPopup() {
-    _updateState(showRemoveEventPopup: true);
+    _updateState(showRemoveEventPopup: const PopupData.show());
   }
 
   void hidePopup() {
-    _updateState(showCreateEventPopup: false, showRemoveEventPopup: false);
+    _updateState(
+        showCreateEventPopup: const PopupData.initial(),
+        showRemoveEventPopup: const PopupData.initial());
   }
 
   Future<bool> createEvent(String name) async {
     if (name.isEmpty) {
+      _updateState(
+          showCreateEventPopup: const PopupData.error("Deve inserir um nome!"));
       return false;
     }
 
@@ -90,6 +95,10 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
 
   Future<bool> removeEvent(String name) async {
     if (name.isEmpty) {
+      //TODO: When an event is chosen, this error must be removed.
+      _updateState(
+          showRemoveEventPopup:
+              const PopupData.error("Nenhum evento selecionado!"));
       return false;
     }
 

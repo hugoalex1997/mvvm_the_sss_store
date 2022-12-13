@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
 import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
@@ -6,6 +7,7 @@ import 'package:the_sss_store/screen/storages_menu/storages_menu_view_model.dart
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
 import 'package:the_sss_store/screen/storage/storage_screen.dart';
+import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 
 //TODO: Analyze the possibility of removing duplicate code between the storage menu and the event menu
 class StoragesMenuScreenRoute extends AppRoute {
@@ -302,15 +304,15 @@ class CreateStoragePopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<StoragesMenuData, bool>(
+    return Selector<StoragesMenuData, PopupData>(
       selector: (_, data) => data.showCreateStoragePopup,
       builder: (context, showCreateStoragePopup, _) => Visibility(
-        visible: showCreateStoragePopup,
+        visible: showCreateStoragePopup.visible,
         child: AlertDialog(
           title: const Text('Adicionar Armazém'),
           content: SingleChildScrollView(
             child: SizedBox(
-              height: 130,
+              height: 150,
               child: Column(
                 children: <Widget>[
                   Container(
@@ -323,6 +325,7 @@ class CreateStoragePopup extends StatelessWidget {
                       ),
                     ),
                   ),
+                  ErrorPopupLabel(errorText: showCreateStoragePopup.error),
                   Row(
                     children: [
                       TextButton(
@@ -392,10 +395,10 @@ class RemoveStoragePopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<StoragesMenuData, bool>(
+    return Selector<StoragesMenuData, PopupData>(
       selector: (_, data) => data.showRemoveStoragePopup,
       builder: (context, showRemoveStoragePopup, _) => Visibility(
-        visible: showRemoveStoragePopup,
+        visible: showRemoveStoragePopup.visible,
         child: AlertDialog(
           title: const Text('Remover Armazém'),
           content: SingleChildScrollView(
@@ -412,6 +415,8 @@ class RemoveStoragePopup extends StatelessWidget {
                   height: 20,
                 ),
                 _removeLabelName(),
+                const SizedBox(height: 10),
+                ErrorPopupLabel(errorText: showRemoveStoragePopup.error),
               ],
             ),
           ),

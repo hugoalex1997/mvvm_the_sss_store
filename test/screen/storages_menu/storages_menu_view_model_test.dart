@@ -7,6 +7,7 @@ import 'package:the_sss_store/screen/storages_menu/storages_menu_view_model.dart
 import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/model/storage.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 import './storages_menu_view_model_test.mocks.dart';
 
@@ -63,32 +64,38 @@ void main() {
       verify(storagesMenuRepository.fetchStorageList()).called(1);
     });
 
-    test('Create Storage Popup flag is updated correctly', () async {
+    test('Create Storage Popup data is updated correctly', () async {
       await storagesMenuViewModel.init();
 
-      expect(storagesMenuViewModel.value.showCreateStoragePopup, false);
+      expect(storagesMenuViewModel.value.showCreateStoragePopup,
+          const PopupData.initial());
 
       storagesMenuViewModel.showCreateStoragePopup();
 
-      expect(storagesMenuViewModel.value.showCreateStoragePopup, true);
+      expect(storagesMenuViewModel.value.showCreateStoragePopup,
+          const PopupData.show());
 
       storagesMenuViewModel.hidePopup();
 
-      expect(storagesMenuViewModel.value.showCreateStoragePopup, false);
+      expect(storagesMenuViewModel.value.showCreateStoragePopup,
+          const PopupData.initial());
     });
 
-    test('Remove Storage Popup flag is updated correctly', () async {
+    test('Remove Storage Popup data is updated correctly', () async {
       await storagesMenuViewModel.init();
 
-      expect(storagesMenuViewModel.value.showRemoveStoragePopup, false);
+      expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+          const PopupData.initial());
 
       storagesMenuViewModel.showRemoveStoragePopup();
 
-      expect(storagesMenuViewModel.value.showRemoveStoragePopup, true);
+      expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+          const PopupData.show());
 
       storagesMenuViewModel.hidePopup();
 
-      expect(storagesMenuViewModel.value.showRemoveStoragePopup, false);
+      expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+          const PopupData.initial());
     });
 
     group('Create Storage', () {
@@ -117,6 +124,8 @@ void main() {
             .getStoragesMenuRepository()
             .createStorage(storageName));
         expect(await storagesMenuViewModel.createStorage(storageName), false);
+        expect(storagesMenuViewModel.value.showCreateStoragePopup,
+            const PopupData.error("Deve inserir um nome!"));
       });
     });
 
@@ -146,6 +155,8 @@ void main() {
             .getStoragesMenuRepository()
             .removeStorage(storageName));
         expect(await storagesMenuViewModel.removeStorage(storageName), false);
+        expect(storagesMenuViewModel.value.showRemoveStoragePopup,
+            const PopupData.error("Nenhum armazém selecionado!"));
       });
     });
   });

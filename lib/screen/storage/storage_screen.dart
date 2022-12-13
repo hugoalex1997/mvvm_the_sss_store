@@ -6,6 +6,8 @@ import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/storage/storage_data.dart';
 import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
+import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 
 class StorageScreenRoute extends AppRoute {
   StorageScreenRoute()
@@ -306,15 +308,8 @@ class AddItemPopup extends StatelessWidget {
   final TextEditingController stockController = TextEditingController();
 
   Future<void> _confirmButtonTap() async {
-    int stock = 0;
-    try {
-      stock = int.parse(stockController.text);
-    } catch (error) {
-      debugPrint("Handle Error");
-      return;
-    }
-
-    bool isCreated = await viewModel.addItem(nameController.text, stock);
+    bool isCreated =
+        await viewModel.addItem(nameController.text, stockController.text);
 
     if (isCreated) {
       nameController.text = "";
@@ -329,15 +324,15 @@ class AddItemPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<StorageData, bool>(
+    return Selector<StorageData, PopupData>(
       selector: (_, data) => data.showAddItemPopup,
       builder: (context, showAddItemPopup, _) => Visibility(
-        visible: showAddItemPopup,
+        visible: showAddItemPopup.visible,
         child: AlertDialog(
           title: const Text('Adicionar Item'),
           content: SingleChildScrollView(
             child: SizedBox(
-              height: 200,
+              height: 220,
               child: Column(
                 children: <Widget>[
                   Column(
@@ -365,6 +360,7 @@ class AddItemPopup extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
+                  ErrorPopupLabel(errorText: showAddItemPopup.error),
                   Row(
                     children: [
                       TextButton(
@@ -434,10 +430,10 @@ class RemoveItemPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<StorageData, bool>(
+    return Selector<StorageData, PopupData>(
       selector: (_, data) => data.showRemoveItemPopup,
       builder: (context, showRemoveItemPopup, _) => Visibility(
-        visible: showRemoveItemPopup,
+        visible: showRemoveItemPopup.visible,
         child: AlertDialog(
           title: const Text('Remover Item'),
           content: SingleChildScrollView(
@@ -454,6 +450,8 @@ class RemoveItemPopup extends StatelessWidget {
                   height: 20,
                 ),
                 _removeLabelName(),
+                const SizedBox(height: 10.0),
+                ErrorPopupLabel(errorText: showRemoveItemPopup.error),
               ],
             ),
           ),

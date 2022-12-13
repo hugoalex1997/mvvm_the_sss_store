@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:the_sss_store/screen/state_data.dart';
 import 'package:the_sss_store/model/item.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 class StorageData extends StateData {
   const StorageData({
@@ -17,15 +18,16 @@ class StorageData extends StateData {
         itemData = const [],
         showLoading = false,
         showEmptyState = false,
-        showAddItemPopup = false,
-        showRemoveItemPopup = false;
+        showAddItemPopup = const PopupData.initial(),
+        showRemoveItemPopup = const PopupData.initial();
 
   final String name;
   final List<ItemData> itemData;
   final bool showLoading;
   final bool showEmptyState;
-  final bool showAddItemPopup;
-  final bool showRemoveItemPopup;
+  //TODO: This variables should be renamed
+  final PopupData showAddItemPopup;
+  final PopupData showRemoveItemPopup;
 
   @override
   List<Object?> get props => [

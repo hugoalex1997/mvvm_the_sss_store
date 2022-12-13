@@ -7,6 +7,7 @@ import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/model/item.dart';
 import 'package:the_sss_store/screen/storage/storage_data.dart';
+import 'package:the_sss_store/common/data/popup_data.dart';
 
 import 'storage_view_model_test.mocks.dart';
 
@@ -65,76 +66,99 @@ void main() {
       verify(storageRepository.fetchItemList(documentID)).called(1);
     });
 
-    test('Add item popup flag is updated correctly', () async {
+    test('Add item popup data is updated correctly', () async {
       await storageViewModel.init(documentID, storageName);
 
-      expect(storageViewModel.value.showAddItemPopup, false);
+      expect(
+          storageViewModel.value.showAddItemPopup, const PopupData.initial());
 
       storageViewModel.showAddItemPopup();
 
-      expect(storageViewModel.value.showAddItemPopup, true);
+      expect(storageViewModel.value.showAddItemPopup, const PopupData.show());
 
       storageViewModel.hidePopup();
 
-      expect(storageViewModel.value.showAddItemPopup, false);
+      expect(
+          storageViewModel.value.showAddItemPopup, const PopupData.initial());
     });
 
-    test('Remove item opup flag is updated correctly', () async {
+    test('Remove item opup data is updated correctly', () async {
       await storageViewModel.init(documentID, storageName);
 
-      expect(storageViewModel.value.showRemoveItemPopup, false);
+      expect(storageViewModel.value.showRemoveItemPopup,
+          const PopupData.initial());
 
       storageViewModel.showRemoveItemPopup();
 
-      expect(storageViewModel.value.showRemoveItemPopup, true);
+      expect(
+          storageViewModel.value.showRemoveItemPopup, const PopupData.show());
 
       storageViewModel.hidePopup();
 
-      expect(storageViewModel.value.showRemoveItemPopup, false);
+      expect(storageViewModel.value.showRemoveItemPopup,
+          const PopupData.initial());
     });
 
     group('Create Item', () {
       test('Can create a Item', () async {
         String itemName = "cadeira";
+        String stockString = "30";
         int stock = 30;
 
         await storageViewModel.init(documentID, storageName);
 
-        storageViewModel.addItem(itemName, stock);
+        storageViewModel.addItem(itemName, stockString);
 
         verify(storageViewModel
                 .getStorageRepository()
                 .addItem(documentID, itemName, stock))
             .called(1);
-        expect(await storageViewModel.addItem(itemName, stock), true);
+        expect(await storageViewModel.addItem(itemName, stockString), true);
       });
 
       test('Cant create a Item without a name', () async {
         String itemName = "";
-        int stock = 30;
+        String stockString = "30";
+        int stockValue = 30;
 
         await storageViewModel.init(documentID, storageName);
 
-        storageViewModel.addItem(itemName, stock);
+        storageViewModel.addItem(itemName, stockString);
 
         verifyNever(storageViewModel
             .getStorageRepository()
-            .addItem(documentID, itemName, stock));
-        expect(await storageViewModel.addItem(itemName, stock), false);
+            .addItem(documentID, itemName, stockValue));
+        expect(await storageViewModel.addItem(itemName, stockString), false);
       });
 
       test('Cant create an Item with stock 0', () async {
         String itemName = "mesa";
-        int stock = 0;
+        String stockString = "0";
+        int stockValue = 0;
 
         await storageViewModel.init(documentID, storageName);
 
-        storageViewModel.addItem(itemName, stock);
+        storageViewModel.addItem(itemName, stockString);
 
         verifyNever(storageViewModel
             .getStorageRepository()
-            .addItem(documentID, itemName, stock));
-        expect(await storageViewModel.addItem(itemName, stock), false);
+            .addItem(documentID, itemName, stockValue));
+        expect(await storageViewModel.addItem(itemName, stockString), false);
+        expect(storageViewModel.value.showAddItemPopup,
+            const PopupData.error("Stock Total deve ser superior a 0!"));
+      });
+
+      test('Cant create an Item when stock value is not a number', () async {
+        String itemName = "mesa";
+        String stockString = "s";
+
+        await storageViewModel.init(documentID, storageName);
+
+        storageViewModel.addItem(itemName, stockString);
+
+        expect(await storageViewModel.addItem(itemName, stockString), false);
+        expect(storageViewModel.value.showAddItemPopup,
+            const PopupData.error("Stock Total é um número inválido!"));
       });
     });
 
@@ -165,6 +189,8 @@ void main() {
             .removeItem(documentID, itemName));
 
         expect(await storageViewModel.removeItem(itemName), false);
+        expect(storageViewModel.value.showRemoveItemPopup,
+            const PopupData.error("Nenhum item selecionado"));
       });
     });
   });
