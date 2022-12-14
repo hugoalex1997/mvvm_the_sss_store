@@ -1,32 +1,42 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
-import 'package:the_sss_store/screen/events_menu/events_menu_data.dart';
-import 'package:the_sss_store/model/event.dart';
 
 void main() {
   test('initial method is returning the correct data', () {
-    EventsMenuData eventsMenuData = const EventsMenuData(
-        eventButtonData: [],
-        showEmptyState: false,
-        showLoading: false,
-        createEventPopup: PopupData.initial(),
-        removeEventPopup: PopupData.initial());
+    PopupData popupData = const PopupData(visible: false, error: "");
 
-    EventsMenuData initialData = const EventsMenuData.initial();
+    PopupData initialData = const PopupData.initial();
 
-    expect(initialData, eventsMenuData);
+    expect(initialData, popupData);
   });
 
-  test('Event Button Data is correctly created from a Event Class instance',
-      () {
-    EventButtonData eventButtonData = const EventButtonData(name: "norte");
-    Event event1 = const Event(name: "norte", documentID: "4435");
-    Event event2 = const Event(name: "sul", documentID: "4435");
+  test('show method is returning the correct data', () {
+    PopupData popupData = const PopupData(visible: true, error: "");
 
-    EventButtonData newEventButtonData1 = EventButtonData.fromEvent(event1);
-    EventButtonData newEventButtonData2 = EventButtonData.fromEvent(event2);
+    PopupData initialData = const PopupData.show();
 
-    expect(eventButtonData, newEventButtonData1);
-    expect(eventButtonData != newEventButtonData2, true);
+    expect(initialData, popupData);
+  });
+
+  test('error method is returning the correct data', () {
+    String error = "test_error";
+    PopupData popupData = PopupData(visible: true, error: error);
+
+    PopupData initialData = PopupData.error(error);
+
+    expect(initialData, popupData);
+  });
+
+  test('Event Button Data is correctly created from a Event Class instance', () {
+    String error = "test_error";
+    PopupData popupData = PopupData(visible: true, error: error);
+
+    PopupData initialData1 = popupData.copyWith();
+    PopupData initialData2 = popupData.copyWith(visible: true, error: error);
+    PopupData initialData3 = popupData.copyWith(visible: false, error: "");
+
+    expect(initialData1, popupData);
+    expect(initialData2, popupData);
+    expect(initialData3 != popupData, true);
   });
 }
