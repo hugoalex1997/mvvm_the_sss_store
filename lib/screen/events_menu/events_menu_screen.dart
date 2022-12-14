@@ -8,6 +8,7 @@ import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
 import 'package:the_sss_store/screen/event/event_screen.dart';
 import 'package:the_sss_store/common/widgets/error_popup_label.dart';
+import 'package:the_sss_store/common/utils.dart';
 
 class EventsMenuScreenRoute extends AppRoute {
   EventsMenuScreenRoute()
@@ -290,9 +291,31 @@ class CreateEventPopup extends StatelessWidget {
     viewModel.hidePopup();
   }
 
+  void _startDateButtonTap(BuildContext context) {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2200))
+        .then((date) {
+      viewModel.updateStartDate(date);
+    });
+  }
+
+  void _endDateButtonTap(BuildContext context) {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2200))
+        .then((date) {
+      viewModel.updateEndDate(date);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Selector<EventsMenuData, PopupData>(
+    return Selector<EventsMenuData, CreateEventPopupData>(
       selector: (_, data) => data.createEventPopup,
       builder: (context, createEventPopup, _) => Visibility(
         visible: createEventPopup.visible,
@@ -300,20 +323,41 @@ class CreateEventPopup extends StatelessWidget {
           title: const Text('Adicionar Evento'),
           content: SingleChildScrollView(
             child: SizedBox(
-              height: 150,
+              height: 270,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: TextField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nome do Evento',
-                      ),
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome do Evento',
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Text("Data de Início: "),
+                      TextButton(
+                        child: Text(
+                            Utils.dateToString(createEventPopup.startDate)),
+                        onPressed: () => _startDateButtonTap(context),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Text("Data de Fim: "),
+                      TextButton(
+                        child:
+                            Text(Utils.dateToString(createEventPopup.endDate)),
+                        onPressed: () => _endDateButtonTap(context),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
                   ErrorPopupLabel(errorText: createEventPopup.error),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       TextButton(
@@ -422,3 +466,50 @@ class RemoveEventPopup extends StatelessWidget {
     );
   }
 }
+
+// class EventDatePickerButton extends StatefulWidget {
+//   EventDatePickerButton({
+//     Key? key,
+//     required this.text,
+//   }) : super(key: key);
+
+//   final String text;
+//   DateTime? dateTime;
+
+//   @override
+//   State<EventDatePickerButton> createState() => _EventDatePickerButtonState();
+// }
+
+// class _EventDatePickerButtonState extends State<EventDatePickerButton> {
+//   String buildDate(DateTime? date) {
+//     if (date == null) {
+//       return "";
+//     } else {
+//       return ": " "${date.day}" "-" "${date.month}" "-" "${date.year}";
+//     }
+//   }
+
+//   TextButton dateButton(String initialText) {
+//     return TextButton(
+//       style: TextButton.styleFrom(
+//         backgroundColor: Colors.blue,
+//         foregroundColor: Colors.black,
+//       ),
+//       onPressed: () {
+//         showDatePicker(
+//                 context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2200))
+//             .then((date) {
+//           setState(() {
+//             widget.dateTime = date;
+//           });
+//         });
+//       },
+//       child: Text("$initialText" "${buildDate(widget.dateTime)}"),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return dateButton(widget.text);
+//   }
+// }

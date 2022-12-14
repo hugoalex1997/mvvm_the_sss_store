@@ -55,10 +55,19 @@ class MockEventsMenuRepository extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  void createEvent(String? name) => super.noSuchMethod(
+  void createEvent(
+    String? name,
+    DateTime? startDate,
+    DateTime? endDate,
+  ) =>
+      super.noSuchMethod(
         Invocation.method(
           #createEvent,
-          [name],
+          [
+            name,
+            startDate,
+            endDate,
+          ],
         ),
         returnValueForMissingStub: null,
       );

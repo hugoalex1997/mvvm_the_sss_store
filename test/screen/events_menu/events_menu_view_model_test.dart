@@ -17,11 +17,23 @@ void main() {
   MockEventsMenuRepository eventsMenuRepository = MockEventsMenuRepository();
   EventsMenuViewModel eventsMenuViewModel =
       EventsMenuViewModel(eventsMenuRepository);
-
+  DateTime testDate = DateTime.now();
   List<Event> eventListForTests = [
-    const Event(name: "event1", documentID: "document1"),
-    const Event(name: "event2", documentID: "document2"),
-    const Event(name: "event3", documentID: "document3"),
+    Event(
+        name: "event1",
+        documentID: "document1",
+        startDate: testDate,
+        endDate: testDate),
+    Event(
+        name: "event2",
+        documentID: "document2",
+        startDate: testDate,
+        endDate: testDate),
+    Event(
+        name: "event3",
+        documentID: "document3",
+        startDate: testDate,
+        endDate: testDate),
   ];
 
   setUp(() {
@@ -35,7 +47,19 @@ void main() {
 
   group('Test Events Menu View Model', () {
     test('Events Menu View Model constructor', () async {
-      expect(eventsMenuViewModel.value, const EventsMenuData.initial());
+      expect(eventsMenuViewModel.value.eventButtonData,
+          EventsMenuData.initial().eventButtonData);
+      expect(eventsMenuViewModel.value.showEmptyState,
+          EventsMenuData.initial().showEmptyState);
+      expect(eventsMenuViewModel.value.showLoading,
+          EventsMenuData.initial().showLoading);
+      expect(eventsMenuViewModel.value.removeEventPopup,
+          EventsMenuData.initial().removeEventPopup);
+      //NOTE: This is expected since timestamp of each initial method call is different
+      expect(
+          eventsMenuViewModel.value.createEventPopup !=
+              EventsMenuData.initial().createEventPopup,
+          true);
     });
     test('Init fetching an empty list', () async {
       when(eventsMenuRepository.observeEventList()).thenAnswer((_) {
@@ -66,18 +90,18 @@ void main() {
     test('Create Event Popup data is updated correctly', () async {
       await eventsMenuViewModel.init();
 
-      expect(eventsMenuViewModel.value.createEventPopup,
-          const PopupData.initial());
+      expect(eventsMenuViewModel.value.createEventPopup.visible,
+          CreateEventPopupData.initial().visible);
 
       eventsMenuViewModel.showCreateEventPopup();
 
-      expect(
-          eventsMenuViewModel.value.createEventPopup, const PopupData.show());
+      expect(eventsMenuViewModel.value.createEventPopup.visible,
+          CreateEventPopupData.show().visible);
 
       eventsMenuViewModel.hidePopup();
 
-      expect(eventsMenuViewModel.value.createEventPopup,
-          const PopupData.initial());
+      expect(eventsMenuViewModel.value.createEventPopup.visible,
+          CreateEventPopupData.initial().visible);
     });
 
     test('Remove Event Popup data is updated correctly', () async {
@@ -103,11 +127,14 @@ void main() {
 
         await eventsMenuViewModel.init();
 
+        eventsMenuViewModel.setStartDate(testDate);
+        eventsMenuViewModel.setEndDate(testDate);
+
         eventsMenuViewModel.createEvent(eventName);
 
         verify(eventsMenuViewModel
                 .getEventsMenuRepository()
-                .createEvent(eventName))
+                .createEvent(eventName, testDate, testDate))
             .called(1);
         expect(await eventsMenuViewModel.createEvent(eventName), true);
       });
@@ -117,15 +144,20 @@ void main() {
 
         await eventsMenuViewModel.init();
 
+        eventsMenuViewModel.setStartDate(testDate);
+        eventsMenuViewModel.setEndDate(testDate);
+
         eventsMenuViewModel.createEvent(eventName);
 
         verifyNever(eventsMenuViewModel
             .getEventsMenuRepository()
-            .createEvent(eventName));
+            .createEvent(eventName, testDate, testDate));
         expect(await eventsMenuViewModel.createEvent(eventName), false);
-        expect(eventsMenuViewModel.value.createEventPopup,
-            const PopupData.error("Deve inserir um nome!"));
+        expect(eventsMenuViewModel.value.createEventPopup.error,
+            CreateEventPopupData.error("Deve inserir um nome!").error);
       });
+
+      //TODO: Add tests to startDate and EndDate scenarios
     });
 
     group('Remove Event ', () {

@@ -27,7 +27,8 @@ void main() {
     expect(initialData, popupData);
   });
 
-  test('Event Button Data is correctly created from a Event Class instance', () {
+  test('Event Button Data is correctly created from a Event Class instance',
+      () {
     String error = "test_error";
     PopupData popupData = PopupData(visible: true, error: error);
 

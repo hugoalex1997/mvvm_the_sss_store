@@ -5,23 +5,38 @@ import 'package:the_sss_store/model/event.dart';
 
 void main() {
   test('initial method is returning the correct data', () {
-    EventsMenuData eventsMenuData = const EventsMenuData(
-        eventButtonData: [],
+    EventsMenuData eventsMenuData = EventsMenuData(
+        eventButtonData: const [],
         showEmptyState: false,
         showLoading: false,
-        createEventPopup: PopupData.initial(),
-        removeEventPopup: PopupData.initial());
+        createEventPopup: CreateEventPopupData.initial(),
+        removeEventPopup: const PopupData.initial());
 
-    EventsMenuData initialData = const EventsMenuData.initial();
+    EventsMenuData initialData = EventsMenuData.initial();
 
-    expect(initialData, eventsMenuData);
+    expect(initialData.eventButtonData, eventsMenuData.eventButtonData);
+    expect(initialData.showEmptyState, eventsMenuData.showEmptyState);
+    expect(initialData.showLoading, eventsMenuData.showLoading);
+    expect(initialData.removeEventPopup, eventsMenuData.removeEventPopup);
+    //NOTE: This is expected since timestamp of each initial method call is different
+    expect(
+        initialData.createEventPopup != eventsMenuData.createEventPopup, true);
   });
 
   test('Event Button Data is correctly created from a Event Class instance',
       () {
-    EventButtonData eventButtonData = const EventButtonData(name: "norte");
-    Event event1 = const Event(name: "norte", documentID: "4435");
-    Event event2 = const Event(name: "sul", documentID: "4435");
+    DateTime testDate = DateTime.now();
+    EventButtonData eventButtonData = const EventButtonData(name: "Queima");
+    Event event1 = Event(
+        name: "Queima",
+        documentID: "4435",
+        startDate: testDate,
+        endDate: testDate);
+    Event event2 = Event(
+        name: "Sudoeste",
+        documentID: "4435",
+        startDate: testDate,
+        endDate: testDate);
 
     EventButtonData newEventButtonData1 = EventButtonData.fromEvent(event1);
     EventButtonData newEventButtonData2 = EventButtonData.fromEvent(event2);

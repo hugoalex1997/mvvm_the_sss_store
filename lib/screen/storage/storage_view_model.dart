@@ -6,6 +6,7 @@ import 'package:the_sss_store/screen/storage/storage_data.dart';
 import 'package:the_sss_store/view_model/view_model.dart';
 import 'package:the_sss_store/repository/storage_repository.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
+import 'package:the_sss_store/common/data/item_data.dart';
 
 @injectable
 class StorageViewModel extends ViewModel<StorageData> {

@@ -10,11 +10,24 @@ import 'package:the_sss_store/repository/events_menu_repository.dart';
 @injectable
 class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   EventsMenuViewModel(this._eventsMenuRepository)
-      : super(const EventsMenuData.initial());
+      : super(EventsMenuData.initial());
 
   final EventsMenuRepository _eventsMenuRepository;
 
   StreamSubscription<List<EventButtonData>>? _eventsSub;
+
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+
+  @visibleForTesting
+  void setStartDate(DateTime date) {
+    startDate = date;
+  }
+
+  @visibleForTesting
+  void setEndDate(DateTime date) {
+    endDate = date;
+  }
 
   @visibleForTesting
   EventsMenuRepository getEventsMenuRepository() {
@@ -39,7 +52,7 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   void _updateState({
     List<EventButtonData>? button,
     bool? isLoading,
-    PopupData? createEventPopup,
+    CreateEventPopupData? createEventPopup,
     PopupData? removeEventPopup,
   }) {
     button ??= value.eventButtonData;
@@ -69,7 +82,7 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   }
 
   void showCreateEventPopup() {
-    _updateState(createEventPopup: const PopupData.show());
+    _updateState(createEventPopup: CreateEventPopupData.show());
   }
 
   void showRemoveEventPopup() {
@@ -78,18 +91,25 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
 
   void hidePopup() {
     _updateState(
-        createEventPopup: const PopupData.initial(),
+        createEventPopup: CreateEventPopupData.initial(),
         removeEventPopup: const PopupData.initial());
   }
 
   Future<bool> createEvent(String name) async {
     if (name.isEmpty) {
       _updateState(
-          createEventPopup: const PopupData.error("Deve inserir um nome!"));
+          createEventPopup:
+              CreateEventPopupData.error("Deve inserir um nome!"));
       return false;
     }
 
-    _eventsMenuRepository.createEvent(name);
+    if (startDate.compareTo(endDate) > 0) {
+      _updateState(
+          createEventPopup: CreateEventPopupData.error("Data incorreta!"));
+      return false;
+    }
+
+    _eventsMenuRepository.createEvent(name, startDate, endDate);
     return true;
   }
 
@@ -104,5 +124,21 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
 
     _eventsMenuRepository.removeEvent(name);
     return true;
+  }
+
+  void updateStartDate(DateTime? date) {
+    if (date == null) {
+      return;
+    }
+    startDate = date;
+    _updateState(createEventPopup: CreateEventPopupData.startDate(date));
+  }
+
+  void updateEndDate(DateTime? date) {
+    if (date == null) {
+      return;
+    }
+    endDate = date;
+    _updateState(createEventPopup: CreateEventPopupData.endDate(date));
   }
 }

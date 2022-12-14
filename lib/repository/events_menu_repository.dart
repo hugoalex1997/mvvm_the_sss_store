@@ -29,8 +29,8 @@ class EventsMenuRepository {
     _eventListSC.add(_eventList);
   }
 
-  void createEvent(String name) {
-    _eventsMenuFirebase.createEvent(name);
+  void createEvent(String name, DateTime startDate, DateTime endDate) {
+    _eventsMenuFirebase.createEvent(name, startDate, endDate);
     fetchEventList();
   }
 

@@ -23,9 +23,8 @@ import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEventsMenuData_0 extends _i1.SmartFake
-    implements _i2.EventsMenuData {
-  _FakeEventsMenuData_0(
+class _FakeDateTime_0 extends _i1.SmartFake implements DateTime {
+  _FakeDateTime_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,9 +33,20 @@ class _FakeEventsMenuData_0 extends _i1.SmartFake
         );
 }
 
-class _FakeEventsMenuRepository_1 extends _i1.SmartFake
+class _FakeEventsMenuData_1 extends _i1.SmartFake
+    implements _i2.EventsMenuData {
+  _FakeEventsMenuData_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEventsMenuRepository_2 extends _i1.SmartFake
     implements _i3.EventsMenuRepository {
-  _FakeEventsMenuRepository_1(
+  _FakeEventsMenuRepository_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -55,6 +65,38 @@ class MockEventsMenuViewModel extends _i1.Mock
   }
 
   @override
+  DateTime get startDate => (super.noSuchMethod(
+        Invocation.getter(#startDate),
+        returnValue: _FakeDateTime_0(
+          this,
+          Invocation.getter(#startDate),
+        ),
+      ) as DateTime);
+  @override
+  set startDate(DateTime? _startDate) => super.noSuchMethod(
+        Invocation.setter(
+          #startDate,
+          _startDate,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  DateTime get endDate => (super.noSuchMethod(
+        Invocation.getter(#endDate),
+        returnValue: _FakeDateTime_0(
+          this,
+          Invocation.getter(#endDate),
+        ),
+      ) as DateTime);
+  @override
+  set endDate(DateTime? _endDate) => super.noSuchMethod(
+        Invocation.setter(
+          #endDate,
+          _endDate,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   set stateData(_i2.EventsMenuData? value) => super.noSuchMethod(
         Invocation.setter(
           #stateData,
@@ -65,7 +107,7 @@ class MockEventsMenuViewModel extends _i1.Mock
   @override
   _i2.EventsMenuData get value => (super.noSuchMethod(
         Invocation.getter(#value),
-        returnValue: _FakeEventsMenuData_0(
+        returnValue: _FakeEventsMenuData_1(
           this,
           Invocation.getter(#value),
         ),
@@ -76,7 +118,7 @@ class MockEventsMenuViewModel extends _i1.Mock
           #getEventsMenuRepository,
           [],
         ),
-        returnValue: _FakeEventsMenuRepository_1(
+        returnValue: _FakeEventsMenuRepository_2(
           this,
           Invocation.method(
             #getEventsMenuRepository,
@@ -141,6 +183,22 @@ class MockEventsMenuViewModel extends _i1.Mock
         ),
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
+  @override
+  void updateStartDate(DateTime? date) => super.noSuchMethod(
+        Invocation.method(
+          #updateStartDate,
+          [date],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void updateEndDate(DateTime? date) => super.noSuchMethod(
+        Invocation.method(
+          #updateEndDate,
+          [date],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(

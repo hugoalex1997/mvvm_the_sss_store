@@ -12,12 +12,24 @@ import 'events_menu_repository_test.mocks.dart';
 @GenerateMocks([FirebaseEventsMenuAPI])
 void main() {
   initializeGetIt();
-
+  DateTime testDate = DateTime.now();
   void getEventListReturns3Events(MockFirebaseEventsMenuAPI db) {
     when(db.getEventsList()).thenAnswer((_) async => [
-          const Event(name: "event1", documentID: "document1"),
-          const Event(name: "event2", documentID: "document2"),
-          const Event(name: "event3", documentID: "document3"),
+          Event(
+              name: "event1",
+              documentID: "document1",
+              startDate: testDate,
+              endDate: testDate),
+          Event(
+              name: "event2",
+              documentID: "document2",
+              startDate: testDate,
+              endDate: testDate),
+          Event(
+              name: "event3",
+              documentID: "document3",
+              startDate: testDate,
+              endDate: testDate),
         ]);
   }
 
@@ -54,9 +66,21 @@ void main() {
         await eventsMenuRepo.fetchEventList();
 
         expect(eventsMenuRepo.getEventList(), [
-          const Event(name: "event1", documentID: "document1"),
-          const Event(name: "event2", documentID: "document2"),
-          const Event(name: "event3", documentID: "document3"),
+          Event(
+              name: "event1",
+              documentID: "document1",
+              startDate: testDate,
+              endDate: testDate),
+          Event(
+              name: "event2",
+              documentID: "document2",
+              startDate: testDate,
+              endDate: testDate),
+          Event(
+              name: "event3",
+              documentID: "document3",
+              startDate: testDate,
+              endDate: testDate),
         ]);
       });
 
@@ -72,9 +96,21 @@ void main() {
         expect(
             eventsMenuRepo.observeEventList(),
             emits([
-              const Event(name: "event1", documentID: "document1"),
-              const Event(name: "event2", documentID: "document2"),
-              const Event(name: "event3", documentID: "document3"),
+              Event(
+                  name: "event1",
+                  documentID: "document1",
+                  startDate: testDate,
+                  endDate: testDate),
+              Event(
+                  name: "event2",
+                  documentID: "document2",
+                  startDate: testDate,
+                  endDate: testDate),
+              Event(
+                  name: "event3",
+                  documentID: "document3",
+                  startDate: testDate,
+                  endDate: testDate),
             ]));
       });
     },

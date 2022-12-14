@@ -9,6 +9,7 @@ import 'package:the_sss_store/screen/events_menu/events_menu_data.dart';
 import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
+import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 
 import '../events_menu/events_menu_screen_test.mocks.dart';
 
@@ -28,19 +29,19 @@ void main() {
 
     testWidgets('Progress Bar should appear', (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-      when(viewModel.value).thenReturn(const EventsMenuData(
-          eventButtonData: [],
+      when(viewModel.value).thenReturn(EventsMenuData(
+          eventButtonData: const [],
           showEmptyState: false,
           showLoading: true,
-          createEventPopup: PopupData.initial(),
-          removeEventPopup: PopupData.initial()));
+          createEventPopup: CreateEventPopupData.initial(),
+          removeEventPopup: const PopupData.initial()));
 
       await tester.pumpWidget(createProgressBar(viewModel));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
     testWidgets('Progress Bar should not appear', (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-      when(viewModel.value).thenReturn(const EventsMenuData.initial());
+      when(viewModel.value).thenReturn(EventsMenuData.initial());
       await tester.pumpWidget(createProgressBar(viewModel));
 
       expect(find.byType(CircularProgressIndicator), findsNothing);
@@ -60,12 +61,12 @@ void main() {
     testWidgets('Empty State Widget should appear',
         (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-      when(viewModel.value).thenReturn(const EventsMenuData(
-          eventButtonData: [],
+      when(viewModel.value).thenReturn(EventsMenuData(
+          eventButtonData: const [],
           showEmptyState: true,
           showLoading: false,
-          createEventPopup: PopupData.initial(),
-          removeEventPopup: PopupData.initial()));
+          createEventPopup: CreateEventPopupData.initial(),
+          removeEventPopup: const PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEmptyState(viewModel)));
 
@@ -77,7 +78,7 @@ void main() {
     testWidgets('Empty State Widget should not appear',
         (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-      when(viewModel.value).thenReturn(const EventsMenuData.initial());
+      when(viewModel.value).thenReturn(EventsMenuData.initial());
 
       await tester.pumpWidget(createEmptyState(viewModel));
 
@@ -173,7 +174,7 @@ void main() {
     testWidgets('Display Event List Empty', (WidgetTester tester) async {
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
 
-      when(viewModel.value).thenReturn(const EventsMenuData.initial());
+      when(viewModel.value).thenReturn(EventsMenuData.initial());
       await tester.pumpWidget(MaterialApp(home: createEventList(viewModel)));
 
       expect(find.byType(ListView), findsOneWidget);
@@ -194,7 +195,7 @@ void main() {
           eventButtonData: eventButtonDataList,
           showEmptyState: false,
           showLoading: false,
-          createEventPopup: const PopupData.initial(),
+          createEventPopup: CreateEventPopupData.initial(),
           removeEventPopup: const PopupData.initial()));
 
       await tester.pumpWidget(MaterialApp(home: createEventList(viewModel)));
@@ -216,7 +217,7 @@ void main() {
       }
 
       MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-      when(viewModel.value).thenReturn(const EventsMenuData.initial());
+      when(viewModel.value).thenReturn(EventsMenuData.initial());
 
       await tester
           .pumpWidget(MaterialApp(home: createEventMenuPopupList(viewModel)));
@@ -238,37 +239,75 @@ void main() {
 
       testWidgets('Display Create Event popup', (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-        when(viewModel.value).thenReturn(const EventsMenuData(
-            eventButtonData: [],
+        when(viewModel.value).thenReturn(EventsMenuData(
+            eventButtonData: const [],
             showEmptyState: false,
             showLoading: false,
-            createEventPopup: PopupData.show(),
-            removeEventPopup: PopupData.initial()));
+            createEventPopup: CreateEventPopupData.show(),
+            removeEventPopup: const PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
 
         expect(find.byType(AlertDialog), findsOneWidget);
         expect(find.byType(SingleChildScrollView), findsOneWidget);
-        expect(find.byType(Container), findsOneWidget);
         expect(find.text('Adicionar Evento'), findsOneWidget);
         expect(find.byType(TextField), findsOneWidget);
         expect(find.text('Nome do Evento'), findsOneWidget);
-        expect(find.byType(Row), findsOneWidget);
-        expect(find.byType(TextButton), findsNWidgets(2));
+        expect(find.text('Data de Início: '), findsOneWidget);
+        expect(find.text('Data de Fim: '), findsOneWidget);
+        expect(find.byType(Row), findsNWidgets(3));
+        expect(find.byType(TextButton), findsNWidgets(4));
         expect(find.text('Confirmar'), findsOneWidget);
         expect(find.text('Cancelar'), findsOneWidget);
+        expect(find.byType(ErrorPopupLabel), findsOneWidget);
       });
+
+      //TODO: Tests Start Date and End Date Text Update
+
+      // testWidgets('Create Event Popup Start and End Date is updated correctly', (WidgetTester tester) async {
+      //   String eventName = "testEvent";
+      //   DateTime initialDate = DateTime.utc(2022, 11, 9);
+      //   DateTime updatedDate = DateTime.utc(2050, 3, 5);
+
+      //   MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
+      //   when(viewModel.value).thenReturn(EventsMenuData(
+      //       eventButtonData: const [],
+      //       showEmptyState: false,
+      //       showLoading: false,
+      //       createEventPopup: CreateEventPopupData.startDate(initialDate),
+      //       removeEventPopup: const PopupData.initial()));
+
+      //   when(viewModel.updateStartDate).thenReturn((date) => {
+      //         if (date != null)
+      //           {
+      //             EventsMenuData(
+      //                 eventButtonData: const [],
+      //                 showEmptyState: false,
+      //                 showLoading: false,
+      //                 createEventPopup: CreateEventPopupData.startDate(date),
+      //                 removeEventPopup: const PopupData.initial())
+      //           }
+      //       });
+
+      //   await tester.pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
+
+      //   expect(find.text(Utils.dateToString(updatedDate)), findsNothing);
+
+      //   viewModel.updateStartDate(updatedDate);
+
+      //   expect(find.text(Utils.dateToString(updatedDate)), findsOneWidget);
+      // });
 
       testWidgets('Do not display Create Event popup',
           (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-        when(viewModel.value).thenReturn(const EventsMenuData(
-            eventButtonData: [],
+        when(viewModel.value).thenReturn(EventsMenuData(
+            eventButtonData: const [],
             showEmptyState: false,
             showLoading: false,
-            createEventPopup: PopupData.initial(),
-            removeEventPopup: PopupData.initial()));
+            createEventPopup: CreateEventPopupData.initial(),
+            removeEventPopup: const PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
@@ -289,12 +328,12 @@ void main() {
 
       testWidgets('Display Remove Event popup', (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-        when(viewModel.value).thenReturn(const EventsMenuData(
-            eventButtonData: [],
+        when(viewModel.value).thenReturn(EventsMenuData(
+            eventButtonData: const [],
             showEmptyState: false,
             showLoading: false,
-            createEventPopup: PopupData.initial(),
-            removeEventPopup: PopupData.show()));
+            createEventPopup: CreateEventPopupData.initial(),
+            removeEventPopup: const PopupData.show()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
@@ -312,12 +351,12 @@ void main() {
       testWidgets('Do not display Remove Event popup',
           (WidgetTester tester) async {
         MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-        when(viewModel.value).thenReturn(const EventsMenuData(
-            eventButtonData: [],
+        when(viewModel.value).thenReturn(EventsMenuData(
+            eventButtonData: const [],
             showEmptyState: false,
             showLoading: false,
-            createEventPopup: PopupData.initial(),
-            removeEventPopup: PopupData.initial()));
+            createEventPopup: CreateEventPopupData.initial(),
+            removeEventPopup: const PopupData.initial()));
 
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
@@ -337,7 +376,7 @@ void main() {
             eventButtonData: eventButtonDataList,
             showEmptyState: false,
             showLoading: false,
-            createEventPopup: const PopupData.initial(),
+            createEventPopup: CreateEventPopupData.initial(),
             removeEventPopup: const PopupData.show()));
 
         await tester

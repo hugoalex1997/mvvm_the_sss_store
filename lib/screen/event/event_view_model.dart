@@ -4,7 +4,7 @@ import 'package:the_sss_store/view_model/view_model.dart';
 
 @injectable
 class EventViewModel extends ViewModel<EventData> {
-  EventViewModel() : super(const EventData.initial());
+  EventViewModel() : super(EventData.initial());
 
   void init() {}
 

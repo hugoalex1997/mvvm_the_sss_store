@@ -62,16 +62,29 @@ class MockFirebaseEventsMenuAPI extends _i1.Mock
         returnValue: _i4.Future<String?>.value(),
       ) as _i4.Future<String?>);
   @override
-  _i2.Event createEvent(String? eventName) => (super.noSuchMethod(
+  _i2.Event createEvent(
+    String? name,
+    DateTime? startDate,
+    DateTime? endDate,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #createEvent,
-          [eventName],
+          [
+            name,
+            startDate,
+            endDate,
+          ],
         ),
         returnValue: _FakeEvent_0(
           this,
           Invocation.method(
             #createEvent,
-            [eventName],
+            [
+              name,
+              startDate,
+              endDate,
+            ],
           ),
         ),
       ) as _i2.Event);

@@ -1,13 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class Event extends Equatable {
-  const Event({
-    required this.name,
-    required this.documentID,
-  });
+  const Event(
+      {required this.name,
+      required this.documentID,
+      required this.startDate,
+      required this.endDate});
 
   final String name;
   final String documentID;
+  final DateTime startDate;
+  final DateTime endDate;
 
   @override
   List<Object?> get props => [
@@ -22,15 +25,18 @@ class Event extends Equatable {
     DateTime? endDate,
   }) {
     return Event(
-      name: name ?? this.name,
-      documentID: documentID ?? this.documentID,
-    );
+        name: name ?? this.name,
+        documentID: documentID ?? this.documentID,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'documentID': documentID,
+      'startDate': startDate,
+      'endDate': endDate,
     };
   }
 
@@ -38,6 +44,8 @@ class Event extends Equatable {
     return Event(
       name: json['name'],
       documentID: json['documentID'],
+      startDate: json['startDate'].toDate(),
+      endDate: json['endDate'].toDate(),
     );
   }
 }

@@ -45,11 +45,15 @@ class FirebaseEventsMenuAPI {
     return null;
   }
 
-  Event createEvent(String eventName) {
+  Event createEvent(String name, DateTime startDate, DateTime endDate) {
     CollectionReference eventsCollection = _getEventsCollection();
     DocumentReference newEventDocument = eventsCollection.doc();
 
-    Event event = Event(name: eventName, documentID: newEventDocument.id);
+    Event event = Event(
+        name: name,
+        documentID: newEventDocument.id,
+        startDate: startDate,
+        endDate: endDate);
     newEventDocument.set(event.toJson());
     return event;
   }

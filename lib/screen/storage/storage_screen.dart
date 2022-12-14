@@ -8,6 +8,7 @@ import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/common/widgets/error_popup_label.dart';
+import 'package:the_sss_store/common/data/item_data.dart';
 
 class StorageScreenRoute extends AppRoute {
   StorageScreenRoute()
