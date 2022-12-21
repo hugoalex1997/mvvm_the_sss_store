@@ -38,4 +38,14 @@ class EventsMenuRepository {
     await _eventsMenuFirebase.removeEvent(name);
     fetchEventList();
   }
+
+  Future<String> getEventDocumentID(String name) async {
+    String? documentID = await _eventsMenuFirebase.getEventDocumentID(name);
+
+    //TODO: Handle Error
+    if (documentID == null) {
+      return "ErrorHandling";
+    }
+    return documentID;
+  }
 }

@@ -13,10 +13,7 @@ class Event extends Equatable {
   final DateTime endDate;
 
   @override
-  List<Object?> get props => [
-        name,
-        documentID,
-      ];
+  List<Object?> get props => [name, documentID, startDate, endDate];
 
   Event copyWith({
     String? name,

@@ -113,6 +113,22 @@ class MockEventsMenuViewModel extends _i1.Mock
         ),
       ) as _i2.EventsMenuData);
   @override
+  void setStartDate(DateTime? date) => super.noSuchMethod(
+        Invocation.method(
+          #setStartDate,
+          [date],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void setEndDate(DateTime? date) => super.noSuchMethod(
+        Invocation.method(
+          #setEndDate,
+          [date],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i3.EventsMenuRepository getEventsMenuRepository() => (super.noSuchMethod(
         Invocation.method(
           #getEventsMenuRepository,
@@ -199,6 +215,14 @@ class MockEventsMenuViewModel extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i5.Future<String> getEventDocumentID(String? name) => (super.noSuchMethod(
+        Invocation.method(
+          #getEventDocumentID,
+          [name],
+        ),
+        returnValue: _i5.Future<String>.value(''),
+      ) as _i5.Future<String>);
   @override
   void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(

@@ -141,4 +141,8 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
     endDate = date;
     _updateState(createEventPopup: CreateEventPopupData.endDate(date));
   }
+
+  Future<String> getEventDocumentID(String name) async {
+    return await _eventsMenuRepository.getEventDocumentID(name);
+  }
 }

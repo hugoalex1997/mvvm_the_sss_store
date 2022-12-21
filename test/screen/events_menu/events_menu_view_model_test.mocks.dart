@@ -79,4 +79,12 @@ class MockEventsMenuRepository extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i4.Future<String> getEventDocumentID(String? name) => (super.noSuchMethod(
+        Invocation.method(
+          #getEventDocumentID,
+          [name],
+        ),
+        returnValue: _i4.Future<String>.value(''),
+      ) as _i4.Future<String>);
 }

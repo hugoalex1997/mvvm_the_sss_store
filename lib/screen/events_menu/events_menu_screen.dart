@@ -65,8 +65,9 @@ class _EventsMenuScreenState
     );
   }
 
-  void _onEventButtonTap(String name) {
-    EventScreenRoute().push(context);
+  void _onEventButtonTap(String name) async {
+    String documentID = await viewModel.getEventDocumentID(name);
+    EventScreenRoute().push(context, {"documentID": documentID, "name": name});
   }
 }
 
