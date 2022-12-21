@@ -6,8 +6,6 @@ import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/event/event_data.dart';
 import 'package:the_sss_store/screen/event/event_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
-import 'package:the_sss_store/common/data/popup_data.dart';
-import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 
 class EventScreenRoute extends AppRoute {
   EventScreenRoute()

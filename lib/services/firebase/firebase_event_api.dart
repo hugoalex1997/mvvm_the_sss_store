@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:the_sss_store/model/event.dart';
-
 @singleton
 class FirebaseEventAPI {
   final String eventsCollectionName = "events";
