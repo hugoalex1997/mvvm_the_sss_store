@@ -5,7 +5,7 @@ import 'package:the_sss_store/common/data/popup_data.dart';
 
 class StoragesMenuData extends StateData {
   const StoragesMenuData({
-    required this.storageButtonData,
+    required this.storagesData,
     required this.showEmptyState,
     required this.showLoading,
     required this.createStoragePopup,
@@ -13,13 +13,13 @@ class StoragesMenuData extends StateData {
   });
 
   const StoragesMenuData.initial()
-      : storageButtonData = const [],
+      : storagesData = const [],
         showLoading = false,
         showEmptyState = false,
         createStoragePopup = const PopupData.initial(),
         removeStoragePopup = const PopupData.initial();
 
-  final List<StorageButtonData> storageButtonData;
+  final List<StorageData> storagesData;
   final bool showLoading;
   final bool showEmptyState;
   final PopupData createStoragePopup;
@@ -27,7 +27,7 @@ class StoragesMenuData extends StateData {
 
   @override
   List<Object?> get props => [
-        storageButtonData,
+        storagesData,
         showLoading,
         showEmptyState,
         createStoragePopup,
@@ -35,22 +35,22 @@ class StoragesMenuData extends StateData {
       ];
 }
 
-class StorageButtonData extends Equatable {
-  const StorageButtonData({
+class StorageData extends Equatable {
+  const StorageData({
     required this.name,
   });
 
-  StorageButtonData.fromStorage(Storage storage) : name = storage.name;
+  StorageData.fromStorage(Storage storage) : name = storage.name;
 
   final String name;
 
   @override
   List<Object?> get props => [name];
 
-  StorageButtonData copyWith({
+  StorageData copyWith({
     String? name,
   }) {
-    return StorageButtonData(
+    return StorageData(
       name: name ?? this.name,
     );
   }

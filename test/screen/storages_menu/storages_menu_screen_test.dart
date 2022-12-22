@@ -30,7 +30,7 @@ void main() {
     testWidgets('Progress Bar should appear', (WidgetTester tester) async {
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(const StoragesMenuData(
-          storageButtonData: [],
+          storagesData: [],
           showEmptyState: false,
           showLoading: true,
           createStoragePopup: PopupData.initial(),
@@ -62,7 +62,7 @@ void main() {
         (WidgetTester tester) async {
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(const StoragesMenuData(
-          storageButtonData: [],
+          storagesData: [],
           showEmptyState: true,
           showLoading: false,
           createStoragePopup: PopupData.initial(),
@@ -184,15 +184,15 @@ void main() {
 
     testWidgets('Display Storage List with 3 storages',
         (WidgetTester tester) async {
-      List<StorageButtonData> storageButtonDataList = [
-        const StorageButtonData(name: "storage1"),
-        const StorageButtonData(name: "storage2"),
-        const StorageButtonData(name: "storage3")
+      List<StorageData> storageButtonDataList = [
+        const StorageData(name: "storage1"),
+        const StorageData(name: "storage2"),
+        const StorageData(name: "storage3")
       ];
 
       MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
       when(viewModel.value).thenReturn(StoragesMenuData(
-          storageButtonData: storageButtonDataList,
+          storagesData: storageButtonDataList,
           showEmptyState: false,
           showLoading: false,
           createStoragePopup: const PopupData.initial(),
@@ -241,7 +241,7 @@ void main() {
       testWidgets('Display Create Storage popup', (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
-            storageButtonData: [],
+            storagesData: [],
             showEmptyState: false,
             showLoading: false,
             createStoragePopup: PopupData.show(),
@@ -266,7 +266,7 @@ void main() {
           (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
-            storageButtonData: [],
+            storagesData: [],
             showEmptyState: false,
             showLoading: false,
             createStoragePopup: PopupData.initial(),
@@ -292,7 +292,7 @@ void main() {
       testWidgets('Display Remove Storage popup', (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
-            storageButtonData: [],
+            storagesData: [],
             showEmptyState: false,
             showLoading: false,
             createStoragePopup: PopupData.initial(),
@@ -312,7 +312,7 @@ void main() {
           (WidgetTester tester) async {
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(const StoragesMenuData(
-            storageButtonData: [],
+            storagesData: [],
             showEmptyState: false,
             showLoading: false,
             createStoragePopup: PopupData.initial(),
@@ -327,13 +327,13 @@ void main() {
       testWidgets('Remove Storage popup Text is refreshed correctly',
           (WidgetTester tester) async {
         String storageName = "testStorage";
-        List<StorageButtonData> storageButtonDataList = [
-          StorageButtonData(name: storageName),
+        List<StorageData> storageButtonDataList = [
+          StorageData(name: storageName),
         ];
 
         MockStoragesMenuViewModel viewModel = MockStoragesMenuViewModel();
         when(viewModel.value).thenReturn(StoragesMenuData(
-            storageButtonData: storageButtonDataList,
+            storagesData: storageButtonDataList,
             showEmptyState: false,
             showLoading: false,
             createStoragePopup: const PopupData.initial(),

@@ -6,7 +6,7 @@ import 'package:the_sss_store/model/storage.dart';
 void main() {
   test('initial method is returning the correct data', () {
     StoragesMenuData storagesMenuData = const StoragesMenuData(
-        storageButtonData: [],
+        storagesData: [],
         showEmptyState: false,
         showLoading: false,
         createStoragePopup: PopupData.initial(),
@@ -19,16 +19,13 @@ void main() {
 
   test('Storage Button Data is correctly created from a Storage Class instance',
       () {
-    StorageButtonData storageButtonData =
-        const StorageButtonData(name: "norte");
+    StorageData storagesData = const StorageData(name: "norte");
     Storage storage1 = const Storage(name: "norte", documentID: "4435");
     Storage storage2 = const Storage(name: "sul", documentID: "4435");
-    StorageButtonData newStorageButtonData1 =
-        StorageButtonData.fromStorage(storage1);
-    StorageButtonData newStorageButtonData2 =
-        StorageButtonData.fromStorage(storage2);
+    StorageData newStorageButtonData1 = StorageData.fromStorage(storage1);
+    StorageData newStorageButtonData2 = StorageData.fromStorage(storage2);
 
-    expect(storageButtonData, newStorageButtonData1);
-    expect(storageButtonData != newStorageButtonData2, true);
+    expect(storagesData, newStorageButtonData1);
+    expect(storagesData != newStorageButtonData2, true);
   });
 }

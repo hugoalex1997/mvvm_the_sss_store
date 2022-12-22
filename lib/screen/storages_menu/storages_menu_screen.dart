@@ -208,12 +208,12 @@ class StorageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<StoragesMenuData, List<StorageButtonData>>(
-      selector: (_, data) => data.storageButtonData,
-      builder: (context, storageButtonData, _) {
+    return Selector<StoragesMenuData, List<StorageData>>(
+      selector: (_, data) => data.storagesData,
+      builder: (context, storagesData, _) {
         return ListView.separated(
           itemBuilder: (context, index) {
-            final data = storageButtonData[index];
+            final data = storagesData[index];
             return StorageButton(
               name: data.name,
               buttonStyle: storageButtonStyle,
@@ -223,7 +223,7 @@ class StorageList extends StatelessWidget {
           separatorBuilder: (_, __) {
             return const Divider();
           },
-          itemCount: storageButtonData.length,
+          itemCount: storagesData.length,
         );
       },
     );

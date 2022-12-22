@@ -44,7 +44,7 @@ void main() {
       });
       await storagesMenuViewModel.init();
 
-      expect(storagesMenuViewModel.value.storageButtonData, []);
+      expect(storagesMenuViewModel.value.storagesData, []);
       expect(storagesMenuViewModel.value.showEmptyState, true);
       verify(storagesMenuRepository.fetchStorageList()).called(1);
     });
@@ -57,8 +57,8 @@ void main() {
       await storagesMenuViewModel.init();
 
       expect(
-        storagesMenuViewModel.value.storageButtonData,
-        storageListForTests.map(StorageButtonData.fromStorage).toList(),
+        storagesMenuViewModel.value.storagesData,
+        storageListForTests.map(StorageData.fromStorage).toList(),
       );
       expect(storagesMenuViewModel.value.showEmptyState, false);
       verify(storagesMenuRepository.fetchStorageList()).called(1);

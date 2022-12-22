@@ -6,7 +6,7 @@ import 'package:the_sss_store/common/data/item_data.dart';
 
 void main() {
   test('initial method is returning the correct data', () {
-    StorageData storageData = const StorageData(
+    StorageData storagesData = const StorageData(
         name: "",
         itemData: [],
         showEmptyState: false,
@@ -16,7 +16,7 @@ void main() {
 
     StorageData initialData = const StorageData.initial();
 
-    expect(initialData, storageData);
+    expect(initialData, storagesData);
   });
 
   test('Item Data is correctly created from a Item Class instance', () {

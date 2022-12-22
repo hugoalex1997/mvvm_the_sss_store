@@ -14,7 +14,7 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
 
   final StoragesMenuRepository _storagesMenuRepository;
 
-  StreamSubscription<List<StorageButtonData>>? _storagesSub;
+  StreamSubscription<List<StorageData>>? _storagesSub;
 
   @visibleForTesting
   StoragesMenuRepository getStoragesMenuRepository() {
@@ -24,8 +24,7 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   Future<void> init() async {
     _storagesSub = _storagesMenuRepository
         .observeStorageList()
-        .map((storageList) =>
-            storageList.map(StorageButtonData.fromStorage).toList())
+        .map((storageList) => storageList.map(StorageData.fromStorage).toList())
         .listen(_onStorageChanged);
 
     await _updateList();
@@ -38,19 +37,19 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
   }
 
   void _updateState({
-    List<StorageButtonData>? button,
+    List<StorageData>? storages,
     bool? isLoading,
     PopupData? createStoragePopup,
     PopupData? removeStoragePopup,
   }) {
-    button ??= value.storageButtonData;
+    storages ??= value.storagesData;
     isLoading ??= value.showLoading;
     createStoragePopup ??= value.createStoragePopup;
     removeStoragePopup ??= value.removeStoragePopup;
 
     stateData = StoragesMenuData(
-      storageButtonData: button,
-      showEmptyState: button.isEmpty && !isLoading,
+      storagesData: storages,
+      showEmptyState: storages.isEmpty && !isLoading,
       showLoading: isLoading,
       createStoragePopup: createStoragePopup,
       removeStoragePopup: removeStoragePopup,
@@ -65,8 +64,8 @@ class StoragesMenuViewModel extends ViewModel<StoragesMenuData> {
     _updateState(isLoading: false);
   }
 
-  void _onStorageChanged(List<StorageButtonData> button) {
-    _updateState(button: button);
+  void _onStorageChanged(List<StorageData> storages) {
+    _updateState(storages: storages);
   }
 
   void showCreateStoragePopup() {
