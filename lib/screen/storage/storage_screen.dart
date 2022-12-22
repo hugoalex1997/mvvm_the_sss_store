@@ -7,8 +7,8 @@ import 'package:the_sss_store/screen/storage/storage_data.dart';
 import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
-import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 import 'package:the_sss_store/common/data/item_data.dart';
+import 'package:the_sss_store/common/widgets/popup.dart';
 
 class StorageScreenRoute extends AppRoute {
   StorageScreenRoute()
@@ -329,57 +329,55 @@ class AddItemPopup extends StatelessWidget {
       selector: (_, data) => data.addItemPopup,
       builder: (context, addItemPopup, _) => Visibility(
         visible: addItemPopup.visible,
-        child: AlertDialog(
-          title: const Text('Adicionar Item'),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              height: 220,
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: [
-                      TextField(
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Nome do Item',
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: stockController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Stock Total',
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ErrorPopupLabel(errorText: addItemPopup.error),
-                  Row(
-                    children: [
-                      TextButton(
-                        child: const Text('Confirmar'),
-                        onPressed: _confirmButtonTap,
-                      ),
-                      TextButton(
-                        child: const Text('Cancelar'),
-                        onPressed: _cancelButtonTap,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+        child: Popup(
+          title: 'Adicionar Item',
+          confirmButtonTap: _confirmButtonTap,
+          cancelButtonTap: _cancelButtonTap,
+          bodyWidget: AddItemPopupBody(
+            nameController: nameController,
+            stockController: stockController,
           ),
+          popupSize: 220,
+          errorLabel: addItemPopup.error,
         ),
       ),
+    );
+  }
+}
+
+class AddItemPopupBody extends StatelessWidget {
+  @visibleForTesting
+  const AddItemPopupBody({
+    required this.nameController,
+    required this.stockController,
+    Key? key,
+  }) : super(key: key);
+
+  final TextEditingController nameController;
+  final TextEditingController stockController;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextField(
+          controller: nameController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Nome do Item',
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        TextField(
+          controller: stockController,
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Stock Total',
+          ),
+        ),
+      ],
     );
   }
 }
@@ -392,10 +390,10 @@ class RemoveItemPopup extends StatelessWidget {
   }) : super(key: key);
 
   final StorageViewModel viewModel;
-  final ValueNotifier<String> storageNameNotifier = ValueNotifier<String>("");
+  final ValueNotifier<String> itemNameNotifier = ValueNotifier<String>("");
 
   Future<void> _confirmButtonTap() async {
-    bool isRemoved = await viewModel.removeItem(storageNameNotifier.value);
+    bool isRemoved = await viewModel.removeItem(itemNameNotifier.value);
 
     if (isRemoved) {
       viewModel.hidePopup();
@@ -408,25 +406,12 @@ class RemoveItemPopup extends StatelessWidget {
     resetParameters();
   }
 
-  void _selectedStorage(String name) {
-    storageNameNotifier.value = name;
+  void _selectedItem(String name) {
+    itemNameNotifier.value = name;
   }
 
   void resetParameters() {
-    storageNameNotifier.value = "";
-  }
-
-  Widget _removeLabelName() {
-    return AnimatedBuilder(
-      animation: storageNameNotifier,
-      builder: (BuildContext context, Widget? child) {
-        return Text(
-          "Remover item - " "${storageNameNotifier.value}",
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.blue),
-        );
-      },
-    );
+    itemNameNotifier.value = "";
   }
 
   @override
@@ -435,39 +420,57 @@ class RemoveItemPopup extends StatelessWidget {
       selector: (_, data) => data.removeItemPopup,
       builder: (context, removeItemPopup, _) => Visibility(
         visible: removeItemPopup.visible,
-        child: AlertDialog(
-          title: const Text('Remover Item'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                SizedBox(
-                  height: 300.0,
-                  width: 300.0,
-                  child: ItemList(
-                    onTap: _selectedStorage,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _removeLabelName(),
-                const SizedBox(height: 10.0),
-                ErrorPopupLabel(errorText: removeItemPopup.error),
-              ],
-            ),
+        child: Popup(
+          title: 'Remover Item',
+          confirmButtonTap: _confirmButtonTap,
+          cancelButtonTap: _cancelButtonTap,
+          bodyWidget: RemoveItemPopupBody(
+            onItemTap: _selectedItem,
+            itemNameNotifier: itemNameNotifier,
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Confirmar'),
-              onPressed: _confirmButtonTap,
-            ),
-            TextButton(
-              child: const Text('Cancelar'),
-              onPressed: _cancelButtonTap,
-            ),
-          ],
+          popupSize: 420,
+          errorLabel: removeItemPopup.error,
         ),
       ),
+    );
+  }
+}
+
+class RemoveItemPopupBody extends StatelessWidget {
+  @visibleForTesting
+  const RemoveItemPopupBody({
+    required this.itemNameNotifier,
+    required this.onItemTap,
+    Key? key,
+  }) : super(key: key);
+
+  final ValueNotifier<String> itemNameNotifier;
+  final Function(String) onItemTap;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 300.0,
+          width: 300.0,
+          child: ItemList(
+            onTap: onItemTap,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        AnimatedBuilder(
+          animation: itemNameNotifier,
+          builder: (BuildContext context, Widget? child) {
+            return Text(
+              "Remover item - " "${itemNameNotifier.value}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.blue),
+            );
+          },
+        ),
+      ],
     );
   }
 }

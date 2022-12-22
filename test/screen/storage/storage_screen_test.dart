@@ -10,6 +10,7 @@ import 'package:the_sss_store/screen/storage/storage_view_model.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/common/data/item_data.dart';
+import 'package:the_sss_store/common/widgets/popup.dart';
 
 import 'storage_screen_test.mocks.dart';
 
@@ -319,14 +320,10 @@ void main() {
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
 
-        expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.byType(Selector<StorageData, PopupData>), findsOneWidget);
+        expect(find.byType(Popup), findsOneWidget);
         expect(find.text('Remover Item'), findsOneWidget);
-        expect(find.byType(SingleChildScrollView), findsOneWidget);
-        expect(find.byType(ListBody), findsOneWidget);
         expect(find.byType(ItemList), findsOneWidget);
-        expect(find.byType(TextButton), findsNWidgets(2));
-        expect(find.text('Confirmar'), findsOneWidget);
-        expect(find.text('Cancelar'), findsOneWidget);
       });
 
       testWidgets('Do not display remove item popup',
@@ -343,7 +340,7 @@ void main() {
         await tester
             .pumpWidget(MaterialApp(home: createRemoveItemPopup(viewModel)));
 
-        expect(find.byType(AlertDialog), findsNothing);
+        expect(find.byType(Popup), findsNothing);
       });
 
       testWidgets('Remove item popup Text is refreshed correctly',

@@ -7,8 +7,8 @@ import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart';
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
 import 'package:the_sss_store/screen/event/event_screen.dart';
-import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 import 'package:the_sss_store/common/utils.dart';
+import 'package:the_sss_store/common/widgets/popup.dart';
 
 class EventsMenuScreenRoute extends AppRoute {
   EventsMenuScreenRoute()
@@ -320,63 +320,81 @@ class CreateEventPopup extends StatelessWidget {
       selector: (_, data) => data.createEventPopup,
       builder: (context, createEventPopup, _) => Visibility(
         visible: createEventPopup.visible,
-        child: AlertDialog(
-          title: const Text('Adicionar Evento'),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              height: 270,
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nome do Evento',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      const Text("Data de Início: "),
-                      TextButton(
-                        child: Text(
-                            Utils.dateToString(createEventPopup.startDate)),
-                        onPressed: () => _startDateButtonTap(context),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      const Text("Data de Fim: "),
-                      TextButton(
-                        child:
-                            Text(Utils.dateToString(createEventPopup.endDate)),
-                        onPressed: () => _endDateButtonTap(context),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  ErrorPopupLabel(errorText: createEventPopup.error),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      TextButton(
-                        child: const Text('Confirmar'),
-                        onPressed: _confirmButtonTap,
-                      ),
-                      TextButton(
-                        child: const Text('Cancelar'),
-                        onPressed: _cancelButtonTap,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+        child: Popup(
+          title: 'Adicionar Evento',
+          confirmButtonTap: _confirmButtonTap,
+          cancelButtonTap: _cancelButtonTap,
+          bodyWidget: CreateEventPopupBody(
+            nameController: nameController,
+            startDate: Utils.dateToString(createEventPopup.startDate),
+            startDateButtonTap: (context) {
+              _startDateButtonTap(context);
+            },
+            endDate: Utils.dateToString(createEventPopup.endDate),
+            endDateButtonTap: (context) {
+              _endDateButtonTap(context);
+            },
           ),
+          popupSize: 260,
+          errorLabel: createEventPopup.error,
         ),
       ),
+    );
+  }
+}
+
+class CreateEventPopupBody extends StatelessWidget {
+  const CreateEventPopupBody({
+    required this.nameController,
+    required this.startDate,
+    required this.startDateButtonTap,
+    required this.endDate,
+    required this.endDateButtonTap,
+    Key? key,
+  }) : super(key: key);
+
+  final TextEditingController nameController;
+  final String startDate;
+  final Function(BuildContext) startDateButtonTap;
+  final String endDate;
+  final Function(BuildContext) endDateButtonTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        TextField(
+          controller: nameController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Nome do Evento',
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const Text("Data de Início: "),
+            TextButton(
+              child: Text(startDate),
+              onPressed: () {
+                startDateButtonTap;
+              },
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const Text("Data de Fim: "),
+            TextButton(
+              child: Text(endDate),
+              onPressed: () {
+                endDateButtonTap;
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -412,58 +430,62 @@ class RemoveEventPopup extends StatelessWidget {
     eventNameNotifier.value = "";
   }
 
-  Widget _removeLabelName() {
-    return AnimatedBuilder(
-      animation: eventNameNotifier,
-      builder: (BuildContext context, Widget? child) {
-        return Text(
-          "Remover evento - " "${eventNameNotifier.value}",
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.blue),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Selector<EventsMenuData, PopupData>(
       selector: (_, data) => data.removeEventPopup,
       builder: (context, removeEventPopup, _) => Visibility(
         visible: removeEventPopup.visible,
-        child: AlertDialog(
-          title: const Text('Remover Evento'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                SizedBox(
-                  height: 300.0,
-                  width: 300.0,
-                  child: EventList(
-                    onTap: _selectedEvent,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _removeLabelName(),
-                const SizedBox(height: 10),
-                ErrorPopupLabel(errorText: removeEventPopup.error),
-              ],
-            ),
+        child: Popup(
+          title: 'Remover Evento',
+          confirmButtonTap: _confirmButtonTap,
+          cancelButtonTap: _cancelButtonTap,
+          bodyWidget: RemoveEventPopupBody(
+            eventNameNotifier: eventNameNotifier,
+            onEventTap: _selectedEvent,
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Confirmar'),
-              onPressed: _confirmButtonTap,
-            ),
-            TextButton(
-              child: const Text('Cancelar'),
-              onPressed: _cancelButtonTap,
-            ),
-          ],
+          errorLabel: removeEventPopup.error,
+          popupSize: 420, //Blaze It
         ),
       ),
     );
+  }
+}
+
+class RemoveEventPopupBody extends StatelessWidget {
+  @visibleForTesting
+  const RemoveEventPopupBody({
+    required this.eventNameNotifier,
+    required this.onEventTap,
+    Key? key,
+  }) : super(key: key);
+
+  final ValueNotifier<String> eventNameNotifier;
+  final Function(String) onEventTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      SizedBox(
+        height: 300.0,
+        width: 300.0,
+        child: EventList(
+          onTap: onEventTap,
+        ),
+      ),
+      const SizedBox(
+        height: 20,
+      ),
+      AnimatedBuilder(
+        animation: eventNameNotifier,
+        builder: (BuildContext context, Widget? child) {
+          return Text(
+            "Remover evento - " "${eventNameNotifier.value}",
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.blue),
+          );
+        },
+      ),
+    ]);
   }
 }

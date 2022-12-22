@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
+import 'package:the_sss_store/common/widgets/popup.dart';
 import 'package:the_sss_store/navigation/app_route.dart';
 import 'package:the_sss_store/navigation/routes.dart';
 import 'package:the_sss_store/screen/storages_menu/storages_menu_data.dart';
@@ -7,7 +8,6 @@ import 'package:the_sss_store/screen/storages_menu/storages_menu_view_model.dart
 import 'package:the_sss_store/screen/screen.dart';
 import 'package:provider/provider.dart';
 import 'package:the_sss_store/screen/storage/storage_screen.dart';
-import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 
 //TODO: Analyze the possibility of removing duplicate code between the storage menu and the event menu
 class StoragesMenuScreenRoute extends AppRoute {
@@ -307,41 +307,39 @@ class CreateStoragePopup extends StatelessWidget {
     return Selector<StoragesMenuData, PopupData>(
       selector: (_, data) => data.createStoragePopup,
       builder: (context, createStoragePopup, _) => Visibility(
-        visible: createStoragePopup.visible,
-        child: AlertDialog(
-          title: const Text('Adicionar Armazém'),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              height: 150,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: TextField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nome do Armazém',
-                      ),
-                    ),
-                  ),
-                  ErrorPopupLabel(errorText: createStoragePopup.error),
-                  Row(
-                    children: [
-                      TextButton(
-                        child: const Text('Confirmar'),
-                        onPressed: _confirmButtonTap,
-                      ),
-                      TextButton(
-                        child: const Text('Cancelar'),
-                        onPressed: _cancelButtonTap,
-                      ),
-                    ],
-                  )
-                ],
-              ),
+          visible: createStoragePopup.visible,
+          child: Popup(
+            title: 'Adicionar Armazém',
+            confirmButtonTap: _confirmButtonTap,
+            cancelButtonTap: _cancelButtonTap,
+            bodyWidget: CreateStoragePopupBody(
+              nameController: nameController,
             ),
-          ),
+            popupSize: 160,
+            errorLabel: createStoragePopup.error,
+          )),
+    );
+  }
+}
+
+class CreateStoragePopupBody extends StatelessWidget {
+  @visibleForTesting
+  const CreateStoragePopupBody({
+    required this.nameController,
+    Key? key,
+  }) : super(key: key);
+
+  final TextEditingController nameController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: nameController,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Nome do Armazém',
         ),
       ),
     );
@@ -380,58 +378,62 @@ class RemoveStoragePopup extends StatelessWidget {
     storageNameNotifier.value = "";
   }
 
-  Widget _removeLabelName() {
-    return AnimatedBuilder(
-      animation: storageNameNotifier,
-      builder: (BuildContext context, Widget? child) {
-        return Text(
-          "Remover armazém - " "${storageNameNotifier.value}",
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.blue),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Selector<StoragesMenuData, PopupData>(
       selector: (_, data) => data.removeStoragePopup,
       builder: (context, removeStoragePopup, _) => Visibility(
         visible: removeStoragePopup.visible,
-        child: AlertDialog(
-          title: const Text('Remover Armazém'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                SizedBox(
-                  height: 300.0,
-                  width: 300.0,
-                  child: StorageList(
-                    onTap: _selectedStorage,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _removeLabelName(),
-                const SizedBox(height: 10),
-                ErrorPopupLabel(errorText: removeStoragePopup.error),
-              ],
-            ),
+        child: Popup(
+          title: 'Remover Armazém',
+          confirmButtonTap: _confirmButtonTap,
+          cancelButtonTap: _cancelButtonTap,
+          bodyWidget: RemoveStoragePopupBody(
+            onStorageTap: _selectedStorage,
+            storageNameNotifier: storageNameNotifier,
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Confirmar'),
-              onPressed: _confirmButtonTap,
-            ),
-            TextButton(
-              child: const Text('Cancelar'),
-              onPressed: _cancelButtonTap,
-            ),
-          ],
+          popupSize: 420, //Blaze it
+          errorLabel: removeStoragePopup.error,
         ),
       ),
     );
+  }
+}
+
+class RemoveStoragePopupBody extends StatelessWidget {
+  @visibleForTesting
+  const RemoveStoragePopupBody({
+    required this.storageNameNotifier,
+    required this.onStorageTap,
+    Key? key,
+  }) : super(key: key);
+
+  final ValueNotifier<String> storageNameNotifier;
+  final Function(String) onStorageTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      SizedBox(
+        height: 300.0,
+        width: 300.0,
+        child: StorageList(
+          onTap: onStorageTap,
+        ),
+      ),
+      const SizedBox(
+        height: 20,
+      ),
+      AnimatedBuilder(
+        animation: storageNameNotifier,
+        builder: (BuildContext context, Widget? child) {
+          return Text(
+            "Remover armazém - " "${storageNameNotifier.value}",
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.blue),
+          );
+        },
+      ),
+    ]);
   }
 }

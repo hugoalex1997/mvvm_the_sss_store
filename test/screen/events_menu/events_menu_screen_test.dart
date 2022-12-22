@@ -10,6 +10,7 @@ import 'package:the_sss_store/screen/events_menu/events_menu_view_model.dart';
 import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/common/widgets/error_popup_label.dart';
+import 'package:the_sss_store/common/widgets/popup.dart';
 
 import '../events_menu/events_menu_screen_test.mocks.dart';
 
@@ -338,14 +339,11 @@ void main() {
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
 
-        expect(find.byType(AlertDialog), findsOneWidget);
+        expect(
+            find.byType(Selector<EventsMenuData, PopupData>), findsOneWidget);
+        expect(find.byType(Popup), findsOneWidget);
         expect(find.text('Remover Evento'), findsOneWidget);
-        expect(find.byType(SingleChildScrollView), findsOneWidget);
-        expect(find.byType(ListBody), findsOneWidget);
         expect(find.byType(EventList), findsOneWidget);
-        expect(find.byType(TextButton), findsNWidgets(2));
-        expect(find.text('Confirmar'), findsOneWidget);
-        expect(find.text('Cancelar'), findsOneWidget);
       });
 
       testWidgets('Do not display Remove Event popup',
@@ -361,7 +359,7 @@ void main() {
         await tester
             .pumpWidget(MaterialApp(home: createRemoveEventPopup(viewModel)));
 
-        expect(find.byType(AlertDialog), findsNothing);
+        expect(find.byType(Popup), findsNothing);
       });
 
       testWidgets('Remove Event popup Text is refreshed correctly',
