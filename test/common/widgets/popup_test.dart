@@ -23,7 +23,7 @@ void main() {
       confirmButtonTap: callbackTest,
       cancelButtonTap: callbackTest,
       bodyWidget: Container(),
-      popupSize: 69,
+      popupSize: 100,
       errorLabel: "don't need to test this :D",
     ));
   }
