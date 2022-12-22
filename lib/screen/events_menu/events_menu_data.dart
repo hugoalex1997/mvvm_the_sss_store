@@ -76,10 +76,8 @@ class CreateEventPopupData extends Equatable {
         startDate = DateTime.now(),
         endDate = DateTime.now();
 
-  CreateEventPopupData.error(this.error)
-      : visible = true,
-        startDate = DateTime.now(),
-        endDate = DateTime.now();
+  const CreateEventPopupData.error(this.error, this.startDate, this.endDate)
+      : visible = true;
 
   CreateEventPopupData.startDate(DateTime date)
       : visible = true,

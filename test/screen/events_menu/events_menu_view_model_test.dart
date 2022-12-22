@@ -153,11 +153,36 @@ void main() {
             .getEventsMenuRepository()
             .createEvent(eventName, testDate, testDate));
         expect(await eventsMenuViewModel.createEvent(eventName), false);
-        expect(eventsMenuViewModel.value.createEventPopup.error,
-            CreateEventPopupData.error("Deve inserir um nome!").error);
+        expect(
+            eventsMenuViewModel.value.createEventPopup.error,
+            CreateEventPopupData.error(
+                    "Deve inserir um nome!", testDate, testDate)
+                .error);
       });
 
       //TODO: Add tests to startDate and EndDate scenarios
+      test('Cant create a event with an ivalid date', () async {
+        String eventName = "TestInvalidDate";
+        DateTime startDateTest = DateTime.utc(2050, 3, 5);
+        DateTime endDateTest = DateTime.utc(2000, 3, 5);
+
+        await eventsMenuViewModel.init();
+
+        eventsMenuViewModel.setStartDate(startDateTest);
+        eventsMenuViewModel.setEndDate(endDateTest);
+
+        eventsMenuViewModel.createEvent(eventName);
+
+        verifyNever(eventsMenuViewModel
+            .getEventsMenuRepository()
+            .createEvent(eventName, testDate, testDate));
+        expect(await eventsMenuViewModel.createEvent(eventName), false);
+        expect(
+            eventsMenuViewModel.value.createEventPopup.error,
+            CreateEventPopupData.error(
+                    "Data inválida!", startDateTest, endDateTest)
+                .error);
+      });
     });
 
     group('Remove Event ', () {

@@ -325,16 +325,11 @@ class CreateEventPopup extends StatelessWidget {
           confirmButtonTap: _confirmButtonTap,
           cancelButtonTap: _cancelButtonTap,
           bodyWidget: CreateEventPopupBody(
-            nameController: nameController,
-            startDate: Utils.dateToString(createEventPopup.startDate),
-            startDateButtonTap: (context) {
-              _startDateButtonTap(context);
-            },
-            endDate: Utils.dateToString(createEventPopup.endDate),
-            endDateButtonTap: (context) {
-              _endDateButtonTap(context);
-            },
-          ),
+              nameController: nameController,
+              startDate: Utils.dateToString(createEventPopup.startDate),
+              startDateButtonTap: _startDateButtonTap,
+              endDate: Utils.dateToString(createEventPopup.endDate),
+              endDateButtonTap: _endDateButtonTap),
           popupSize: 260,
           errorLabel: createEventPopup.error,
         ),
@@ -377,7 +372,7 @@ class CreateEventPopupBody extends StatelessWidget {
             TextButton(
               child: Text(startDate),
               onPressed: () {
-                startDateButtonTap;
+                startDateButtonTap(context);
               },
             ),
           ],
@@ -389,7 +384,7 @@ class CreateEventPopupBody extends StatelessWidget {
             TextButton(
               child: Text(endDate),
               onPressed: () {
-                endDateButtonTap;
+                endDateButtonTap(context);
               },
             ),
           ],

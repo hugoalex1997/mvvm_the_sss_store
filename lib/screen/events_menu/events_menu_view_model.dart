@@ -98,14 +98,15 @@ class EventsMenuViewModel extends ViewModel<EventsMenuData> {
   Future<bool> createEvent(String name) async {
     if (name.isEmpty) {
       _updateState(
-          createEventPopup:
-              CreateEventPopupData.error("Deve inserir um nome!"));
+          createEventPopup: CreateEventPopupData.error(
+              "Deve inserir um nome!", startDate, endDate));
       return false;
     }
 
     if (startDate.compareTo(endDate) > 0) {
       _updateState(
-          createEventPopup: CreateEventPopupData.error("Data incorreta!"));
+          createEventPopup:
+              CreateEventPopupData.error("Data inválida!", startDate, endDate));
       return false;
     }
 

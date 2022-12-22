@@ -11,6 +11,7 @@ import 'package:the_sss_store/inject/dependency_injection.dart';
 import 'package:the_sss_store/common/data/popup_data.dart';
 import 'package:the_sss_store/common/widgets/error_popup_label.dart';
 import 'package:the_sss_store/common/widgets/popup.dart';
+import 'package:the_sss_store/common/utils.dart';
 
 import '../events_menu/events_menu_screen_test.mocks.dart';
 
@@ -263,42 +264,49 @@ void main() {
         expect(find.text('Cancelar'), findsOneWidget);
         expect(find.byType(ErrorPopupLabel), findsOneWidget);
       });
+      testWidgets('Create Event Popup Start Date is shown correctly',
+          (WidgetTester tester) async {
+        DateTime testDate = DateTime.utc(2050, 3, 5);
 
-      //TODO: Tests Start Date and End Date Text Update
+        MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
 
-      // testWidgets('Create Event Popup Start and End Date is updated correctly', (WidgetTester tester) async {
-      //   String eventName = "testEvent";
-      //   DateTime initialDate = DateTime.utc(2022, 11, 9);
-      //   DateTime updatedDate = DateTime.utc(2050, 3, 5);
+        when(viewModel.value).thenReturn(
+          EventsMenuData(
+            eventButtonData: const [],
+            showEmptyState: false,
+            showLoading: false,
+            createEventPopup: CreateEventPopupData.startDate(testDate),
+            removeEventPopup: const PopupData.initial(),
+          ),
+        );
 
-      //   MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
-      //   when(viewModel.value).thenReturn(EventsMenuData(
-      //       eventButtonData: const [],
-      //       showEmptyState: false,
-      //       showLoading: false,
-      //       createEventPopup: CreateEventPopupData.startDate(initialDate),
-      //       removeEventPopup: const PopupData.initial()));
+        await tester
+            .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
 
-      //   when(viewModel.updateStartDate).thenReturn((date) => {
-      //         if (date != null)
-      //           {
-      //             EventsMenuData(
-      //                 eventButtonData: const [],
-      //                 showEmptyState: false,
-      //                 showLoading: false,
-      //                 createEventPopup: CreateEventPopupData.startDate(date),
-      //                 removeEventPopup: const PopupData.initial())
-      //           }
-      //       });
+        expect(find.text(Utils.dateToString(testDate)), findsOneWidget);
+      });
 
-      //   await tester.pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
+      testWidgets('Create Event Popup End Date is shown correctly',
+          (WidgetTester tester) async {
+        DateTime testDate = DateTime.utc(2069, 2, 1);
 
-      //   expect(find.text(Utils.dateToString(updatedDate)), findsNothing);
+        MockEventsMenuViewModel viewModel = MockEventsMenuViewModel();
 
-      //   viewModel.updateStartDate(updatedDate);
+        when(viewModel.value).thenReturn(
+          EventsMenuData(
+            eventButtonData: const [],
+            showEmptyState: false,
+            showLoading: false,
+            createEventPopup: CreateEventPopupData.endDate(testDate),
+            removeEventPopup: const PopupData.initial(),
+          ),
+        );
 
-      //   expect(find.text(Utils.dateToString(updatedDate)), findsOneWidget);
-      // });
+        await tester
+            .pumpWidget(MaterialApp(home: createCreateEventPopup(viewModel)));
+
+        expect(find.text(Utils.dateToString(testDate)), findsOneWidget);
+      });
 
       testWidgets('Do not display Create Event popup',
           (WidgetTester tester) async {
